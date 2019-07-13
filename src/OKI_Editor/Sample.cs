@@ -5,7 +5,7 @@ namespace OKI_Editor
     public class Sample
     {
         internal bool valid = false;
-        internal bool enabled = true;
+        internal bool enabled = false;
         internal int id;
         internal int start;
         internal int end;

@@ -7,15 +7,22 @@ namespace OKI_Editor
         private int bankval;
         public int headersize = 0;
         public int lastsample = 0;
+        public int sparespace = 0;
         public Sample[] samples = new Sample[127];
         public Bank(int bank, byte[] WPCROM, int address)
         {
+            for (int i=0; i < 127; i++)
+            {
+                this.samples[i] = new Sample();
+            }
             this.bankval = bank;
             int position = address + 0x08;
             for (int cnt2 = 0; cnt2 < 127; cnt2++)
             {
                 Sample sample = new Sample();
+                sample.offset = 0;
                 sample.valid = true;
+                sample.enabled = true;
                 headersize += 0x08;
                 sample.id = cnt2;
                 lastsample = cnt2;
