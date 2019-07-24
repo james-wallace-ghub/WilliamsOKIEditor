@@ -106,6 +106,13 @@ namespace OKI_Editor
                     setCtrl2();
                     Banks[3] = new Bank(3, WPCROM, 0x00000);
                     setCtrl3();
+                    B2_Table.Enabled = true;
+                    B3_Table.Enabled = true;
+                }
+                else
+                {
+                    B2_Table.Enabled = false;
+                    B3_Table.Enabled = false;
                 }
                 if (U13Mirror == false)
                 {
@@ -113,6 +120,13 @@ namespace OKI_Editor
                     setCtrl4();
                     Banks[5] = new Bank(5, WPCROM, 0xc0000);
                     setCtrl5();
+                    B4_Table.Enabled = true;
+                    B5_Table.Enabled = true;
+                }
+                else
+                {
+                    B2_Table.Enabled = false;
+                    B3_Table.Enabled = false;
                 }
                 Banks[6] = new Bank(6, WPCROM, 0xa0000);
                 setCtrl6();
@@ -64499,25 +64513,30 @@ namespace OKI_Editor
 
         }
 
-        private void GenerateROMs(object sender, EventArgs e)
+        private byte [] GenerateBank(int bank)
         {
             int[] newstarts = new int[127];
-            //TODO: test just does bank 1 for now
-            byte[] result = new byte[0x40000];
+            byte[] result = new byte[0x20000];
             for (int i = 0; i < 8; i++)
             {
                 result[i] = 0x00;
             }
             int cursor = 8;
-            int headersize = Banks[0].headersize;
-            Sample lastsample = Banks[0].samples[Banks[0].lastsample];
+            int headersize = Banks[bank].headersize;
+            Sample lastsample = Banks[bank].samples[Banks[bank].lastsample];
             if (lastsample.enabled == false)
             {
                 //we can use the last sample's headerspace and make a few bytes.
                 headersize -= 0x08;
             }
 
-            foreach (Sample smp in Banks[0].samples)
+            if (Banks[bank].sparespace < 0)
+            {
+                MessageBox.Show("Bank " + bank + "is too large, cannot proceed", "Space Error",
+                                                             MessageBoxButtons.OK);
+            }
+
+            foreach (Sample smp in Banks[bank].samples)
             {
                 if (smp != null)
                 {
@@ -64543,8 +64562,6 @@ namespace OKI_Editor
                             cursor++;
                             result[cursor] = 0x00;
                             cursor++;
-
-                            Array.Copy(smp.RAW, 0, result, smp.start, smp.length);
                         }
                         else
                         {
@@ -64621,9 +64638,36 @@ namespace OKI_Editor
                     }
                 }
             }
+            return result;
+        }
+        private void GenerateROMs(object sender, EventArgs e)
+        {
+            byte[] bank0 = null;
+            byte[] bank2 = null;
+            byte[] bank3 = null;
+            byte[] bank4 = null;
+            byte[] bank5 = null;
+            byte[] bank6 = null;
+            byte[] bank7 = null;
+            bank0 = GenerateBank(0);
+
+            if (U12Mirror == false)
+            {
+                bank2 = GenerateBank(2);
+                bank3 = GenerateBank(3);
+            }
+            if (U13Mirror == false)
+            {
+                bank4 = GenerateBank(4);
+                bank5 = GenerateBank(5);
+            }
+
+            bank6 = GenerateBank(6);
+            bank7 = GenerateBank(7);
+
             SaveFileDialog SF = new SaveFileDialog
             {
-                Title = "Save ROM File",
+                Title = "Save U12 File",
                 InitialDirectory = "C:\\adpcm\roms",
                 Filter = "All files (*) | *.*",
                 OverwritePrompt = true
@@ -64632,7 +64676,56 @@ namespace OKI_Editor
             {
                 SF.FilterIndex = 0;
                 SF.RestoreDirectory = true;
-                File.WriteAllBytes(SF.FileName, result);
+
+                byte[] U12Out;
+                if (U12Mirror == false)
+                {
+                    U12Out = new byte[0x80000];
+                    Array.Copy(bank3, 0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(bank2, 0, U12Out, 0x20000, 0x20000);
+                    Array.Copy(bank0, 0, U12Out, 0x40000, 0x20000);
+                    Array.Copy(U12,   0, U12Out, 0x60000, 0x20000);//common
+                }
+                else
+                {
+                    U12Out = new byte[0x40000];
+                    Array.Copy(bank0, 0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(U12,   0, U12Out, 0x20000, 0x20000);//common
+                }
+
+                File.WriteAllBytes(SF.FileName, U12Out);
+                U12Out = null;
+            }
+            SF = new SaveFileDialog
+            {
+                Title = "Save U13 File",
+                InitialDirectory = "C:\\adpcm\roms",
+                Filter = "All files (*) | *.*",
+                OverwritePrompt = true
+            };
+            if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                SF.FilterIndex = 0;
+                SF.RestoreDirectory = true;
+
+                byte[] U13Out;
+                if (U13Mirror == false)
+                {
+                    U13Out = new byte[0x80000];
+                    Array.Copy(bank7, 0, U13Out, 0x00000, 0x20000);
+                    Array.Copy(bank6, 0, U13Out, 0x20000, 0x20000);
+                    Array.Copy(bank5, 0, U13Out, 0x40000, 0x20000);
+                    Array.Copy(bank4, 0, U13Out, 0x60000, 0x20000);
+                }
+                else
+                {
+                    U13Out = new byte[0x40000];
+                    Array.Copy(bank7, 0, U13Out, 0x00000, 0x20000);
+                    Array.Copy(bank6, 0, U13Out, 0x20000, 0x20000);
+                }
+
+                File.WriteAllBytes(SF.FileName, U13Out);
+                U13Out = null;
             }
 
         }
