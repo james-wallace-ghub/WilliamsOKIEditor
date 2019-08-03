@@ -325,7 +325,7 @@ namespace OKI_Editor
 
                     if (Banks[0].samples[i].common == true)
                     {
-                        B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString().PadLeft(4, '0'));
+                        B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B0_Import[i].Enabled = false;
                         B0_Export[i].Enabled = false;					
                         B0_Common[i].Checked = true;
@@ -393,7 +393,7 @@ namespace OKI_Editor
 
                     if (Banks[2].samples[i].common == true)
                     {
-                        B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString().PadLeft(4, '0'));
+                        B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B2_Import[i].Enabled = false;
                         B2_Export[i].Enabled = false;					
                         B2_Common[i].Checked = true;
@@ -461,7 +461,7 @@ namespace OKI_Editor
 
                     if (Banks[3].samples[i].common == true)
                     {
-                        B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString().PadLeft(4, '0'));
+                        B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B3_Import[i].Enabled = false;
                         B3_Export[i].Enabled = false;					
                         B3_Common[i].Checked = true;
@@ -1044,14 +1044,14 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B6_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B7_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
-                B6_Bytes.Text = "0x" + totalsize.ToString("x");
+                B7_Bytes.Text = "0x" + totalsize.ToString("x");
             }
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B6_Seconds.Text = time.ToString("0.00000");
+            B7_Seconds.Text = time.ToString("0.00000");
         }
 
         private bool IsBetween(int item, int start, int end)
@@ -1329,6 +1329,7 @@ namespace OKI_Editor
             }
             return result;
         }
+		
         private void GenerateROMs(object sender, EventArgs e)
         {
             byte[] bank0 = null;

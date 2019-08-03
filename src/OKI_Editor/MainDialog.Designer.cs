@@ -549,7 +549,7 @@
 				B0_Depends[i].Leave += (sender, e) => UpdateDepend(0, index, B0_Depends[index].Text);
 
 				B0_ID[i].Location = new System.Drawing.Point(43, (i*20));
-				B0_ID[i].Size = new System.Drawing.Size(26, 20);
+				B0_ID[i].Size = new System.Drawing.Size(32, 20);
 				B0_ID[i].TabIndex = 518;
 				B0_ID[i].Text = i.ToString().PadLeft(3, '0');
 				B0_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -606,7 +606,7 @@
             // 
             this.B2_splitContainer1.Panel2.AutoScroll = true;
             this.B2_splitContainer1.Panel2.Controls.Add(this.B2_Table);
-            this.B2_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B2_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B2_splitContainer1.SplitterDistance = 37;
             this.B2_splitContainer1.TabIndex = 5;
             // 
@@ -723,7 +723,7 @@
             this.B2_Table.Location = new System.Drawing.Point(0, 0);
             this.B2_Table.Name = "B2_Table";
             this.B2_Table.RowCount = 127;
-            this.B2_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B2_Table.Size = new System.Drawing.Size(720, 2540);
 
             for (int i = 0; i < 127; i++)
             {
@@ -783,7 +783,7 @@
                 B2_Depends[i].Leave += (sender, e) => UpdateDepend(2, index, B2_Depends[index].Text);
 
                 B2_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B2_ID[i].Size = new System.Drawing.Size(26, 20);
+                B2_ID[i].Size = new System.Drawing.Size(32, 20);
                 B2_ID[i].TabIndex = 518;
                 B2_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B2_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -840,7 +840,7 @@
             // 
             this.B3_splitContainer1.Panel2.AutoScroll = true;
             this.B3_splitContainer1.Panel2.Controls.Add(this.B3_Table);
-            this.B3_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B3_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B3_splitContainer1.SplitterDistance = 37;
             this.B3_splitContainer1.TabIndex = 5;
             // 
@@ -957,7 +957,7 @@
             this.B3_Table.Location = new System.Drawing.Point(0, 0);
             this.B3_Table.Name = "B3_Table";
             this.B3_Table.RowCount = 127;
-            this.B3_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B3_Table.Size = new System.Drawing.Size(720, 2540);
 
             for (int i = 0; i < 127; i++)
             {
@@ -1017,7 +1017,7 @@
                 B3_Depends[i].Leave += (sender, e) => UpdateDepend(3, index, B3_Depends[index].Text);
 
                 B3_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B3_ID[i].Size = new System.Drawing.Size(26, 20);
+                B3_ID[i].Size = new System.Drawing.Size(32, 20);
                 B3_ID[i].TabIndex = 518;
                 B3_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B3_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1074,7 +1074,7 @@
             // 
             this.B4_splitContainer1.Panel2.AutoScroll = true;
             this.B4_splitContainer1.Panel2.Controls.Add(this.B4_Table);
-            this.B4_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B4_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B4_splitContainer1.SplitterDistance = 37;
             this.B4_splitContainer1.TabIndex = 5;
             // 
@@ -1191,7 +1191,7 @@
             this.B4_Table.Location = new System.Drawing.Point(0, 0);
             this.B4_Table.Name = "B4_Table";
             this.B4_Table.RowCount = 127;
-            this.B4_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B4_Table.Size = new System.Drawing.Size(720, 2540);
             for (int i = 0; i < 127; i++)
             {
                 this.B4_Table.Controls.Add(B4_Play[i], 8, i);
@@ -1250,7 +1250,7 @@
                 B4_Depends[i].Leave += (sender, e) => UpdateDepend(4, index, B4_Depends[index].Text);
 
                 B4_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B4_ID[i].Size = new System.Drawing.Size(26, 20);
+                B4_ID[i].Size = new System.Drawing.Size(32, 20);
                 B4_ID[i].TabIndex = 518;
                 B4_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B4_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1307,7 +1307,7 @@
             // 
             this.B5_splitContainer1.Panel2.AutoScroll = true;
             this.B5_splitContainer1.Panel2.Controls.Add(this.B5_Table);
-            this.B5_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B5_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B5_splitContainer1.SplitterDistance = 37;
             this.B5_splitContainer1.TabIndex = 5;
             // 
@@ -1424,7 +1424,7 @@
             this.B5_Table.Location = new System.Drawing.Point(0, 0);
             this.B5_Table.Name = "B5_Table";
             this.B5_Table.RowCount = 127;
-            this.B5_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B5_Table.Size = new System.Drawing.Size(720, 2540);
             this.B5_Table.TabIndex = 2;
             for (int i = 0; i < 127; i++)
             {
@@ -1484,7 +1484,7 @@
                 B5_Depends[i].Leave += (sender, e) => UpdateDepend(5, index, B5_Depends[index].Text);
 
                 B5_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B5_ID[i].Size = new System.Drawing.Size(26, 20);
+                B5_ID[i].Size = new System.Drawing.Size(32, 20);
                 B5_ID[i].TabIndex = 518;
                 B5_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B5_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1541,7 +1541,7 @@
             // 
             this.B6_splitContainer1.Panel2.AutoScroll = true;
             this.B6_splitContainer1.Panel2.Controls.Add(this.B6_Table);
-            this.B6_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B6_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B6_splitContainer1.SplitterDistance = 37;
             this.B6_splitContainer1.TabIndex = 5;
             // 
@@ -1658,7 +1658,7 @@
             this.B6_Table.Location = new System.Drawing.Point(0, 0);
             this.B6_Table.Name = "B6_Table";
             this.B6_Table.RowCount = 127;
-            this.B6_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B6_Table.Size = new System.Drawing.Size(720, 2540);
             this.B6_Table.TabIndex = 2;
             for (int i = 0; i < 127; i++)
             {
@@ -1718,7 +1718,7 @@
                 B6_Depends[i].Leave += (sender, e) => UpdateDepend(6, index, B6_Depends[index].Text);
 
                 B6_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B6_ID[i].Size = new System.Drawing.Size(26, 20);
+                B6_ID[i].Size = new System.Drawing.Size(32, 20);
                 B6_ID[i].TabIndex = 518;
                 B6_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B6_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1775,7 +1775,7 @@
             // 
             this.B7_splitContainer1.Panel2.AutoScroll = true;
             this.B7_splitContainer1.Panel2.Controls.Add(this.B7_Table);
-            this.B7_splitContainer1.Size = new System.Drawing.Size(640, 543);
+            this.B7_splitContainer1.Size = new System.Drawing.Size(710, 543);
             this.B7_splitContainer1.SplitterDistance = 37;
             this.B7_splitContainer1.TabIndex = 5;
             // 
@@ -1892,7 +1892,7 @@
             this.B7_Table.Location = new System.Drawing.Point(0, 0);
             this.B7_Table.Name = "B7_Table";
             this.B7_Table.RowCount = 127;
-            this.B7_Table.Size = new System.Drawing.Size(720, 2570);
+            this.B7_Table.Size = new System.Drawing.Size(720, 2540);
             this.B7_Table.TabIndex = 2;
             for (int i = 0; i < 127; i++)
             {
@@ -1952,7 +1952,7 @@
                 B7_Depends[i].Leave += (sender, e) => UpdateDepend(7, index, B7_Depends[index].Text);
 
                 B7_ID[i].Location = new System.Drawing.Point(43, (i * 20));
-                B7_ID[i].Size = new System.Drawing.Size(26, 20);
+                B7_ID[i].Size = new System.Drawing.Size(32, 20);
                 B7_ID[i].TabIndex = 518;
                 B7_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B7_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1971,6 +1971,242 @@
                 B7_Common[i].UseVisualStyleBackColor = true;
 
             }
+
+
+            // 
+            // BankCOM
+            // 
+            this.BankCOM.AutoScroll = true;
+            this.BankCOM.Controls.Add(this.BCOM_splitContainer1);
+            this.BankCOM.Location = new System.Drawing.Point(4, 22);
+            this.BankCOM.Padding = new System.Windows.Forms.Padding(3);
+            this.BankCOM.Size = new System.Drawing.Size(720, 657);
+            this.BankCOM.TabIndex = 6;
+            this.BankCOM.Text = "Common";
+            this.BankCOM.UseVisualStyleBackColor = true;
+            // 
+            // BCOM_splitContainer1
+            // 
+            this.BCOM_splitContainer1.Location = new System.Drawing.Point(1, 3);
+            this.BCOM_splitContainer1.Name = "BCOM_splitContainer1";
+            this.BCOM_splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // BCOM_splitContainer1.Panel1
+            // 
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_Common);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_Enabled);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_RAW);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_Length);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_Offset);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_Depends);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMLabel_ID);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMBytes_Label);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.COMSeconds_Label);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.BCOM_Seconds);
+            this.BCOM_splitContainer1.Panel1.Controls.Add(this.BCOM_Bytes);
+            this.BCOM_splitContainer1.Panel1MinSize = 5;
+            // 
+            // BCOM_splitContainer1.Panel2
+            // 
+            this.BCOM_splitContainer1.Panel2.AutoScroll = true;
+            this.BCOM_splitContainer1.Panel2.Controls.Add(this.BCOM_Table);
+            this.BCOM_splitContainer1.Size = new System.Drawing.Size(710, 543);
+            this.BCOM_splitContainer1.SplitterDistance = 37;
+            this.BCOM_splitContainer1.TabIndex = 5;
+            // 
+            // Label_Common
+            // 
+            this.COMLabel_Common.AutoSize = true;
+            this.COMLabel_Common.Location = new System.Drawing.Point(78, 23);
+            this.COMLabel_Common.Name = "Label_Common";
+            this.COMLabel_Common.Size = new System.Drawing.Size(54, 13);
+            this.COMLabel_Common.TabIndex = 11;
+            this.COMLabel_Common.Text = "";
+            // 
+            // Label_Enabled
+            // 
+            this.COMLabel_Enabled.AutoSize = true;
+            this.COMLabel_Enabled.Location = new System.Drawing.Point(-1, 23);
+            this.COMLabel_Enabled.Name = "Label_Enabled";
+            this.COMLabel_Enabled.Size = new System.Drawing.Size(46, 13);
+            this.COMLabel_Enabled.TabIndex = 10;
+            this.COMLabel_Enabled.Text = "Enabled";
+            // 
+            // Label_RAW
+            // 
+            this.COMLabel_RAW.AutoSize = true;
+            this.COMLabel_RAW.Location = new System.Drawing.Point(473, 23);
+            this.COMLabel_RAW.Name = "Label_RAW";
+            this.COMLabel_RAW.Size = new System.Drawing.Size(100, 13);
+            this.COMLabel_RAW.TabIndex = 9;
+            this.COMLabel_RAW.Text = "RAW ADPCM Data";
+            // 
+            // Label_Length
+            // 
+            this.COMLabel_Length.AutoSize = true;
+            this.COMLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.COMLabel_Length.Name = "Label_Length";
+            this.COMLabel_Length.Size = new System.Drawing.Size(40, 13);
+            this.COMLabel_Length.TabIndex = 8;
+            this.COMLabel_Length.Text = "Length";
+            // 
+            // Label_Offset
+            // 
+            this.COMLabel_Offset.AutoSize = true;
+            this.COMLabel_Offset.Location = new System.Drawing.Point(270, 23);
+            this.COMLabel_Offset.Name = "Label_Offset";
+            this.COMLabel_Offset.Size = new System.Drawing.Size(35, 13);
+            this.COMLabel_Offset.TabIndex = 7;
+            this.COMLabel_Offset.Text = "Offset";
+            // 
+            // Label_Depends
+            // 
+            this.COMLabel_Depends.AutoSize = true;
+            this.COMLabel_Depends.Location = new System.Drawing.Point(153, 23);
+            this.COMLabel_Depends.Name = "Label_Depends";
+            this.COMLabel_Depends.Size = new System.Drawing.Size(67, 13);
+            this.COMLabel_Depends.TabIndex = 6;
+            this.COMLabel_Depends.Text = "Depends On";
+            // 
+            // Label_ID
+            // 
+            this.COMLabel_ID.AutoSize = true;
+            this.COMLabel_ID.Location = new System.Drawing.Point(48, 23);
+            this.COMLabel_ID.Name = "Label_ID";
+            this.COMLabel_ID.Size = new System.Drawing.Size(18, 13);
+            this.COMLabel_ID.TabIndex = 5;
+            this.COMLabel_ID.Text = "ID";
+            // 
+            // Bytes_Label
+            // 
+            this.COMBytes_Label.AutoSize = true;
+            this.COMBytes_Label.Location = new System.Drawing.Point(3, 3);
+            this.COMBytes_Label.Name = "Bytes_Label";
+            this.COMBytes_Label.Size = new System.Drawing.Size(54, 13);
+            this.COMBytes_Label.TabIndex = 1;
+            this.COMBytes_Label.Text = "Bytes free";
+            // 
+            // Seconds_Label
+            // 
+            this.COMSeconds_Label.AutoSize = true;
+            this.COMSeconds_Label.Location = new System.Drawing.Point(203, 0);
+            this.COMSeconds_Label.Name = "Seconds_Label";
+            this.COMSeconds_Label.Size = new System.Drawing.Size(70, 13);
+            this.COMSeconds_Label.TabIndex = 3;
+            this.COMSeconds_Label.Text = "Seconds free";
+            // 
+            // BCOM_Seconds
+            // 
+            this.BCOM_Seconds.Location = new System.Drawing.Point(279, 0);
+            this.BCOM_Seconds.Name = "BCOM_Seconds";
+            this.BCOM_Seconds.ReadOnly = true;
+            this.BCOM_Seconds.Size = new System.Drawing.Size(99, 20);
+            this.BCOM_Seconds.TabIndex = 4;
+            // 
+            // BCOM_Bytes
+            // 
+            this.BCOM_Bytes.Location = new System.Drawing.Point(58, 0);
+            this.BCOM_Bytes.Name = "BCOM_Bytes";
+            this.BCOM_Bytes.ReadOnly = true;
+            this.BCOM_Bytes.Size = new System.Drawing.Size(99, 20);
+            this.BCOM_Bytes.TabIndex = 2;
+            // 
+            // BCOM_Table
+            // 
+            this.BCOM_Table.AutoSize = true;
+            this.BCOM_Table.ColumnCount = 9;
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.BCOM_Table.Location = new System.Drawing.Point(0, 0);
+            this.BCOM_Table.Name = "BCOM_Table";
+            this.BCOM_Table.RowCount = 127;
+            this.BCOM_Table.Size = new System.Drawing.Size(720, 2540);
+            this.BCOM_Table.TabIndex = 2;
+            for (int i = 0; i < 127; i++)
+            {
+                this.BCOM_Table.Controls.Add(BCOM_Play[i], 8, i);
+                this.BCOM_Table.Controls.Add(BCOM_Import[i], 7, i);
+                this.BCOM_Table.Controls.Add(BCOM_Export[i], 6, i);
+                this.BCOM_Table.Controls.Add(BCOM_Length[i], 5, i);
+                this.BCOM_Table.Controls.Add(BCOM_Offset[i], 4, i);
+                this.BCOM_Table.Controls.Add(BCOM_Depends[i], 3, i);
+                this.BCOM_Table.Controls.Add(BCOM_ID[i], 1, i);
+                this.BCOM_Table.Controls.Add(BCOM_Enable[i], 0, i);
+            }
+            for (int i = 0; i < 127; i++)
+            {
+                this.BCOM_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                int index = i;
+
+                BCOM_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                BCOM_Play[i].Margin = new System.Windows.Forms.Padding(0);
+                BCOM_Play[i].Size = new System.Drawing.Size(75, 20);
+                BCOM_Play[i].TabIndex = 14;
+                BCOM_Play[i].Text = "Play";
+                //                BCOM_Import[i].Click += (sender, e) => playRAWfile(7, index);
+
+                BCOM_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                BCOM_Import[i].Margin = new System.Windows.Forms.Padding(0);
+                BCOM_Import[i].Size = new System.Drawing.Size(75, 20);
+                BCOM_Import[i].TabIndex = 14;
+                BCOM_Import[i].Text = "Import";
+                BCOM_Import[i].Click += (sender, e) => importRAWfile(6, index);
+
+                BCOM_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
+                BCOM_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                BCOM_Export[i].Margin = new System.Windows.Forms.Padding(0);
+                BCOM_Export[i].Size = new System.Drawing.Size(75, 20);
+                BCOM_Export[i].TabIndex = 13;
+                BCOM_Export[i].Text = "Export";
+                BCOM_Export[i].UseVisualStyleBackColor = true;
+                BCOM_Export[i].Click += (sender, e) => exportRAWfile(7, index);
+
+                BCOM_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
+                BCOM_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                BCOM_Length[i].Margin = new System.Windows.Forms.Padding(0);
+                BCOM_Length[i].Size = new System.Drawing.Size(100, 20);
+                BCOM_Length[i].TabIndex = 12;
+                BCOM_Length[i].Leave += (sender, e) => UpdateLength(7, index, BCOM_Length[index].Text);
+
+                BCOM_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                BCOM_Offset[i].Size = new System.Drawing.Size(100, 20);
+                BCOM_Offset[i].TabIndex = 11;
+                BCOM_Offset[i].Leave += (sender, e) => UpdateOffset(7, index, BCOM_Offset[index].Text);
+
+                BCOM_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                BCOM_Depends[i].Size = new System.Drawing.Size(100, 20);
+                BCOM_Depends[i].TabIndex = 392;
+                BCOM_Depends[i].Leave += (sender, e) => UpdateDepend(7, index, BCOM_Depends[index].Text);
+
+                BCOM_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                BCOM_ID[i].Size = new System.Drawing.Size(32, 20);
+                BCOM_ID[i].TabIndex = 518;
+                BCOM_ID[i].Text = "C"+ (i.ToString().PadLeft(3, '0'));
+                BCOM_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+
+                BCOM_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                BCOM_Enable[i].Size = new System.Drawing.Size(15, 14);
+                BCOM_Enable[i].TabIndex = 770;
+                BCOM_Enable[i].Click += (sender, e) => UpdateEnable(7, index, BCOM_Enable[index].Checked);
+
+                BCOM_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
+                BCOM_Common[i].AutoSize = true;
+                BCOM_Common[i].Enabled = false;
+                BCOM_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                BCOM_Common[i].Size = new System.Drawing.Size(15, 14);
+                BCOM_Common[i].TabIndex = 897;
+                BCOM_Common[i].UseVisualStyleBackColor = true;
+
+            }
+
+
             // 
             // label1
             // 
