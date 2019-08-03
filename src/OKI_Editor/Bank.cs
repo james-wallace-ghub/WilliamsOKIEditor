@@ -9,7 +9,7 @@ namespace OKI_Editor
         public int lastsample = 0;
         public int sparespace = 0;
         public Sample[] samples = new Sample[127];
-        public Bank(int bank, byte[] WPCROM, int address)
+        public Bank(int bank, byte[] WPCROM, int address, CommonBank cb)
         {
             for (int i=0; i < 127; i++)
             {
@@ -52,7 +52,7 @@ namespace OKI_Editor
                     {
                         byte[] RAW = new byte[sample.length];
                         Array.Copy(WPCROM, commonstart, RAW, 0, sample.length);
-                        sample.RAW = (byte[])RAW.Clone();
+						sample.commonid = cb.addSample(commonstart, sample.length, RAW);
                     }
                 }
                 else
@@ -74,6 +74,7 @@ namespace OKI_Editor
                     position++;
                     if (WPCROM[position] != 0)
                     {
+                        this.samples[cnt2] = new Sample();
                         endofbank = true;
                     }
                 }
