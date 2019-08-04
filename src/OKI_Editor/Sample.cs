@@ -18,20 +18,6 @@ namespace OKI_Editor
         internal int commonid;
         internal byte[] RAW;
 
-        public static implicit operator Sample(CommonSample v)
-        {
-            Sample retval = new Sample();
-            retval.valid = v.valid;
-            retval.enabled = v.enabled;
-            retval.id = v.id;
-            retval.start = v.start;
-            retval.offset = v.offset;
-            retval.depends = v.depends;
-            retval.length = v.length;
-            retval.RAW = v.RAW;
-            return retval;
+
     }
-}
-
-
 }

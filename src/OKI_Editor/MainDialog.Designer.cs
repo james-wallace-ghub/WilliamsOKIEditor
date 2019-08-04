@@ -1,4 +1,7 @@
-﻿namespace OKI_Editor
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace OKI_Editor
 {
     partial class MainDialog
     {
@@ -308,8 +311,8 @@
             this.BCOM_splitContainer1.Panel2.SuspendLayout();
             this.BCOM_splitContainer1.SuspendLayout();
             this.BCOM_Table.SuspendLayout();
+            this.Icon = OKI_Editor.Properties.Resources.icon;
 
-            
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -2372,6 +2375,8 @@
             this.PerformLayout();
 
         }
+
+        private NotifyIcon trayIcon;
 
         #endregion
 

@@ -93,8 +93,10 @@ namespace OKI_Editor
 
         public static implicit operator Bank(CommonBank v)
         {
-            Bank retval = new Bank();
-            retval.samples = v.samples;
+            Bank retval = new Bank
+            {
+                samples = v.samples
+            };
             return retval;
         }
     }
