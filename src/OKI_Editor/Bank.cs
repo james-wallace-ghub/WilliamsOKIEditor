@@ -9,6 +9,11 @@ namespace OKI_Editor
         public int lastsample = 0;
         public int sparespace = 0;
         public Sample[] samples = new Sample[127];
+
+        public Bank()
+        {
+
+        }
         public Bank(int bank, byte[] WPCROM, int address, CommonBank cb)
         {
             for (int i=0; i < 127; i++)
@@ -61,7 +66,7 @@ namespace OKI_Editor
                     if (sample.length >0)
                     {
                         byte [] RAW = new byte[sample.length];
-                        Array.Copy(WPCROM, start, RAW, 0, sample.length);
+                        Array.Copy(WPCROM, address + start, RAW, 0, sample.length);
                         sample.RAW = (byte[]) RAW.Clone();
                     }
                 }
@@ -84,6 +89,13 @@ namespace OKI_Editor
                 }
                 position++;
             }
+        }
+
+        public static implicit operator Bank(CommonBank v)
+        {
+            Bank retval = new Bank();
+            retval.samples = v.samples;
+            return retval;
         }
     }
 }

@@ -153,74 +153,107 @@
                 B0_Export[i] = new System.Windows.Forms.Button();
                 B0_Length[i] = new System.Windows.Forms.TextBox();
 				B0_Offset[i] = new System.Windows.Forms.TextBox();
-				B0_Depends[i] = new System.Windows.Forms.TextBox();
-				B0_ID[i] = new System.Windows.Forms.Label();
+			   B0_Depends[i] = new System.Windows.Forms.TextBox();
+                B0_ID[i] = new System.Windows.Forms.TextBox();
                 B0_Import[i] = new System.Windows.Forms.Button();
 				B0_Enable[i] = new System.Windows.Forms.CheckBox();
 				B0_Common[i] = new System.Windows.Forms.CheckBox();
+                B0_Play[i].Enabled = false;
+                B0_Export[i].Enabled = false;
+                B0_Import[i].Enabled = false;
+                B0_ID[i].Enabled = false;				
                 B2_Play[i] = new System.Windows.Forms.Button();
                 B2_Export[i] = new System.Windows.Forms.Button();
                 B2_Length[i] = new System.Windows.Forms.TextBox();
                 B2_Offset[i] = new System.Windows.Forms.TextBox();
                 B2_Depends[i] = new System.Windows.Forms.TextBox();
-                B2_ID[i] = new System.Windows.Forms.Label();
+                B2_ID[i] = new System.Windows.Forms.TextBox();
                 B2_Import[i] = new System.Windows.Forms.Button();
                 B2_Enable[i] = new System.Windows.Forms.CheckBox();
                 B2_Common[i] = new System.Windows.Forms.CheckBox();
+                B2_Play[i].Enabled = false;
+                B2_Export[i].Enabled = false;
+                B2_Import[i].Enabled = false;
+                B2_ID[i].Enabled = false;				
                 B3_Play[i] = new System.Windows.Forms.Button();
                 B3_Export[i] = new System.Windows.Forms.Button();
                 B3_Length[i] = new System.Windows.Forms.TextBox();
                 B3_Offset[i] = new System.Windows.Forms.TextBox();
                 B3_Depends[i] = new System.Windows.Forms.TextBox();
-                B3_ID[i] = new System.Windows.Forms.Label();
+                B3_ID[i] = new System.Windows.Forms.TextBox();
                 B3_Import[i] = new System.Windows.Forms.Button();
                 B3_Enable[i] = new System.Windows.Forms.CheckBox();
                 B3_Common[i] = new System.Windows.Forms.CheckBox();
+                B3_Play[i].Enabled = false;
+                B3_Export[i].Enabled = false;
+                B3_Import[i].Enabled = false;
+                B3_ID[i].Enabled = false;				
                 B4_Play[i] = new System.Windows.Forms.Button();
                 B4_Export[i] = new System.Windows.Forms.Button();
                 B4_Length[i] = new System.Windows.Forms.TextBox();
                 B4_Offset[i] = new System.Windows.Forms.TextBox();
                 B4_Depends[i] = new System.Windows.Forms.TextBox();
-                B4_ID[i] = new System.Windows.Forms.Label();
+                B4_ID[i] = new System.Windows.Forms.TextBox();
                 B4_Import[i] = new System.Windows.Forms.Button();
                 B4_Enable[i] = new System.Windows.Forms.CheckBox();
                 B4_Common[i] = new System.Windows.Forms.CheckBox();
+                B4_Play[i].Enabled = false;
+                B4_Export[i].Enabled = false;
+                B4_Import[i].Enabled = false;
+                B4_ID[i].Enabled = false;				
                 B5_Play[i] = new System.Windows.Forms.Button();
                 B5_Export[i] = new System.Windows.Forms.Button();
                 B5_Length[i] = new System.Windows.Forms.TextBox();
                 B5_Offset[i] = new System.Windows.Forms.TextBox();
                 B5_Depends[i] = new System.Windows.Forms.TextBox();
-                B5_ID[i] = new System.Windows.Forms.Label();
+                B5_ID[i] = new System.Windows.Forms.TextBox();
                 B5_Import[i] = new System.Windows.Forms.Button();
                 B5_Enable[i] = new System.Windows.Forms.CheckBox();
                 B5_Common[i] = new System.Windows.Forms.CheckBox();
+                B5_Play[i].Enabled = false;
+                B5_Export[i].Enabled = false;
+                B5_Import[i].Enabled = false;
+                B5_ID[i].Enabled = false;				
                 B6_Play[i] = new System.Windows.Forms.Button();
                 B6_Export[i] = new System.Windows.Forms.Button();
                 B6_Length[i] = new System.Windows.Forms.TextBox();
                 B6_Offset[i] = new System.Windows.Forms.TextBox();
                 B6_Depends[i] = new System.Windows.Forms.TextBox();
-                B6_ID[i] = new System.Windows.Forms.Label();
+                B6_ID[i] = new System.Windows.Forms.TextBox();
                 B6_Import[i] = new System.Windows.Forms.Button();
                 B6_Enable[i] = new System.Windows.Forms.CheckBox();
                 B6_Common[i] = new System.Windows.Forms.CheckBox();
+                B6_Play[i].Enabled = false;
+                B6_Export[i].Enabled = false;
+                B6_Import[i].Enabled = false;
+                B6_ID[i].Enabled = false;				
                 B7_Play[i] = new System.Windows.Forms.Button();
                 B7_Export[i] = new System.Windows.Forms.Button();
                 B7_Length[i] = new System.Windows.Forms.TextBox();
                 B7_Offset[i] = new System.Windows.Forms.TextBox();
                 B7_Depends[i] = new System.Windows.Forms.TextBox();
-                B7_ID[i] = new System.Windows.Forms.Label();
+                B7_ID[i] = new System.Windows.Forms.TextBox();
                 B7_Import[i] = new System.Windows.Forms.Button();
                 B7_Enable[i] = new System.Windows.Forms.CheckBox();
                 B7_Common[i] = new System.Windows.Forms.CheckBox();
+                B7_Play[i].Enabled = false;
+                B7_Export[i].Enabled = false;
+                B7_Import[i].Enabled = false;
+                B7_ID[i].Enabled = false;				
                 BCOM_Play[i] = new System.Windows.Forms.Button();
                 BCOM_Export[i] = new System.Windows.Forms.Button();
                 BCOM_Length[i] = new System.Windows.Forms.TextBox();
                 BCOM_Offset[i] = new System.Windows.Forms.TextBox();
                 BCOM_Depends[i] = new System.Windows.Forms.TextBox();
-                BCOM_ID[i] = new System.Windows.Forms.Label();
+                BCOM_ID[i] = new System.Windows.Forms.TextBox();
                 BCOM_Import[i] = new System.Windows.Forms.Button();
                 BCOM_Enable[i] = new System.Windows.Forms.CheckBox();
                 BCOM_Common[i] = new System.Windows.Forms.CheckBox();
+                BCOM_Play[i].Enabled = false;
+                BCOM_Export[i].Enabled = false;
+                BCOM_Import[i].Enabled = false;
+                BCOM_ID[i].Enabled = false;				
+
             }
             this.label1 = new System.Windows.Forms.Label();
             this.samprate = new System.Windows.Forms.TextBox();
@@ -318,6 +351,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutLoad);
             // 
             // tabControl1
             // 
@@ -513,7 +547,7 @@
                 B0_Play[i].Size = new System.Drawing.Size(75, 20);
                 B0_Play[i].TabIndex = 14;
                 B0_Play[i].Text = "Play";
-//                B0_Import[i].Click += (sender, e) => playRAWfile(0, index);
+                B0_Play[i].Click += (sender, e) => playRAWfile(0, index);
 
                 B0_Import[i].Location = new System.Drawing.Point(525, (i*20));
 				B0_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -552,7 +586,8 @@
 				B0_ID[i].Size = new System.Drawing.Size(32, 20);
 				B0_ID[i].TabIndex = 518;
 				B0_ID[i].Text = i.ToString().PadLeft(3, '0');
-				B0_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+				B0_ID[i].Enabled = false;
+                B0_ID[i].Leave += (sender, e) => UpdateID(0, index, B0_ID[index].Text);
 
 				B0_Enable[i].Location = new System.Drawing.Point(3, (i*20)+3);
 				B0_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -747,7 +782,7 @@
                 B2_Play[i].Size = new System.Drawing.Size(75, 20);
                 B2_Play[i].TabIndex = 14;
                 B2_Play[i].Text = "Play";
-                //                B2_Import[i].Click += (sender, e) => playRAWfile(2, index);
+                B2_Play[i].Click += (sender, e) => playRAWfile(2, index);
 
                 B2_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B2_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -786,7 +821,8 @@
                 B2_ID[i].Size = new System.Drawing.Size(32, 20);
                 B2_ID[i].TabIndex = 518;
                 B2_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B2_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B2_ID[i].Enabled = false;
+                B2_ID[i].Leave += (sender, e) => UpdateID(2, index, B2_ID[index].Text);
 
                 B2_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B2_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -981,7 +1017,7 @@
                 B3_Play[i].Size = new System.Drawing.Size(75, 20);
                 B3_Play[i].TabIndex = 14;
                 B3_Play[i].Text = "Play";
-                //                B3_Import[i].Click += (sender, e) => playRAWfile(3, index);
+                B3_Play[i].Click += (sender, e) => playRAWfile(3, index);
 
                 B3_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B3_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -1020,7 +1056,8 @@
                 B3_ID[i].Size = new System.Drawing.Size(32, 20);
                 B3_ID[i].TabIndex = 518;
                 B3_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B3_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B3_ID[i].Enabled = false;
+                B3_ID[i].Leave += (sender, e) => UpdateID(3, index, B3_ID[index].Text);
 
                 B3_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B3_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -1214,7 +1251,7 @@
                 B4_Play[i].Size = new System.Drawing.Size(75, 20);
                 B4_Play[i].TabIndex = 14;
                 B4_Play[i].Text = "Play";
-                //                B4_Import[i].Click += (sender, e) => playRAWfile(4, index);
+                B4_Play[i].Click += (sender, e) => playRAWfile(4, index);
 
                 B4_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B4_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -1253,7 +1290,8 @@
                 B4_ID[i].Size = new System.Drawing.Size(32, 20);
                 B4_ID[i].TabIndex = 518;
                 B4_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B4_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B4_ID[i].Enabled = false;
+                B4_ID[i].Leave += (sender, e) => UpdateID(4, index, B4_ID[index].Text);
 
                 B4_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B4_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -1448,7 +1486,7 @@
                 B5_Play[i].Size = new System.Drawing.Size(75, 20);
                 B5_Play[i].TabIndex = 14;
                 B5_Play[i].Text = "Play";
-                //                B5_Import[i].Click += (sender, e) => playRAWfile(5, index);
+                B5_Play[i].Click += (sender, e) => playRAWfile(5, index);
 
                 B5_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B5_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -1487,7 +1525,8 @@
                 B5_ID[i].Size = new System.Drawing.Size(32, 20);
                 B5_ID[i].TabIndex = 518;
                 B5_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B5_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B5_ID[i].Enabled = false;
+                B5_ID[i].Leave += (sender, e) => UpdateID(5, index, B5_ID[index].Text);
 
                 B5_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B5_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -1682,7 +1721,7 @@
                 B6_Play[i].Size = new System.Drawing.Size(75, 20);
                 B6_Play[i].TabIndex = 14;
                 B6_Play[i].Text = "Play";
-                //                B6_Import[i].Click += (sender, e) => playRAWfile(6, index);
+                B6_Play[i].Click += (sender, e) => playRAWfile(6, index);
 
                 B6_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B6_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -1721,7 +1760,8 @@
                 B6_ID[i].Size = new System.Drawing.Size(32, 20);
                 B6_ID[i].TabIndex = 518;
                 B6_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B6_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B6_ID[i].Enabled = false;
+                B6_ID[i].Leave += (sender, e) => UpdateID(6, index, B6_ID[index].Text);
 
                 B6_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B6_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -1916,7 +1956,7 @@
                 B7_Play[i].Size = new System.Drawing.Size(75, 20);
                 B7_Play[i].TabIndex = 14;
                 B7_Play[i].Text = "Play";
-                //                B7_Import[i].Click += (sender, e) => playRAWfile(7, index);
+                B7_Play[i].Click += (sender, e) => playRAWfile(7, index);
 
                 B7_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 B7_Import[i].Margin = new System.Windows.Forms.Padding(0);
@@ -1955,7 +1995,8 @@
                 B7_ID[i].Size = new System.Drawing.Size(32, 20);
                 B7_ID[i].TabIndex = 518;
                 B7_ID[i].Text = i.ToString().PadLeft(3, '0');
-                B7_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                B7_ID[i].Enabled = false;
+                B7_ID[i].Leave += (sender, e) => UpdateID(7, index, B7_ID[index].Text);
 
                 B7_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 B7_Enable[i].Size = new System.Drawing.Size(15, 14);
@@ -2150,14 +2191,14 @@
                 BCOM_Play[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Play[i].TabIndex = 14;
                 BCOM_Play[i].Text = "Play";
-                //                BCOM_Import[i].Click += (sender, e) => playRAWfile(7, index);
+                BCOM_Play[i].Click += (sender, e) => playRAWfile(8, index);
 
                 BCOM_Import[i].Location = new System.Drawing.Point(525, (i * 20));
                 BCOM_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Import[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Import[i].TabIndex = 14;
                 BCOM_Import[i].Text = "Import";
-                BCOM_Import[i].Click += (sender, e) => importRAWfile(6, index);
+                BCOM_Import[i].Click += (sender, e) => importRAWfile(8, index);
 
                 BCOM_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Export[i].Location = new System.Drawing.Point(450, (i * 20));
@@ -2166,35 +2207,35 @@
                 BCOM_Export[i].TabIndex = 13;
                 BCOM_Export[i].Text = "Export";
                 BCOM_Export[i].UseVisualStyleBackColor = true;
-                BCOM_Export[i].Click += (sender, e) => exportRAWfile(7, index);
+                BCOM_Export[i].Click += (sender, e) => exportRAWfile(8, index);
 
                 BCOM_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Length[i].Location = new System.Drawing.Point(347, (i * 20));
                 BCOM_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Length[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Length[i].TabIndex = 12;
-                BCOM_Length[i].Leave += (sender, e) => UpdateLength(7, index, BCOM_Length[index].Text);
+                BCOM_Length[i].Leave += (sender, e) => UpdateLength(8, index, BCOM_Length[index].Text);
 
                 BCOM_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
                 BCOM_Offset[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Offset[i].TabIndex = 11;
-                BCOM_Offset[i].Leave += (sender, e) => UpdateOffset(7, index, BCOM_Offset[index].Text);
+                BCOM_Offset[i].Leave += (sender, e) => UpdateOffset(8, index, BCOM_Offset[index].Text);
 
                 BCOM_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
                 BCOM_Depends[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Depends[i].TabIndex = 392;
-                BCOM_Depends[i].Leave += (sender, e) => UpdateDepend(7, index, BCOM_Depends[index].Text);
+                BCOM_Depends[i].Leave += (sender, e) => UpdateDepend(8, index, BCOM_Depends[index].Text);
 
                 BCOM_ID[i].Location = new System.Drawing.Point(43, (i * 20));
                 BCOM_ID[i].Size = new System.Drawing.Size(32, 20);
                 BCOM_ID[i].TabIndex = 518;
                 BCOM_ID[i].Text = "C"+ (i.ToString().PadLeft(3, '0'));
-                BCOM_ID[i].TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+                BCOM_ID[i].Enabled = false;
 
                 BCOM_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
                 BCOM_Enable[i].Size = new System.Drawing.Size(15, 14);
                 BCOM_Enable[i].TabIndex = 770;
-                BCOM_Enable[i].Click += (sender, e) => UpdateEnable(7, index, BCOM_Enable[index].Checked);
+                BCOM_Enable[i].Click += (sender, e) => UpdateEnable(8, index, BCOM_Enable[index].Checked);
 
                 BCOM_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Common[i].AutoSize = true;

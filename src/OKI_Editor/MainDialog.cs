@@ -1,13 +1,10 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OKI_Editor
@@ -22,7 +19,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B0_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B0_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B0_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B0_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B0_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B2_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B2_Export = new System.Windows.Forms.Button[127];
@@ -32,7 +29,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B2_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B2_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B2_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B2_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B2_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B3_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B3_Export = new System.Windows.Forms.Button[127];
@@ -42,7 +39,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B3_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B3_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B3_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B3_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B3_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B4_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B4_Export = new System.Windows.Forms.Button[127];
@@ -52,7 +49,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B4_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B4_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B4_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B4_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B4_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B5_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B5_Export = new System.Windows.Forms.Button[127];
@@ -62,7 +59,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B5_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B5_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B5_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B5_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B5_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B6_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B6_Export = new System.Windows.Forms.Button[127];
@@ -72,7 +69,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B6_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B6_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B6_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B6_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B6_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] B7_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] B7_Export = new System.Windows.Forms.Button[127];
@@ -82,7 +79,7 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] B7_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] B7_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] B7_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] B7_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] B7_ID = new System.Windows.Forms.TextBox[127];
 
         System.Windows.Forms.Button[] BCOM_Play = new System.Windows.Forms.Button[127];
         System.Windows.Forms.Button[] BCOM_Export = new System.Windows.Forms.Button[127];
@@ -92,11 +89,17 @@ namespace OKI_Editor
         System.Windows.Forms.Button[] BCOM_Import = new System.Windows.Forms.Button[127];
         System.Windows.Forms.CheckBox[] BCOM_Enable = new System.Windows.Forms.CheckBox[127];
         System.Windows.Forms.CheckBox[] BCOM_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.Label[] BCOM_ID = new System.Windows.Forms.Label[127];
+        System.Windows.Forms.TextBox[] BCOM_ID = new System.Windows.Forms.TextBox[127];
 
+        private short ADPCMIndex;
+        private short ADPCMLast;
+
+        short[] ADPCMBuffer;
         public MainDialog()
         {
             InitializeComponent();
+            ADPCMIndex = 0;
+            ADPCMLast = 0;
         }
 
         public byte[] WPCROM { get; private set; }
@@ -117,7 +120,12 @@ namespace OKI_Editor
 
         }
 
-        private void ImportLoad(object sender, EventArgs e)
+        private void AboutLoad(object sender, EventArgs e)
+        {
+            AboutBox1 a = new AboutBox1();
+            a.Show();
+        }
+            private void ImportLoad(object sender, EventArgs e)
         {
             ROMLoader rl = new ROMLoader();
             rl.ShowDialog();
@@ -214,6 +222,7 @@ namespace OKI_Editor
                 setCtrl6();
                 Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
                 setCtrl7();
+                setCtrlCOM();
             }
         }
 
@@ -303,14 +312,16 @@ namespace OKI_Editor
         }
         private void updateCtrlCOM()
         {
-			for (int i=0; i < 127; i++) {
-				if (CommonBank.samples[i].enabled == true)
+            int i = 0;
+			foreach (Sample smp in CommonBank.samples) {
+				if (smp.enabled == true)
 				{
-					CommonBank.samples[i].depends.Clear();
+					smp.depends.Clear();
 					BCOM_Depends[i].Text = "";
-					BCOM_Offset[i].Text = "0x" + CommonBank.samples[i].offset.ToString("x");
-					BCOM_Length[i].Text = "0x" + CommonBank.samples[i].length.ToString("x");
-				}				
+					BCOM_Offset[i].Text = "0x" + smp.offset.ToString("x");
+					BCOM_Length[i].Text = "0x" + smp.length.ToString("x");
+				}
+                i++;
 			}
         }
 
@@ -318,6 +329,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B0_Play[i].Enabled = Banks[0].samples[i].enabled;
                 if (Banks[0].samples[i].enabled == true)
                 {
                     B0_Enable[i].Enabled = true;
@@ -326,6 +338,7 @@ namespace OKI_Editor
                     if (Banks[0].samples[i].common == true)
                     {
                         B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B0_ID[i].Enabled = true;
                         B0_Import[i].Enabled = false;
                         B0_Export[i].Enabled = false;					
                         B0_Common[i].Checked = true;
@@ -333,6 +346,7 @@ namespace OKI_Editor
                     else
                     {
                         B0_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B0_ID[i].Enabled = false;
                         B0_Import[i].Enabled = true;
                         B0_Export[i].Enabled = true;					
                         B0_Common[i].Checked = false;
@@ -386,6 +400,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B2_Play[i].Enabled = Banks[2].samples[i].enabled;
                 if (Banks[2].samples[i].enabled == true)
                 {
                     B2_Enable[i].Enabled = true;
@@ -394,6 +409,7 @@ namespace OKI_Editor
                     if (Banks[2].samples[i].common == true)
                     {
                         B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B2_ID[i].Enabled = true;
                         B2_Import[i].Enabled = false;
                         B2_Export[i].Enabled = false;					
                         B2_Common[i].Checked = true;
@@ -401,6 +417,7 @@ namespace OKI_Editor
                     else
                     {
                         B2_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B2_ID[i].Enabled = false;
                         B2_Import[i].Enabled = true;
                         B2_Export[i].Enabled = true;					
                         B2_Common[i].Checked = false;
@@ -436,7 +453,7 @@ namespace OKI_Editor
                     }
                     if (Banks[2].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[2].samples[i].depends[2];
+                        int dep = Banks[2].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -454,6 +471,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B3_Play[i].Enabled = Banks[3].samples[i].enabled;
                 if (Banks[3].samples[i].enabled == true)
                 {
                     B3_Enable[i].Enabled = true;
@@ -462,6 +480,7 @@ namespace OKI_Editor
                     if (Banks[3].samples[i].common == true)
                     {
                         B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B3_ID[i].Enabled = true;
                         B3_Import[i].Enabled = false;
                         B3_Export[i].Enabled = false;					
                         B3_Common[i].Checked = true;
@@ -469,6 +488,7 @@ namespace OKI_Editor
                     else
                     {
                         B3_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B3_ID[i].Enabled = false;
                         B3_Import[i].Enabled = true;
                         B3_Export[i].Enabled = true;					
                         B3_Common[i].Checked = false;
@@ -504,7 +524,7 @@ namespace OKI_Editor
                     }
                     if (Banks[3].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[3].samples[i].depends[3];
+                        int dep = Banks[3].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -522,6 +542,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B4_Play[i].Enabled = Banks[4].samples[i].enabled;
                 if (Banks[4].samples[i].enabled == true)
                 {
                     B4_Enable[i].Enabled = true;
@@ -530,12 +551,15 @@ namespace OKI_Editor
                     if (Banks[4].samples[i].common == true)
                     {
                         B4_ID[i].Text = "C" + (Banks[4].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B4_ID[i].Enabled = true;
                         B4_Import[i].Enabled = false;
                         B4_Export[i].Enabled = false;					
                         B4_Common[i].Checked = true;
                     }
                     else
                     {
+                        B4_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B4_ID[i].Enabled = false;
                         B4_Import[i].Enabled = true;
                         B4_Export[i].Enabled = true;					
                         B4_Common[i].Checked = false;
@@ -571,7 +595,7 @@ namespace OKI_Editor
                     }
                     if (Banks[4].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[4].samples[i].depends[4];
+                        int dep = Banks[4].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -589,6 +613,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B5_Play[i].Enabled = Banks[5].samples[i].enabled;
                 if (Banks[5].samples[i].enabled == true)
                 {
                     B5_Enable[i].Enabled = true;
@@ -597,12 +622,15 @@ namespace OKI_Editor
                     if (Banks[5].samples[i].common == true)
                     {
                         B5_ID[i].Text = "C" + (Banks[5].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B5_ID[i].Enabled = true;
                         B5_Import[i].Enabled = false;
                         B5_Export[i].Enabled = false;					
                         B5_Common[i].Checked = true;
                     }
                     else
                     {
+                        B5_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B5_ID[i].Enabled = false;
                         B5_Import[i].Enabled = true;
                         B5_Export[i].Enabled = true;					
                         B5_Common[i].Checked = false;
@@ -638,7 +666,7 @@ namespace OKI_Editor
                     }
                     if (Banks[5].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[5].samples[i].depends[5];
+                        int dep = Banks[5].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -656,6 +684,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B6_Play[i].Enabled = Banks[6].samples[i].enabled;
                 if (Banks[6].samples[i].enabled == true)
                 {
                     B6_Enable[i].Enabled = true;
@@ -664,12 +693,15 @@ namespace OKI_Editor
                     if (Banks[6].samples[i].common == true)
                     {
                         B6_ID[i].Text = "C" + (Banks[6].samples[i].commonid.ToString().PadLeft(3, '0'));
+						B6_ID[i].Enabled= true;
                         B6_Import[i].Enabled = false;
                         B6_Export[i].Enabled = false;					
                         B6_Common[i].Checked = true;
                     }
                     else
                     {
+                        B6_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B6_ID[i].Enabled = false;
                         B6_Import[i].Enabled = true;
                         B6_Export[i].Enabled = true;					
                         B6_Common[i].Checked = false;
@@ -705,7 +737,7 @@ namespace OKI_Editor
                     }
                     if (Banks[6].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[6].samples[i].depends[6];
+                        int dep = Banks[6].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -723,6 +755,7 @@ namespace OKI_Editor
         {
             for (int i=0; i<127; i++)
             {
+                B7_Play[i].Enabled = Banks[7].samples[i].enabled;
                 if (Banks[7].samples[i].enabled == true)
                 {
                     B7_Enable[i].Enabled = true;
@@ -731,12 +764,15 @@ namespace OKI_Editor
                     if (Banks[7].samples[i].common == true)
                     {
                         B7_ID[i].Text = "C" + (Banks[7].samples[i].commonid.ToString().PadLeft(3, '0'));
+						B7_ID[i].Enabled = true;
                         B7_Import[i].Enabled = false;
                         B7_Export[i].Enabled = false;					
                         B7_Common[i].Checked = true;
                     }
                     else
                     {
+                        B7_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B7_ID[i].Enabled = false;
                         B7_Import[i].Enabled = true;
                         B7_Export[i].Enabled = true;					
                         B7_Common[i].Checked = false;
@@ -772,7 +808,7 @@ namespace OKI_Editor
                     }
                     if (Banks[7].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[7].samples[i].depends[7];
+                        int dep = Banks[7].samples[i].depends[0];
                         {
                             deps = dep.ToString();
                         }
@@ -784,6 +820,59 @@ namespace OKI_Editor
 
             }
             computetimeBank7();
+        }
+
+        private void setCtrlCOM()
+        {
+            int i = 0;
+            foreach (Sample sample in CommonBank.samples)
+            {
+                BCOM_Play[i].Enabled = sample.enabled;
+                if (sample.enabled == true)
+                {
+                    BCOM_Enable[i].Enabled = true;
+                    BCOM_Enable[i].Checked = true;
+
+                    BCOM_ID[i].Text = "C" + (sample.id.ToString().PadLeft(3, '0'));
+                    BCOM_Import[i].Enabled = true;
+                    BCOM_Export[i].Enabled = true;
+                    BCOM_Common[i].Checked = true;
+
+                    int start = sample.start;
+                    int id = sample.id;
+                    foreach (Sample smp in CommonBank.samples)
+                    {
+                        if (smp.enabled == true)
+                        {
+                            if (IsBetween(start, smp.start, smp.end))
+                            {
+                                if (sample.id > smp.id)
+                                {
+                                    sample.depends.Add(smp.id);
+                                    if (sample.depends.Count == 1)
+                                    {
+                                        //find offset
+                                        sample.offset = start - smp.start;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    string deps = "";
+                    if (sample.depends.Count > 0)
+                    {
+                        int dep = sample.depends[0];
+                        {
+                            deps = dep.ToString();
+                        }
+                    }
+                    BCOM_Depends[i].Text = deps;
+                    BCOM_Offset[i].Text = "0x" + CommonBank.samples[i].offset.ToString("x");
+                    BCOM_Length[i].Text = "0x" + CommonBank.samples[i].length.ToString("x");
+                }
+                i++;
+            }
+            computetimeBankCOM();
         }
 
         private void computetimeBank0()
@@ -1015,6 +1104,7 @@ namespace OKI_Editor
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
             B6_Seconds.Text = time.ToString("0.00000");
         }
+
         private void computetimeBank7()
         {
             //compute bytes spare
@@ -1054,6 +1144,44 @@ namespace OKI_Editor
             B7_Seconds.Text = time.ToString("0.00000");
         }
 
+        private void computetimeBankCOM()
+        {
+            //compute bytes spare
+            int totalsize = 0x20000 - CommonBank.headersize;
+            foreach (Sample smp in CommonBank.samples)
+            {
+                if (smp != null)
+                {
+                    {
+                        if (smp.depends.Count() == 0)
+                        {
+                            if (smp.enabled == true)
+                            {
+                                totalsize -= smp.length;
+                            }
+
+                        }
+                    }
+                    if ((smp.id == CommonBank.lastsample) && CommonBank.samples[CommonBank.lastsample].enabled == false)
+                    {
+                        totalsize += 0x08;
+                    }
+                }
+            }
+            CommonBank.sparespace = totalsize;
+
+            if (totalsize < 0)
+            {
+                BCOM_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+            }
+            else
+            {
+                BCOM_Bytes.Text = "0x" + totalsize.ToString("x");
+            }
+            float time = (totalsize / float.Parse(samprate.Text)) * 2;
+            BCOM_Seconds.Text = time.ToString("0.00000");
+        }
+
         private bool IsBetween(int item, int start, int end)
         {
             return Comparer<int>.Default.Compare(item, start) > 0
@@ -1067,6 +1195,16 @@ namespace OKI_Editor
 
         private void exportRAWfile(int bank, int sample)
         {
+            Bank bankdata;
+
+            if (bank == 8)
+            {
+                bankdata = CommonBank;
+            }
+            else
+            {
+                bankdata = Banks[bank]; ;
+            }
             SaveFileDialog SF = new SaveFileDialog
             {
                 Title = "Save RAW File",
@@ -1078,7 +1216,7 @@ namespace OKI_Editor
             {
                 SF.FilterIndex = 0;
                 SF.RestoreDirectory = true;
-                Sample smp = Banks[bank].samples[sample];
+                Sample smp = bankdata.samples[sample];
 
                 if (smp.depends.Count > 0)
                 {
@@ -1086,12 +1224,14 @@ namespace OKI_Editor
                     int EndPosition = StartPosition + smp.length;
                     byte[] tmp = new byte[smp.length];
 
-                    Array.Copy(smp.RAW, smp.offset, tmp, 0, smp.length);
+                    int parentid = smp.depends.ElementAt(0);
+                    Sample parent = bankdata.samples[parentid];
+                    Array.Copy(parent.RAW, smp.offset, tmp, 0, smp.length);
                     File.WriteAllBytes(SF.FileName, tmp);
                 }
                 else
                 {
-                    File.WriteAllBytes(SF.FileName, Banks[bank].samples[sample].RAW);
+                    File.WriteAllBytes(SF.FileName, bankdata.samples[sample].RAW);
                 }
             }
 
@@ -1099,6 +1239,16 @@ namespace OKI_Editor
 
         private void importRAWfile(int bank, int sample)
         {
+            Bank bankdata;
+
+            if (bank == 8)
+            {
+                bankdata = CommonBank;
+            }
+            else
+            {
+                bankdata = Banks[bank]; ;
+            }
             OpenFileDialog OF = new OpenFileDialog
             {
                 Title = "Open RAW File",
@@ -1107,18 +1257,19 @@ namespace OKI_Editor
             };
             if (OF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+
                 OF.FilterIndex = 0;
                 OF.RestoreDirectory = true;
                 byte[] tmp = File.ReadAllBytes(OF.FileName);
 
                 int newspace = 0;
-                if (Banks[bank].samples[sample].depends.Count > 0 && Banks[bank].samples[sample].depends.Count > 0)
+                if (bankdata.samples[sample].depends.Count > 0 && bankdata.samples[sample].depends.Count > 0)
                 {
-                    newspace = Banks[bank].sparespace;
+                    newspace = bankdata.sparespace;
                 }
                 else
                 {
-                    newspace = Banks[bank].sparespace - Banks[bank].samples[sample].RAW.Length;
+                    newspace = bankdata.sparespace - bankdata.samples[sample].RAW.Length;
                 }
 
                 int calcspace = newspace - tmp.Length;
@@ -1129,12 +1280,12 @@ namespace OKI_Editor
                                                          MessageBoxButtons.OKCancel);
                     if (confirmResult == DialogResult.OK)
                     {
-                        Banks[bank].samples[sample].RAW = tmp;
-                        Banks[bank].samples[sample].depends.Clear();
-                        Banks[bank].samples[sample].common = false;
-                        Banks[bank].samples[sample].offset = 0;
-                        Banks[bank].samples[sample].start = sample * 0x40000;
-                        Banks[bank].samples[sample].length = Banks[bank].samples[sample].RAW.Length;
+                        bankdata.samples[sample].RAW = tmp;
+                        bankdata.samples[sample].depends.Clear();
+                        bankdata.samples[sample].common = false;
+                        bankdata.samples[sample].offset = 0;
+                        bankdata.samples[sample].start = sample * 0x40000;
+                        bankdata.samples[sample].length = bankdata.samples[sample].RAW.Length;
 
                         switch (bank)
                         {
@@ -1159,17 +1310,20 @@ namespace OKI_Editor
                             case 7:
                                 setCtrl7();
                                 break;
+                            case 8:
+                                setCtrlCOM();
+                                break;
                         }
                     }
                 }
                 else
                 {
-                    Banks[bank].samples[sample].RAW = tmp;
-                    Banks[bank].samples[sample].depends.Clear();
-                    Banks[bank].samples[sample].common = false;
-                    Banks[bank].samples[sample].offset = 0;
-                    Banks[bank].samples[sample].start = sample * 0x40000;
-                    Banks[bank].samples[sample].length = Banks[bank].samples[sample].RAW.Length;
+                    bankdata.samples[sample].RAW = tmp;
+                    bankdata.samples[sample].depends.Clear();
+                    bankdata.samples[sample].common = false;
+                    bankdata.samples[sample].offset = 0;
+                    bankdata.samples[sample].start = sample * 0x40000;
+                    bankdata.samples[sample].length = bankdata.samples[sample].RAW.Length;
                     switch (bank)
                     {
                         case 0:
@@ -1193,141 +1347,348 @@ namespace OKI_Editor
                         case 7:
                             setCtrl7();
                             break;
-                            //case 8:
-                            //    setCtrlCom();
-                            //    break;
+                        case 8:
+                            setCtrlCOM();
+                            break;
                     }
                 }
             }
 
         }
 
+
+        private void playRAWfile(int bank, int sample)
+        {
+            Bank bankdata;
+
+            if (bank == 8)
+            {
+                bankdata = CommonBank;
+            }
+            else
+            {
+                bankdata = Banks[bank];
+            }
+
+            {
+                Sample smp = bankdata.samples[sample];
+                if (smp.common == true)
+                {
+                    int id = smp.commonid;
+                    smp = CommonBank.samples[id];
+                }
+                if (smp.depends.Count > 0)
+                {
+                    ADPCMBuffer = new short[smp.length * 2];
+                    int StartPosition = smp.offset;
+                    int EndPosition = StartPosition + smp.length;
+
+                    int Position = StartPosition;
+
+                    int SampleCount = 0;
+
+                    int parentid = smp.depends.ElementAt(0);
+                    Sample parent = bankdata.samples[parentid];
+
+                    while (Position < EndPosition)
+                    {
+                        ADPCMBuffer[SampleCount] = OKIDecodeNibble((parent.RAW[Position] & 0xf0) >> 4);
+                        SampleCount++;
+                        ADPCMBuffer[SampleCount] = OKIDecodeNibble(parent.RAW[Position] & 0xf);
+                        SampleCount++;
+                        Position++;
+                    }
+
+                    PlaySample(ADPCMBuffer);
+                }
+                else
+                {
+                    ADPCMBuffer = new short[smp.length * 2];
+                    int Position = 0;
+                    int EndPosition = smp.length;
+                    int SampleCount = 0;
+                    while (Position < EndPosition)
+                    {
+                        ADPCMBuffer[SampleCount] = OKIDecodeNibble((smp.RAW[Position] & 0xf0) >> 4);
+                        SampleCount++;
+                        ADPCMBuffer[SampleCount] = OKIDecodeNibble(smp.RAW[Position] & 0xf);
+                        SampleCount++;
+                        Position++;
+                    }
+                    PlaySample(ADPCMBuffer);
+                }
+            }
+
+        }
+
+        static byte[] FromShort(short number)
+        {
+            byte byte2 = (byte)(number >> 8);
+            byte byte1 = (byte)(number & 0xff);
+            byte[] output = { byte1, byte2 };
+            return output;
+        }
+
+        private void PlaySample(short[] ADPCMBuffer)
+        {
+            byte[] ADPCMPlayBuffer = new byte[ADPCMBuffer.Length * 2];
+            for (int i = 0; i < ADPCMBuffer.Length; i++)
+            {
+                ADPCMBuffer[i] = (short)(ADPCMBuffer[i] *16);
+                byte[] tmp = FromShort(ADPCMBuffer[i]);
+
+                int cursor = (i * 2);
+                ADPCMPlayBuffer[cursor] = tmp[0];
+                ADPCMPlayBuffer[(cursor+1)] = tmp[1];
+            }
+
+        var sampleRate = (int)float.Parse(samprate.Text);
+            var ms = new MemoryStream(ADPCMPlayBuffer);
+            var rs = new RawSourceWaveStream(ms, new WaveFormat(sampleRate, 16, 1));
+
+            var wo = new WaveOutEvent();
+            wo.Init(rs);
+            wo.Play();
+            while (wo.PlaybackState == PlaybackState.Playing)
+            {
+                Thread.Sleep(500);
+            }
+            wo.Dispose();
+        }
+
         private byte [] GenerateBank(int bank)
         {
             int[] newstarts = new int[127];
             byte[] result = new byte[0x20000];
-            for (int i = 0; i < 8; i++)
+            if (bank == 8)
             {
-                result[i] = 0x00;
-            }
-            int cursor = 8;
-            int headersize = Banks[bank].headersize;
-            Sample lastsample = Banks[bank].samples[Banks[bank].lastsample];
-            if (lastsample.enabled == false)
-            {
-                //we can use the last sample's headerspace and make a few bytes.
-                headersize -= 0x08;
-            }
-
-            if (Banks[bank].sparespace < 0)
-            {
-                MessageBox.Show("Bank " + bank + "is too large, cannot proceed", "Space Error",
-                                                             MessageBoxButtons.OK);
-            }
-
-            foreach (Sample smp in Banks[bank].samples)
-            {
-                if (smp != null)
+                for (int i = 0; i < 8; i++)
                 {
+                    result[i] = 0x00;
+                }
+                int cursor = 8;
+                int headersize = 0x08 + (0x08 * CommonBank.samples.Length);
+                Sample lastsample = CommonBank.samples.Last();
+                if (lastsample.enabled == false)
+                {
+                    //we can use the last sample's headerspace and make a few bytes.
+                    headersize -= 0x08;
+                }
 
-                    if (smp.enabled == true)
+                if (CommonBank.sparespace < 0)
+                {
+                    MessageBox.Show("Common Bank is too large, cannot proceed", "Space Error",
+                                                                 MessageBoxButtons.OK);
+                }
+                foreach (Sample smp in CommonBank.samples)
+                {
+                    if (smp != null)
                     {
-                        if (smp.common == true)
+
+                        if (smp.enabled == true)
                         {
-                            newstarts[smp.id] = smp.start;
-                            result[cursor] = (byte)(smp.start >> 0x10);
+                            {
+                                if (smp.depends.Count == 0)
+                                {
+                                    int StartPosition = headersize;
+                                    newstarts[smp.id] = StartPosition;
+                                    int EndPosition = StartPosition + smp.length;
+                                    result[cursor] = (byte)(StartPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)(EndPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+
+                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    headersize += smp.length;
+                                }
+                                else
+                                {
+                                    int StartPosition = newstarts[smp.depends.ElementAt(0)] + smp.offset;
+                                    newstarts[smp.id] = StartPosition;
+                                    int EndPosition = StartPosition + smp.length;
+                                    result[cursor] = (byte)(StartPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)(EndPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+
+                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                }
+                            }
+                        }
+                        else if (smp.id != lastsample.id)
+                        {
+                            newstarts[smp.id] = 0;
+                            result[cursor] = 0x00;
                             cursor++;
-                            result[cursor] = (byte)((smp.start >> 0x08) & 0xff);
+                            result[cursor] = 0x00;
                             cursor++;
-                            result[cursor] = (byte)((smp.start) & 0xff);
+                            result[cursor] = 0x00;
                             cursor++;
-                            result[cursor] = (byte)(smp.end >> 0x10);
+                            result[cursor] = 0x00;
                             cursor++;
-                            result[cursor] = (byte)((smp.end >> 0x08) & 0xff);
+                            result[cursor] = 0x00;
                             cursor++;
-                            result[cursor] = (byte)((smp.end) & 0xff);
+                            result[cursor] = 0x00;
                             cursor++;
                             result[cursor] = 0x00;
                             cursor++;
                             result[cursor] = 0x00;
                             cursor++;
                         }
-                        else
-                        {
-                            if (smp.depends.Count == 0)
-                            {
-                                int StartPosition = headersize;
-                                newstarts[smp.id] = StartPosition;
-                                int EndPosition = StartPosition + smp.length;
-                                result[cursor] = (byte)(StartPosition >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((StartPosition) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)(EndPosition >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((EndPosition) & 0xff);
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
+                    }
+                }
+                return result;
 
-                                Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
-                                headersize += smp.length;
+            }
+            else
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    result[i] = 0x00;
+                }
+                int cursor = 8;
+                int headersize = Banks[bank].headersize;
+                Sample lastsample = Banks[bank].samples[Banks[bank].lastsample];
+                if (lastsample.enabled == false)
+                {
+                    //we can use the last sample's headerspace and make a few bytes.
+                    headersize -= 0x08;
+                }
+
+                if (Banks[bank].sparespace < 0)
+                {
+                    MessageBox.Show("Bank " + bank + "is too large, cannot proceed", "Space Error",
+                                                                 MessageBoxButtons.OK);
+                }
+
+                foreach (Sample smp in Banks[bank].samples)
+                {
+                    if (smp != null)
+                    {
+
+                        if (smp.enabled == true)
+                        {
+                            if (smp.common == true)
+                            {
+                                newstarts[smp.id] = smp.start;
+                                result[cursor] = (byte)(smp.start >> 0x10);
+                                cursor++;
+                                result[cursor] = (byte)((smp.start >> 0x08) & 0xff);
+                                cursor++;
+                                result[cursor] = (byte)((smp.start) & 0xff);
+                                cursor++;
+                                result[cursor] = (byte)(smp.end >> 0x10);
+                                cursor++;
+                                result[cursor] = (byte)((smp.end >> 0x08) & 0xff);
+                                cursor++;
+                                result[cursor] = (byte)((smp.end) & 0xff);
+                                cursor++;
+                                result[cursor] = 0x00;
+                                cursor++;
+                                result[cursor] = 0x00;
+                                cursor++;
                             }
                             else
                             {
-                                int StartPosition = newstarts[smp.depends.ElementAt(0)] + smp.offset;
-                                newstarts[smp.id] = StartPosition;
-                                int EndPosition = StartPosition + smp.length;
-                                result[cursor] = (byte)(StartPosition >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((StartPosition) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)(EndPosition >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((EndPosition) & 0xff);
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
+                                if (smp.depends.Count == 0)
+                                {
+                                    int StartPosition = headersize;
+                                    newstarts[smp.id] = StartPosition;
+                                    int EndPosition = StartPosition + smp.length;
+                                    result[cursor] = (byte)(StartPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)(EndPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
 
-                                Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    headersize += smp.length;
+                                }
+                                else
+                                {
+                                    int StartPosition = newstarts[smp.depends.ElementAt(0)] + smp.offset;
+                                    newstarts[smp.id] = StartPosition;
+                                    int EndPosition = StartPosition + smp.length;
+                                    result[cursor] = (byte)(StartPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((StartPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)(EndPosition >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((EndPosition) & 0xff);
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+
+                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                }
                             }
                         }
-                    }
-                    else if (smp.id != lastsample.id)
-                    {
-                        newstarts[smp.id] = 0;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
-                        result[cursor] = 0x00;
-                        cursor++;
+                        else if (smp.id != lastsample.id)
+                        {
+                            newstarts[smp.id] = 0;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                            result[cursor] = 0x00;
+                            cursor++;
+                        }
                     }
                 }
+                return result;
             }
-            return result;
         }
 		
         private void GenerateROMs(object sender, EventArgs e)
@@ -1339,6 +1700,7 @@ namespace OKI_Editor
             byte[] bank5 = null;
             byte[] bank6 = null;
             byte[] bank7 = null;
+            byte[] bankCOM = null;
             bank0 = GenerateBank(0);
 
             if (U12Mirror == false)
@@ -1354,6 +1716,8 @@ namespace OKI_Editor
 
             bank6 = GenerateBank(6);
             bank7 = GenerateBank(7);
+
+            bankCOM = GenerateBank(8);
 
             SaveFileDialog SF = new SaveFileDialog
             {
@@ -1371,16 +1735,16 @@ namespace OKI_Editor
                 if (U12Mirror == false)
                 {
                     U12Out = new byte[0x80000];
-                    Array.Copy(bank3, 0, U12Out, 0x00000, 0x20000);
-                    Array.Copy(bank2, 0, U12Out, 0x20000, 0x20000);
-                    Array.Copy(bank0, 0, U12Out, 0x40000, 0x20000);
-                    Array.Copy(U12,   0, U12Out, 0x60000, 0x20000);//common
+                    Array.Copy(bank3,  0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(bank2,  0, U12Out, 0x20000, 0x20000);
+                    Array.Copy(bank0,  0, U12Out, 0x40000, 0x20000);
+                    Array.Copy(bankCOM,0, U12Out, 0x60000, 0x20000);//common
                 }
                 else
                 {
                     U12Out = new byte[0x40000];
-                    Array.Copy(bank0, 0, U12Out, 0x00000, 0x20000);
-                    Array.Copy(U12,   0, U12Out, 0x20000, 0x20000);//common
+                    Array.Copy(bank0,  0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(bankCOM,0, U12Out, 0x20000, 0x20000);//common
                 }
 
                 File.WriteAllBytes(SF.FileName, U12Out);
@@ -1421,7 +1785,16 @@ namespace OKI_Editor
         }
         private void UpdateEnable(int bank, int sample, bool state)
         {
-            Banks[bank].samples[sample].enabled = state;
+            Sample smp;
+            if (bank < 8)
+            {
+                smp = Banks[bank].samples[sample];
+            }
+            else
+            {
+                smp = CommonBank.samples[sample];
+            }
+            smp.enabled = state;
             switch (bank)
             {
                 case 0:
@@ -1445,17 +1818,23 @@ namespace OKI_Editor
                 case 7:
 					computetimeBank7();
                     break;
-                    //case 8:
-                    //    computetimeBank8();
-
-                    //    break;
+                case 8:
+                    computetimeBankCOM();
+                    break;
             }
         }
 
 
         private void UpdateLength(int bank, int sample, String text)
         {
-            Banks[bank].samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
+            if (bank <8)
+            {
+                Banks[bank].samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
+            }
+            else
+            {
+                CommonBank.samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
+            }
             switch (bank)
             {
                 case 0:
@@ -1479,16 +1858,23 @@ namespace OKI_Editor
                 case 7:
                     setCtrl7();
                     break;
-                    //case 8:
-                    //    setCtrlCom();
-                    //    break;
+                case 8:
+                    setCtrlCOM();
+                    break;
             }
 
         }
 
         private void UpdateOffset(int bank, int sample, String text)
         {
-            Banks[bank].samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
+            if (bank < 8)
+            {
+                Banks[bank].samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
+            }
+            else
+            {
+                CommonBank.samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
+            }
             switch (bank)
             {
                 case 0:
@@ -1512,22 +1898,31 @@ namespace OKI_Editor
                 case 7:
                     setCtrl7();
                     break;
-                    //case 8:
-                    //    setCtrlCom();
-                    //    break;
+                case 8:
+                    setCtrlCOM();
+                    break;
             }
 
         }
 
         private void UpdateDepend(int bank, int sample, String text)
         {
-            if (text.Contains("0x"))
+            Bank bankdata;
+            if (bank < 8)
             {
-                Banks[bank].samples[sample].depends[0] = int.Parse(text, NumberStyles.HexNumber);
+                bankdata = Banks[bank];
             }
             else
             {
-                Banks[bank].samples[sample].depends[0] = int.Parse(text);
+                bankdata = CommonBank;
+            }
+            if (text.Contains("0x"))
+            {
+                bankdata.samples[sample].depends[0] = int.Parse(text, NumberStyles.HexNumber);
+            }
+            else
+            {
+                bankdata.samples[sample].depends[0] = int.Parse(text);
             }
             switch (bank)
             {
@@ -1552,11 +1947,120 @@ namespace OKI_Editor
                 case 7:
                     setCtrl7();
                     break;
-                    //case 8:
-                    //    setCtrlCom();
-                    //    break;
+                case 8:
+                    setCtrlCOM();
+                    break;
             }
 
         }
+
+
+        private void UpdateID(int bank, int sample, String text)
+        {
+            String[] splitarray = text.Split('C');
+            if (splitarray.Length == 2)
+            {
+                int comid = int.Parse(splitarray[1], NumberStyles.Integer);
+
+                Sample smp = Banks[bank].samples[sample];
+
+                smp.common = true;
+                smp.commonid = comid;
+                switch (bank)
+                {
+                    case 0:
+                        setCtrl0();
+                        break;
+                    case 2:
+                        setCtrl2();
+                        break;
+                    case 3:
+                        setCtrl3();
+                        break;
+                    case 4:
+                        setCtrl4();
+                        break;
+                    case 5:
+                        setCtrl5();
+                        break;
+                    case 6:
+                        setCtrl6();
+                        break;
+                    case 7:
+                        setCtrl7();
+                        break;
+                    case 8:
+                        setCtrlCOM();
+                        break;
+                }
+
+            }
+
+        }
+
+        short OKIDecodeNibble(int Nibble)
+        {
+            short SS, Sample, Diff, E;
+
+            short[] StepOKI = { 16, 17, 19, 21, 23, 25, 28, 31, 34, 37,
+                     41, 45, 50, 55, 60, 66, 73, 80, 88, 97,
+                     107, 118, 130, 143, 157, 173, 190, 209, 230, 253,
+                     279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
+                     724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552 };
+
+            short[] OKIAdjusts = { -1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8 };
+
+            SS = StepOKI[ADPCMIndex];
+            E = (short)(SS / 8);
+
+            if ((Nibble & 0x01) >0)
+            {
+                E += (short)(SS >> 2);
+            }
+            if ((Nibble & 0x02) >0)
+            {
+                E += (short)(SS >> 1);
+            }
+            if ((Nibble & 0x04) >0)
+            {
+                E += (short)SS;
+            }
+
+            if ((Nibble & 0x08) > 0)
+            {
+                Diff = (short) -E;
+            }
+            else
+            {
+                Diff = (short) E;
+            }
+
+            Sample = (short)(ADPCMLast + Diff);
+
+            if (Sample > 2047)
+            {
+                Sample = 2047;
+            }
+            if (Sample < -2048)
+            {
+                Sample = -2048;
+            }
+
+            ADPCMLast = Sample;
+            ADPCMIndex += OKIAdjusts[Nibble];
+
+            if (ADPCMIndex > 48)
+            {
+                ADPCMIndex = 48;
+            }
+            if (ADPCMIndex < 0)
+            {
+                ADPCMIndex = 0;
+            }
+
+            return (Sample);
+
+        }
+
     }
-    }
+}

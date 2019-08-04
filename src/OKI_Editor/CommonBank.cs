@@ -8,27 +8,47 @@ namespace OKI_Editor
         public int headersize = 0;
         public int lastsample = 0;
         public int sparespace = 0;
-        public List<CommonSample> samples = new List<CommonSample>();
+        public Sample[] samples = new Sample[127];
         public CommonBank()
         {
-			
-		}
-		
-		public int addSample(int start, int length, byte[] RAW)
+            for (int i = 0; i < 127; i++)
+            {
+                this.samples[i] = new Sample();
+            }
+
+        }
+
+        public int addSample(int start, int length, byte[] RAW)
 		{
-			foreach (CommonSample sample in samples) {
-                if ( (sample.origstart == start) && sample.length == length)
+            int pos = 0;
+			foreach (Sample sample in samples) {
+                if (sample.valid == false)
                 {
+                    break;
+                }
+                if ( (sample.start == start) && sample.length == length)
+                {
+                    if (pos > lastsample)
+                    {
+                        lastsample = pos;
+                    }
                     return sample.id;
                 }
+                pos++;
             }
             //We haven't found an existing one, make one
-            CommonSample newsample = new CommonSample();
-            newsample.origstart = start;
+            Sample newsample = new Sample();
+            newsample.enabled = true;
+            newsample.valid = true;
+            newsample.start = start;
             newsample.length = length;
-            newsample.id = samples.Count;
+            newsample.id = pos;
             newsample.RAW = RAW;
-            samples.Add(newsample);
+            samples[pos] = newsample;
+            if (pos > lastsample)
+            {
+                lastsample = pos;
+            }
             return newsample.id;
 		}
 	}
