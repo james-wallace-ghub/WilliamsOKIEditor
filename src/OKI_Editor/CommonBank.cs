@@ -8,10 +8,10 @@ namespace OKI_Editor
         public int headersize = 0;
         public int lastsample = 0;
         public int sparespace = 0;
-        public Sample[] samples = new Sample[127];
+        public Sample[] samples = new Sample[128];
         public CommonBank()
         {
-            for (int i = 0; i < 127; i++)
+            for (int i = 0; i < 128; i++)
             {
                 this.samples[i] = new Sample();
             }
@@ -20,11 +20,19 @@ namespace OKI_Editor
 
         public int addSample(int start, int length, byte[] RAW)
 		{
-            int pos = 0;
+            int pos = 1;
+			bool firstsample=true;
 			foreach (Sample sample in samples) {
                 if (sample.valid == false)
                 {
+					//We skip the first sample of all 0's
+					if (firstsample == false) {					
                     break;
+					}
+					else {
+						firstsample =false;
+						continue;
+					}
                 }
                 if ( (sample.start == start) && sample.length == length)
                 {
@@ -35,6 +43,7 @@ namespace OKI_Editor
                     return sample.id;
                 }
                 pos++;
+				firstsample=false;
             }
             //We haven't found an existing one, make one
             Sample newsample = new Sample();
