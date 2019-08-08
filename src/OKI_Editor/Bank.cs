@@ -8,7 +8,7 @@ namespace OKI_Editor
         public int headersize = 0;
         public int lastsample = 0;
         public int sparespace = 0;
-        public Sample[] samples = new Sample[127];
+        public Sample[] samples = new Sample[128];
 
         public Bank()
         {
@@ -16,13 +16,13 @@ namespace OKI_Editor
         }
         public Bank(int bank, byte[] WPCROM, int address, CommonBank cb)
         {
-            for (int i=0; i < 127; i++)
+            for (int i=0; i < 128; i++)
             {
                 this.samples[i] = new Sample();
             }
             this.bankval = bank;
             int position = address + 0x08;
-            for (int cnt2 = 0; cnt2 < 127; cnt2++)
+            for (int cnt2 = 1; cnt2 < 128; cnt2++)
             {
                 Sample sample = new Sample();
                 sample.offset = 0;
