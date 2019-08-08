@@ -150,13 +150,13 @@ namespace OKI_Editor
             this.BCOM_Bytes = new System.Windows.Forms.TextBox();
             this.BCOM_Table = new System.Windows.Forms.TableLayoutPanel();
 
-            for (int i=0; i <127; i++)
+            for (int i=0; i <128; i++)
             {
                 B0_Play[i] = new System.Windows.Forms.Button();
                 B0_Export[i] = new System.Windows.Forms.Button();
                 B0_Length[i] = new System.Windows.Forms.TextBox();
 				B0_Offset[i] = new System.Windows.Forms.TextBox();
-			   B0_Depends[i] = new System.Windows.Forms.TextBox();
+			    B0_Depends[i] = new System.Windows.Forms.TextBox();
                 B0_ID[i] = new System.Windows.Forms.TextBox();
                 B0_Import[i] = new System.Windows.Forms.Button();
 				B0_Enable[i] = new System.Windows.Forms.CheckBox();
@@ -528,7 +528,7 @@ namespace OKI_Editor
             this.B0_Table.RowCount = 127;
             this.B0_Table.Size = new System.Drawing.Size(720, 2540);
             this.B0_Table.TabIndex = 2;
-            for (int i=0; i < 127; i++ )
+            for (int i=1; i < 128; i++ )
             {
                 this.B0_Table.Controls.Add(B0_Play[i], 8, i);
                 this.B0_Table.Controls.Add(B0_Import[i], 7, i);
@@ -540,19 +540,19 @@ namespace OKI_Editor
 				this.B0_Table.Controls.Add(B0_ID[i], 1, i);
 				this.B0_Table.Controls.Add(B0_Enable[i], 0, i);
             }
-            for (int i=0; i <127; i++)
+            for (int i=1; i <128; i++)
             {
 				this.B0_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B0_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B0_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B0_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B0_Play[i].Size = new System.Drawing.Size(75, 20);
                 B0_Play[i].TabIndex = 14;
                 B0_Play[i].Text = "Play";
                 B0_Play[i].Click += (sender, e) => playRAWfile(0, index);
 
-                B0_Import[i].Location = new System.Drawing.Point(525, (i*20));
+                B0_Import[i].Location = new System.Drawing.Point(525, ((i-1)*20));
 				B0_Import[i].Margin = new System.Windows.Forms.Padding(0);
 				B0_Import[i].Size = new System.Drawing.Size(75, 20);
 				B0_Import[i].TabIndex = 14;
@@ -560,7 +560,7 @@ namespace OKI_Editor
                 B0_Import[i].Click += (sender, e) =>importRAWfile(0, index); 
 
                 B0_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B0_Export[i].Location = new System.Drawing.Point(450, (i*20));
+                B0_Export[i].Location = new System.Drawing.Point(450, ((i-1)*20));
                 B0_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B0_Export[i].Size = new System.Drawing.Size(75, 20);
                 B0_Export[i].TabIndex = 13;
@@ -569,30 +569,30 @@ namespace OKI_Editor
                 B0_Export[i].Click += (sender, e) =>exportRAWfile(0, index); 
 
 				B0_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-				B0_Length[i].Location = new System.Drawing.Point(347, (i*20));
+				B0_Length[i].Location = new System.Drawing.Point(347, ((i-1)*20));
 				B0_Length[i].Margin = new System.Windows.Forms.Padding(0);
 				B0_Length[i].Size = new System.Drawing.Size(100, 20);
 				B0_Length[i].TabIndex = 12;
 				B0_Length[i].Leave += (sender, e) => UpdateLength(0, index, B0_Length[index].Text);
 
-				B0_Offset[i].Location = new System.Drawing.Point(241,(i*20)+ 3);
+				B0_Offset[i].Location = new System.Drawing.Point(241,((i-1)*20)+ 3);
 				B0_Offset[i].Size = new System.Drawing.Size(100, 20);
 				B0_Offset[i].TabIndex = 11;
 				B0_Offset[i].Leave += (sender, e) => UpdateOffset(0, index, B0_Offset[index].Text);
 
-				B0_Depends[i].Location = new System.Drawing.Point(135, (i*20) +3);
+				B0_Depends[i].Location = new System.Drawing.Point(135, ((i-1)*20) +3);
 				B0_Depends[i].Size = new System.Drawing.Size(100, 20);
 				B0_Depends[i].TabIndex = 392;
 				B0_Depends[i].Leave += (sender, e) => UpdateDepend(0, index, B0_Depends[index].Text);
 
-				B0_ID[i].Location = new System.Drawing.Point(43, (i*20));
+				B0_ID[i].Location = new System.Drawing.Point(43, ((i-1)*20));
 				B0_ID[i].Size = new System.Drawing.Size(32, 20);
 				B0_ID[i].TabIndex = 518;
 				B0_ID[i].Text = i.ToString().PadLeft(3, '0');
 				B0_ID[i].Enabled = false;
                 B0_ID[i].Leave += (sender, e) => UpdateID(0, index, B0_ID[index].Text);
 
-				B0_Enable[i].Location = new System.Drawing.Point(3, (i*20)+3);
+				B0_Enable[i].Location = new System.Drawing.Point(3, ((i-1)*20)+3);
 				B0_Enable[i].Size = new System.Drawing.Size(15, 14);
 				B0_Enable[i].TabIndex = 770;
 				B0_Enable[i].Click += (sender, e) => UpdateEnable(0, index, B0_Enable[index].Checked);
@@ -600,7 +600,7 @@ namespace OKI_Editor
 				B0_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
 				B0_Common[i].AutoSize = true;
 				B0_Common[i].Enabled = false;
-				B0_Common[i].Location = new System.Drawing.Point(94, (i*20)+3);
+				B0_Common[i].Location = new System.Drawing.Point(94, ((i-1)*20)+3);
 				B0_Common[i].Size = new System.Drawing.Size(15, 14);
 				B0_Common[i].TabIndex = 897;
 				B0_Common[i].UseVisualStyleBackColor = true;
@@ -763,7 +763,7 @@ namespace OKI_Editor
             this.B2_Table.RowCount = 127;
             this.B2_Table.Size = new System.Drawing.Size(720, 2540);
 
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B2_Table.Controls.Add(B2_Play[i], 8, i);
                 this.B2_Table.Controls.Add(B2_Import[i], 7, i);
@@ -775,19 +775,19 @@ namespace OKI_Editor
                 this.B2_Table.Controls.Add(B2_ID[i], 1, i);
                 this.B2_Table.Controls.Add(B2_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B2_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B2_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B2_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B2_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B2_Play[i].Size = new System.Drawing.Size(75, 20);
                 B2_Play[i].TabIndex = 14;
                 B2_Play[i].Text = "Play";
                 B2_Play[i].Click += (sender, e) => playRAWfile(2, index);
 
-                B2_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B2_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B2_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B2_Import[i].Size = new System.Drawing.Size(75, 20);
                 B2_Import[i].TabIndex = 14;
@@ -795,7 +795,7 @@ namespace OKI_Editor
                 B2_Import[i].Click += (sender, e) => importRAWfile(2, index);
 
                 B2_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B2_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B2_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B2_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B2_Export[i].Size = new System.Drawing.Size(75, 20);
                 B2_Export[i].TabIndex = 13;
@@ -804,30 +804,30 @@ namespace OKI_Editor
                 B2_Export[i].Click += (sender, e) => exportRAWfile(2, index);
 
                 B2_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B2_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B2_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B2_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B2_Length[i].Size = new System.Drawing.Size(100, 20);
                 B2_Length[i].TabIndex = 12;
                 B2_Length[i].Leave += (sender, e) => UpdateLength(2, index, B2_Length[index].Text);
 
-                B2_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B2_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B2_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B2_Offset[i].TabIndex = 11;
                 B2_Offset[i].Leave += (sender, e) => UpdateOffset(2, index, B2_Offset[index].Text);
 
-                B2_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B2_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B2_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B2_Depends[i].TabIndex = 392;
                 B2_Depends[i].Leave += (sender, e) => UpdateDepend(2, index, B2_Depends[index].Text);
 
-                B2_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B2_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B2_ID[i].Size = new System.Drawing.Size(32, 20);
                 B2_ID[i].TabIndex = 518;
                 B2_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B2_ID[i].Enabled = false;
                 B2_ID[i].Leave += (sender, e) => UpdateID(2, index, B2_ID[index].Text);
 
-                B2_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B2_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B2_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B2_Enable[i].TabIndex = 770;
                 B2_Enable[i].Click += (sender, e) => UpdateEnable(2, index, B2_Enable[index].Checked);
@@ -835,7 +835,7 @@ namespace OKI_Editor
                 B2_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B2_Common[i].AutoSize = true;
                 B2_Common[i].Enabled = false;
-                B2_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B2_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B2_Common[i].Size = new System.Drawing.Size(15, 14);
                 B2_Common[i].TabIndex = 897;
                 B2_Common[i].UseVisualStyleBackColor = true;
@@ -998,7 +998,7 @@ namespace OKI_Editor
             this.B3_Table.RowCount = 127;
             this.B3_Table.Size = new System.Drawing.Size(720, 2540);
 
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B3_Table.Controls.Add(B3_Play[i], 8, i);
                 this.B3_Table.Controls.Add(B3_Import[i], 7, i);
@@ -1010,19 +1010,19 @@ namespace OKI_Editor
                 this.B3_Table.Controls.Add(B3_ID[i], 1, i);
                 this.B3_Table.Controls.Add(B3_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B3_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B3_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B3_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B3_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B3_Play[i].Size = new System.Drawing.Size(75, 20);
                 B3_Play[i].TabIndex = 14;
                 B3_Play[i].Text = "Play";
                 B3_Play[i].Click += (sender, e) => playRAWfile(3, index);
 
-                B3_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B3_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B3_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B3_Import[i].Size = new System.Drawing.Size(75, 20);
                 B3_Import[i].TabIndex = 14;
@@ -1030,7 +1030,7 @@ namespace OKI_Editor
                 B3_Import[i].Click += (sender, e) => importRAWfile(3, index);
 
                 B3_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B3_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B3_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B3_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B3_Export[i].Size = new System.Drawing.Size(75, 20);
                 B3_Export[i].TabIndex = 13;
@@ -1039,30 +1039,30 @@ namespace OKI_Editor
                 B3_Export[i].Click += (sender, e) => exportRAWfile(3, index);
 
                 B3_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B3_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B3_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B3_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B3_Length[i].Size = new System.Drawing.Size(100, 20);
                 B3_Length[i].TabIndex = 12;
                 B3_Length[i].Leave += (sender, e) => UpdateLength(3, index, B3_Length[index].Text);
 
-                B3_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B3_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B3_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B3_Offset[i].TabIndex = 11;
                 B3_Offset[i].Leave += (sender, e) => UpdateOffset(3, index, B3_Offset[index].Text);
 
-                B3_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B3_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B3_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B3_Depends[i].TabIndex = 392;
                 B3_Depends[i].Leave += (sender, e) => UpdateDepend(3, index, B3_Depends[index].Text);
 
-                B3_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B3_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B3_ID[i].Size = new System.Drawing.Size(32, 20);
                 B3_ID[i].TabIndex = 518;
                 B3_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B3_ID[i].Enabled = false;
                 B3_ID[i].Leave += (sender, e) => UpdateID(3, index, B3_ID[index].Text);
 
-                B3_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B3_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B3_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B3_Enable[i].TabIndex = 770;
                 B3_Enable[i].Click += (sender, e) => UpdateEnable(3, index, B3_Enable[index].Checked);
@@ -1070,7 +1070,7 @@ namespace OKI_Editor
                 B3_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B3_Common[i].AutoSize = true;
                 B3_Common[i].Enabled = false;
-                B3_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B3_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B3_Common[i].Size = new System.Drawing.Size(15, 14);
                 B3_Common[i].TabIndex = 897;
                 B3_Common[i].UseVisualStyleBackColor = true;
@@ -1232,7 +1232,7 @@ namespace OKI_Editor
             this.B4_Table.Name = "B4_Table";
             this.B4_Table.RowCount = 127;
             this.B4_Table.Size = new System.Drawing.Size(720, 2540);
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B4_Table.Controls.Add(B4_Play[i], 8, i);
                 this.B4_Table.Controls.Add(B4_Import[i], 7, i);
@@ -1244,19 +1244,19 @@ namespace OKI_Editor
                 this.B4_Table.Controls.Add(B4_ID[i], 1, i);
                 this.B4_Table.Controls.Add(B4_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B4_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B4_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B4_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B4_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B4_Play[i].Size = new System.Drawing.Size(75, 20);
                 B4_Play[i].TabIndex = 14;
                 B4_Play[i].Text = "Play";
                 B4_Play[i].Click += (sender, e) => playRAWfile(4, index);
 
-                B4_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B4_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B4_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B4_Import[i].Size = new System.Drawing.Size(75, 20);
                 B4_Import[i].TabIndex = 14;
@@ -1264,7 +1264,7 @@ namespace OKI_Editor
                 B4_Import[i].Click += (sender, e) => importRAWfile(4, index);
 
                 B4_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B4_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B4_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B4_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B4_Export[i].Size = new System.Drawing.Size(75, 20);
                 B4_Export[i].TabIndex = 13;
@@ -1273,30 +1273,30 @@ namespace OKI_Editor
                 B4_Export[i].Click += (sender, e) => exportRAWfile(4, index);
 
                 B4_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B4_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B4_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B4_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B4_Length[i].Size = new System.Drawing.Size(100, 20);
                 B4_Length[i].TabIndex = 12;
                 B4_Length[i].Leave += (sender, e) => UpdateLength(4, index, B4_Length[index].Text);
 
-                B4_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B4_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B4_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B4_Offset[i].TabIndex = 11;
                 B4_Offset[i].Leave += (sender, e) => UpdateOffset(4, index, B4_Offset[index].Text);
 
-                B4_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B4_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B4_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B4_Depends[i].TabIndex = 392;
                 B4_Depends[i].Leave += (sender, e) => UpdateDepend(4, index, B4_Depends[index].Text);
 
-                B4_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B4_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B4_ID[i].Size = new System.Drawing.Size(32, 20);
                 B4_ID[i].TabIndex = 518;
                 B4_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B4_ID[i].Enabled = false;
                 B4_ID[i].Leave += (sender, e) => UpdateID(4, index, B4_ID[index].Text);
 
-                B4_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B4_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B4_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B4_Enable[i].TabIndex = 770;
                 B4_Enable[i].Click += (sender, e) => UpdateEnable(4, index, B4_Enable[index].Checked);
@@ -1304,7 +1304,7 @@ namespace OKI_Editor
                 B4_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B4_Common[i].AutoSize = true;
                 B4_Common[i].Enabled = false;
-                B4_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B4_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B4_Common[i].Size = new System.Drawing.Size(15, 14);
                 B4_Common[i].TabIndex = 897;
                 B4_Common[i].UseVisualStyleBackColor = true;
@@ -1467,7 +1467,7 @@ namespace OKI_Editor
             this.B5_Table.RowCount = 127;
             this.B5_Table.Size = new System.Drawing.Size(720, 2540);
             this.B5_Table.TabIndex = 2;
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 127; i++)
             {
                 this.B5_Table.Controls.Add(B5_Play[i], 8, i);
                 this.B5_Table.Controls.Add(B5_Import[i], 7, i);
@@ -1479,19 +1479,19 @@ namespace OKI_Editor
                 this.B5_Table.Controls.Add(B5_ID[i], 1, i);
                 this.B5_Table.Controls.Add(B5_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 127; i++)
             {
                 this.B5_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B5_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B5_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B5_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B5_Play[i].Size = new System.Drawing.Size(75, 20);
                 B5_Play[i].TabIndex = 14;
                 B5_Play[i].Text = "Play";
                 B5_Play[i].Click += (sender, e) => playRAWfile(5, index);
 
-                B5_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B5_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B5_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B5_Import[i].Size = new System.Drawing.Size(75, 20);
                 B5_Import[i].TabIndex = 14;
@@ -1499,7 +1499,7 @@ namespace OKI_Editor
                 B5_Import[i].Click += (sender, e) => importRAWfile(5, index);
 
                 B5_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B5_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B5_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B5_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B5_Export[i].Size = new System.Drawing.Size(75, 20);
                 B5_Export[i].TabIndex = 13;
@@ -1508,30 +1508,30 @@ namespace OKI_Editor
                 B5_Export[i].Click += (sender, e) => exportRAWfile(5, index);
 
                 B5_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B5_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B5_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B5_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B5_Length[i].Size = new System.Drawing.Size(100, 20);
                 B5_Length[i].TabIndex = 12;
                 B5_Length[i].Leave += (sender, e) => UpdateLength(5, index, B5_Length[index].Text);
 
-                B5_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B5_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B5_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B5_Offset[i].TabIndex = 11;
                 B5_Offset[i].Leave += (sender, e) => UpdateOffset(5, index, B5_Offset[index].Text);
 
-                B5_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B5_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B5_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B5_Depends[i].TabIndex = 392;
                 B5_Depends[i].Leave += (sender, e) => UpdateDepend(5, index, B5_Depends[index].Text);
 
-                B5_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B5_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B5_ID[i].Size = new System.Drawing.Size(32, 20);
                 B5_ID[i].TabIndex = 518;
                 B5_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B5_ID[i].Enabled = false;
                 B5_ID[i].Leave += (sender, e) => UpdateID(5, index, B5_ID[index].Text);
 
-                B5_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B5_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B5_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B5_Enable[i].TabIndex = 770;
                 B5_Enable[i].Click += (sender, e) => UpdateEnable(5, index, B5_Enable[index].Checked);
@@ -1539,7 +1539,7 @@ namespace OKI_Editor
                 B5_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B5_Common[i].AutoSize = true;
                 B5_Common[i].Enabled = false;
-                B5_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B5_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B5_Common[i].Size = new System.Drawing.Size(15, 14);
                 B5_Common[i].TabIndex = 897;
                 B5_Common[i].UseVisualStyleBackColor = true;
@@ -1702,7 +1702,7 @@ namespace OKI_Editor
             this.B6_Table.RowCount = 127;
             this.B6_Table.Size = new System.Drawing.Size(720, 2540);
             this.B6_Table.TabIndex = 2;
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B6_Table.Controls.Add(B6_Play[i], 8, i);
                 this.B6_Table.Controls.Add(B6_Import[i], 7, i);
@@ -1714,19 +1714,19 @@ namespace OKI_Editor
                 this.B6_Table.Controls.Add(B6_ID[i], 1, i);
                 this.B6_Table.Controls.Add(B6_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B6_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B6_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B6_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B6_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B6_Play[i].Size = new System.Drawing.Size(75, 20);
                 B6_Play[i].TabIndex = 14;
                 B6_Play[i].Text = "Play";
                 B6_Play[i].Click += (sender, e) => playRAWfile(6, index);
 
-                B6_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B6_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B6_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B6_Import[i].Size = new System.Drawing.Size(75, 20);
                 B6_Import[i].TabIndex = 14;
@@ -1734,7 +1734,7 @@ namespace OKI_Editor
                 B6_Import[i].Click += (sender, e) => importRAWfile(6, index);
 
                 B6_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B6_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B6_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B6_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B6_Export[i].Size = new System.Drawing.Size(75, 20);
                 B6_Export[i].TabIndex = 13;
@@ -1743,30 +1743,30 @@ namespace OKI_Editor
                 B6_Export[i].Click += (sender, e) => exportRAWfile(6, index);
 
                 B6_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B6_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B6_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B6_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B6_Length[i].Size = new System.Drawing.Size(100, 20);
                 B6_Length[i].TabIndex = 12;
                 B6_Length[i].Leave += (sender, e) => UpdateLength(6, index, B6_Length[index].Text);
 
-                B6_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B6_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B6_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B6_Offset[i].TabIndex = 11;
                 B6_Offset[i].Leave += (sender, e) => UpdateOffset(6, index, B6_Offset[index].Text);
 
-                B6_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B6_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B6_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B6_Depends[i].TabIndex = 392;
                 B6_Depends[i].Leave += (sender, e) => UpdateDepend(6, index, B6_Depends[index].Text);
 
-                B6_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B6_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B6_ID[i].Size = new System.Drawing.Size(32, 20);
                 B6_ID[i].TabIndex = 518;
                 B6_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B6_ID[i].Enabled = false;
                 B6_ID[i].Leave += (sender, e) => UpdateID(6, index, B6_ID[index].Text);
 
-                B6_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B6_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B6_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B6_Enable[i].TabIndex = 770;
                 B6_Enable[i].Click += (sender, e) => UpdateEnable(6, index, B6_Enable[index].Checked);
@@ -1774,7 +1774,7 @@ namespace OKI_Editor
                 B6_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B6_Common[i].AutoSize = true;
                 B6_Common[i].Enabled = false;
-                B6_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B6_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B6_Common[i].Size = new System.Drawing.Size(15, 14);
                 B6_Common[i].TabIndex = 897;
                 B6_Common[i].UseVisualStyleBackColor = true;
@@ -1937,7 +1937,7 @@ namespace OKI_Editor
             this.B7_Table.RowCount = 127;
             this.B7_Table.Size = new System.Drawing.Size(720, 2540);
             this.B7_Table.TabIndex = 2;
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B7_Table.Controls.Add(B7_Play[i], 8, i);
                 this.B7_Table.Controls.Add(B7_Import[i], 7, i);
@@ -1949,19 +1949,19 @@ namespace OKI_Editor
                 this.B7_Table.Controls.Add(B7_ID[i], 1, i);
                 this.B7_Table.Controls.Add(B7_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.B7_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                B7_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                B7_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 B7_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 B7_Play[i].Size = new System.Drawing.Size(75, 20);
                 B7_Play[i].TabIndex = 14;
                 B7_Play[i].Text = "Play";
                 B7_Play[i].Click += (sender, e) => playRAWfile(7, index);
 
-                B7_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                B7_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B7_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B7_Import[i].Size = new System.Drawing.Size(75, 20);
                 B7_Import[i].TabIndex = 14;
@@ -1969,7 +1969,7 @@ namespace OKI_Editor
                 B7_Import[i].Click += (sender, e) => importRAWfile(6, index);
 
                 B7_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B7_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                B7_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 B7_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 B7_Export[i].Size = new System.Drawing.Size(75, 20);
                 B7_Export[i].TabIndex = 13;
@@ -1978,30 +1978,30 @@ namespace OKI_Editor
                 B7_Export[i].Click += (sender, e) => exportRAWfile(7, index);
 
                 B7_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                B7_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                B7_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 B7_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 B7_Length[i].Size = new System.Drawing.Size(100, 20);
                 B7_Length[i].TabIndex = 12;
                 B7_Length[i].Leave += (sender, e) => UpdateLength(7, index, B7_Length[index].Text);
 
-                B7_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                B7_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 B7_Offset[i].Size = new System.Drawing.Size(100, 20);
                 B7_Offset[i].TabIndex = 11;
                 B7_Offset[i].Leave += (sender, e) => UpdateOffset(7, index, B7_Offset[index].Text);
 
-                B7_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                B7_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 B7_Depends[i].Size = new System.Drawing.Size(100, 20);
                 B7_Depends[i].TabIndex = 392;
                 B7_Depends[i].Leave += (sender, e) => UpdateDepend(7, index, B7_Depends[index].Text);
 
-                B7_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                B7_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B7_ID[i].Size = new System.Drawing.Size(32, 20);
                 B7_ID[i].TabIndex = 518;
                 B7_ID[i].Text = i.ToString().PadLeft(3, '0');
                 B7_ID[i].Enabled = false;
                 B7_ID[i].Leave += (sender, e) => UpdateID(7, index, B7_ID[index].Text);
 
-                B7_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                B7_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B7_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B7_Enable[i].TabIndex = 770;
                 B7_Enable[i].Click += (sender, e) => UpdateEnable(7, index, B7_Enable[index].Checked);
@@ -2009,7 +2009,7 @@ namespace OKI_Editor
                 B7_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B7_Common[i].AutoSize = true;
                 B7_Common[i].Enabled = false;
-                B7_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                B7_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 B7_Common[i].Size = new System.Drawing.Size(15, 14);
                 B7_Common[i].TabIndex = 897;
                 B7_Common[i].UseVisualStyleBackColor = true;
@@ -2173,7 +2173,7 @@ namespace OKI_Editor
             this.BCOM_Table.RowCount = 127;
             this.BCOM_Table.Size = new System.Drawing.Size(720, 2540);
             this.BCOM_Table.TabIndex = 2;
-            for (int i = 0; i < 127; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.BCOM_Table.Controls.Add(BCOM_Play[i], 8, i);
                 this.BCOM_Table.Controls.Add(BCOM_Import[i], 7, i);
@@ -2184,19 +2184,19 @@ namespace OKI_Editor
                 this.BCOM_Table.Controls.Add(BCOM_ID[i], 1, i);
                 this.BCOM_Table.Controls.Add(BCOM_Enable[i], 0, i);
             }
-            for (int i = 0; i < 127; i++)
+            for (int i = 01 i < 128; i++)
             {
                 this.BCOM_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
 
-                BCOM_Play[i].Location = new System.Drawing.Point(600, (i * 20));
+                BCOM_Play[i].Location = new System.Drawing.Point(600, ((i-1) * 20));
                 BCOM_Play[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Play[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Play[i].TabIndex = 14;
                 BCOM_Play[i].Text = "Play";
                 BCOM_Play[i].Click += (sender, e) => playRAWfile(8, index);
 
-                BCOM_Import[i].Location = new System.Drawing.Point(525, (i * 20));
+                BCOM_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 BCOM_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Import[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Import[i].TabIndex = 14;
@@ -2204,7 +2204,7 @@ namespace OKI_Editor
                 BCOM_Import[i].Click += (sender, e) => importRAWfile(8, index);
 
                 BCOM_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                BCOM_Export[i].Location = new System.Drawing.Point(450, (i * 20));
+                BCOM_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
                 BCOM_Export[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Export[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Export[i].TabIndex = 13;
@@ -2213,29 +2213,29 @@ namespace OKI_Editor
                 BCOM_Export[i].Click += (sender, e) => exportRAWfile(8, index);
 
                 BCOM_Length[i].Anchor = System.Windows.Forms.AnchorStyles.None;
-                BCOM_Length[i].Location = new System.Drawing.Point(347, (i * 20));
+                BCOM_Length[i].Location = new System.Drawing.Point(347, ((i-1) * 20));
                 BCOM_Length[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Length[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Length[i].TabIndex = 12;
                 BCOM_Length[i].Leave += (sender, e) => UpdateLength(8, index, BCOM_Length[index].Text);
 
-                BCOM_Offset[i].Location = new System.Drawing.Point(241, (i * 20) + 3);
+                BCOM_Offset[i].Location = new System.Drawing.Point(241, ((i-1) * 20) + 3);
                 BCOM_Offset[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Offset[i].TabIndex = 11;
                 BCOM_Offset[i].Leave += (sender, e) => UpdateOffset(8, index, BCOM_Offset[index].Text);
 
-                BCOM_Depends[i].Location = new System.Drawing.Point(135, (i * 20) + 3);
+                BCOM_Depends[i].Location = new System.Drawing.Point(135, ((i-1) * 20) + 3);
                 BCOM_Depends[i].Size = new System.Drawing.Size(100, 20);
                 BCOM_Depends[i].TabIndex = 392;
                 BCOM_Depends[i].Leave += (sender, e) => UpdateDepend(8, index, BCOM_Depends[index].Text);
 
-                BCOM_ID[i].Location = new System.Drawing.Point(43, (i * 20));
+                BCOM_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 BCOM_ID[i].Size = new System.Drawing.Size(32, 20);
                 BCOM_ID[i].TabIndex = 518;
                 BCOM_ID[i].Text = "C"+ (i.ToString().PadLeft(3, '0'));
                 BCOM_ID[i].Enabled = false;
 
-                BCOM_Enable[i].Location = new System.Drawing.Point(3, (i * 20) + 3);
+                BCOM_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 BCOM_Enable[i].Size = new System.Drawing.Size(15, 14);
                 BCOM_Enable[i].TabIndex = 770;
                 BCOM_Enable[i].Click += (sender, e) => UpdateEnable(8, index, BCOM_Enable[index].Checked);
@@ -2243,7 +2243,7 @@ namespace OKI_Editor
                 BCOM_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Common[i].AutoSize = true;
                 BCOM_Common[i].Enabled = false;
-                BCOM_Common[i].Location = new System.Drawing.Point(94, (i * 20) + 3);
+                BCOM_Common[i].Location = new System.Drawing.Point(94, ((i-1) * 20) + 3);
                 BCOM_Common[i].Size = new System.Drawing.Size(15, 14);
                 BCOM_Common[i].TabIndex = 897;
                 BCOM_Common[i].UseVisualStyleBackColor = true;
@@ -2281,7 +2281,7 @@ namespace OKI_Editor
             // 
             // MainDialog
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);//TODO: CHange this
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
