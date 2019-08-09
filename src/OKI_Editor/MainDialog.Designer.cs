@@ -369,7 +369,7 @@ namespace OKI_Editor
             this.tabControl1.Location = new System.Drawing.Point(2, 46);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(720, 683);
+            this.tabControl1.Size = new System.Drawing.Size(720, 580);//683
             this.tabControl1.TabIndex = 1;
             // 
             // Bank0_1
@@ -2184,7 +2184,7 @@ namespace OKI_Editor
                 this.BCOM_Table.Controls.Add(BCOM_ID[i], 1, i);
                 this.BCOM_Table.Controls.Add(BCOM_Enable[i], 0, i);
             }
-            for (int i = 01 i < 128; i++)
+            for (int i = 1; i < 128; i++)
             {
                 this.BCOM_Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
                 int index = i;
@@ -2375,8 +2375,6 @@ namespace OKI_Editor
             this.PerformLayout();
 
         }
-
-        private NotifyIcon trayIcon;
 
         #endregion
 

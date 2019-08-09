@@ -11,85 +11,85 @@ namespace OKI_Editor
 {
     public partial class MainDialog : Form
     {
-        System.Windows.Forms.Button[] B0_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B0_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B0_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B0_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B0_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B0_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B0_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B0_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B0_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B0_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B0_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B0_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B0_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B0_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B0_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B0_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B0_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B0_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B2_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B2_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B2_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B2_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B2_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B2_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B2_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B2_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B2_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B2_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B2_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B2_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B2_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B2_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B2_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B2_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B2_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B2_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B3_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B3_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B3_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B3_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B3_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B3_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B3_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B3_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B3_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B3_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B3_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B3_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B3_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B3_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B3_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B3_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B3_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B3_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B4_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B4_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B4_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B4_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B4_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B4_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B4_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B4_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B4_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B4_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B4_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B4_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B4_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B4_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B4_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B4_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B4_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B4_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B5_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B5_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B5_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B5_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B5_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B5_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B5_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B5_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B5_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B5_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B5_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B5_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B5_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B5_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B5_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B5_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B5_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B5_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B6_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B6_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B6_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B6_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B6_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B6_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B6_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B6_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B6_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B6_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B6_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B6_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B6_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B6_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B6_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B6_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B6_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B6_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] B7_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] B7_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] B7_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B7_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] B7_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] B7_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] B7_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] B7_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] B7_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] B7_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] B7_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] B7_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B7_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] B7_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] B7_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] B7_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] B7_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] B7_ID = new System.Windows.Forms.TextBox[128];
 
-        System.Windows.Forms.Button[] BCOM_Play = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.Button[] BCOM_Export = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.TextBox[] BCOM_Length = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] BCOM_Offset = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.TextBox[] BCOM_Depends = new System.Windows.Forms.TextBox[127];
-        System.Windows.Forms.Button[] BCOM_Import = new System.Windows.Forms.Button[127];
-        System.Windows.Forms.CheckBox[] BCOM_Enable = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.CheckBox[] BCOM_Common = new System.Windows.Forms.CheckBox[127];
-        System.Windows.Forms.TextBox[] BCOM_ID = new System.Windows.Forms.TextBox[127];
+        System.Windows.Forms.Button[] BCOM_Play = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.Button[] BCOM_Export = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.TextBox[] BCOM_Length = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] BCOM_Offset = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.TextBox[] BCOM_Depends = new System.Windows.Forms.TextBox[128];
+        System.Windows.Forms.Button[] BCOM_Import = new System.Windows.Forms.Button[128];
+        System.Windows.Forms.CheckBox[] BCOM_Enable = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.CheckBox[] BCOM_Common = new System.Windows.Forms.CheckBox[128];
+        System.Windows.Forms.TextBox[] BCOM_ID = new System.Windows.Forms.TextBox[128];
 
         private short ADPCMIndex;
         private short ADPCMLast;
@@ -1147,7 +1147,7 @@ namespace OKI_Editor
         private void computetimeBankCOM()
         {
             //compute bytes spare
-            int totalsize = 0x20000 - CommonBank.headersize;
+            int totalsize = 0x20000;
             foreach (Sample smp in CommonBank.samples)
             {
                 if (smp != null)
@@ -1161,10 +1161,6 @@ namespace OKI_Editor
                             }
 
                         }
-                    }
-                    if ((smp.id == CommonBank.lastsample) && CommonBank.samples[CommonBank.lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
                     }
                 }
             }
@@ -1203,7 +1199,7 @@ namespace OKI_Editor
             }
             else
             {
-                bankdata = Banks[bank]; ;
+                bankdata = Banks[bank];
             }
             SaveFileDialog SF = new SaveFileDialog
             {
@@ -1225,7 +1221,17 @@ namespace OKI_Editor
                     byte[] tmp = new byte[smp.length];
 
                     int parentid = smp.depends.ElementAt(0);
-                    Sample parent = bankdata.samples[parentid];
+                    Sample parent;
+                    if (smp.common == true)
+                    {
+
+                        parent = CommonBank.samples[parentid];
+                    }
+                    else
+                    {
+                        parent = bankdata.samples[parentid];
+                    }
+
                     Array.Copy(parent.RAW, smp.offset, tmp, 0, smp.length);
                     File.WriteAllBytes(SF.FileName, tmp);
                 }
@@ -1247,7 +1253,7 @@ namespace OKI_Editor
             }
             else
             {
-                bankdata = Banks[bank]; ;
+                bankdata = Banks[bank];
             }
             OpenFileDialog OF = new OpenFileDialog
             {
@@ -1372,7 +1378,8 @@ namespace OKI_Editor
 
             {
                 Sample smp = bankdata.samples[sample];
-                if (smp.common == true)
+                bool commonflag = smp.common;
+                if (commonflag == true)
                 {
                     int id = smp.commonid;
                     smp = CommonBank.samples[id];
@@ -1388,7 +1395,15 @@ namespace OKI_Editor
                     int SampleCount = 0;
 
                     int parentid = smp.depends.ElementAt(0);
-                    Sample parent = bankdata.samples[parentid];
+                    Sample parent;
+                    if (commonflag == true)
+                    {
+                        parent = CommonBank.samples[parentid];
+                    }
+                    else
+                    {
+                        parent = bankdata.samples[parentid];
+                    }
 
                     while (Position < EndPosition)
                     {
@@ -1458,28 +1473,17 @@ namespace OKI_Editor
 
         private byte [] GenerateBank(int bank)
         {
-            int[] newstarts = new int[127];
+            int[] newstarts = new int[128];
             byte[] result = new byte[0x20000];
             if (bank == 8)
             {
-                for (int i = 0; i < 8; i++)
-                {
-                    result[i] = 0x00;
-                }
-                int cursor = 8;
-                int headersize = 0x08 + (0x08 * CommonBank.samples.Length);
-                Sample lastsample = CommonBank.samples.Last();
-                if (lastsample.enabled == false)
-                {
-                    //we can use the last sample's headerspace and make a few bytes.
-                    headersize -= 0x08;
-                }
 
                 if (CommonBank.sparespace < 0)
                 {
                     MessageBox.Show("Common Bank is too large, cannot proceed", "Space Error",
                                                                  MessageBoxButtons.OK);
                 }
+                int StartPosition = 0;
                 foreach (Sample smp in CommonBank.samples)
                 {
                     if (smp != null)
@@ -1490,28 +1494,77 @@ namespace OKI_Editor
                             {
                                 if (smp.depends.Count == 0)
                                 {
-                                    int StartPosition = headersize;
                                     newstarts[smp.id] = StartPosition;
+                                    smp.start = StartPosition;
                                     int EndPosition = StartPosition + smp.length;
-                                    result[cursor] = (byte)(StartPosition >> 0x10);
-                                    cursor++;
-                                    result[cursor] = (byte)((StartPosition >> 0x08) & 0xff);
-                                    cursor++;
-                                    result[cursor] = (byte)((StartPosition) & 0xff);
-                                    cursor++;
-                                    result[cursor] = (byte)(EndPosition >> 0x10);
-                                    cursor++;
-                                    result[cursor] = (byte)((EndPosition >> 0x08) & 0xff);
-                                    cursor++;
-                                    result[cursor] = (byte)((EndPosition) & 0xff);
-                                    cursor++;
-                                    result[cursor] = 0x00;
-                                    cursor++;
-                                    result[cursor] = 0x00;
-                                    cursor++;
-
+                                    smp.end = EndPosition;
                                     Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
-                                    headersize += smp.length;
+                                    StartPosition += smp.length;
+                                }
+                                else
+                                {
+                                    int TMPStartPosition = newstarts[smp.depends.ElementAt(0)] + smp.offset;
+                                    newstarts[smp.id] = TMPStartPosition;
+                                    smp.start = TMPStartPosition;
+                                    int TMPEndPosition = StartPosition + smp.length;
+                                    smp.end = TMPEndPosition;
+                                }
+                            }
+                        }
+                    }
+                }
+                return result;
+
+            }
+            else
+            {
+                int cursor = 0x08;
+                int headersize = Banks[bank].headersize;
+                Sample lastsample = Banks[bank].samples[Banks[bank].lastsample];
+                if (lastsample.enabled == false)
+                {
+                    //we can use the last sample's headerspace and make a few bytes.
+                    headersize -= 0x08;
+                }
+
+                if (Banks[bank].sparespace < 0)
+                {
+                    MessageBox.Show("Bank " + bank + "is too large, cannot proceed", "Space Error",
+                                                                 MessageBoxButtons.OK);
+                }
+
+                foreach (Sample smp in Banks[bank].samples)
+                {
+                    if (smp != null)
+                    {
+                        if (smp.enabled == true)
+                        {
+                            if (smp.common == true)
+                            {
+                                if (smp.depends.Count == 0)
+                                {
+                                    smp.start = CommonBank.samples[smp.commonid].start;
+                                    smp.end = smp.start + smp.length;
+                                    newstarts[smp.id] = smp.start + 0x20000;
+                                    int start = newstarts[smp.id];
+                                    int end = start + smp.length;
+
+                                    result[cursor] = (byte)(start >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((start >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((start) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)(end >> 0x10);
+                                    cursor++;
+                                    result[cursor] = (byte)((end >> 0x08) & 0xff);
+                                    cursor++;
+                                    result[cursor] = (byte)((end) & 0xff);
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
+                                    result[cursor] = 0x00;
+                                    cursor++;
                                 }
                                 else
                                 {
@@ -1535,82 +1588,7 @@ namespace OKI_Editor
                                     result[cursor] = 0x00;
                                     cursor++;
 
-                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
                                 }
-                            }
-                        }
-                        else if (smp.id != lastsample.id)
-                        {
-                            newstarts[smp.id] = 0;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                            result[cursor] = 0x00;
-                            cursor++;
-                        }
-                    }
-                }
-                return result;
-
-            }
-            else
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    result[i] = 0x00;
-                }
-                int cursor = 8;
-                int headersize = Banks[bank].headersize;
-                Sample lastsample = Banks[bank].samples[Banks[bank].lastsample];
-                if (lastsample.enabled == false)
-                {
-                    //we can use the last sample's headerspace and make a few bytes.
-                    headersize -= 0x08;
-                }
-
-                if (Banks[bank].sparespace < 0)
-                {
-                    MessageBox.Show("Bank " + bank + "is too large, cannot proceed", "Space Error",
-                                                                 MessageBoxButtons.OK);
-                }
-
-                foreach (Sample smp in Banks[bank].samples)
-                {
-                    if (smp != null)
-                    {
-
-                        if (smp.enabled == true)
-                        {
-                            if (smp.common == true)
-                            {
-                                newstarts[smp.id] = smp.start;
-                                result[cursor] = (byte)(smp.start >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((smp.start >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((smp.start) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)(smp.end >> 0x10);
-                                cursor++;
-                                result[cursor] = (byte)((smp.end >> 0x08) & 0xff);
-                                cursor++;
-                                result[cursor] = (byte)((smp.end) & 0xff);
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
-                                result[cursor] = 0x00;
-                                cursor++;
                             }
                             else
                             {
@@ -1661,7 +1639,7 @@ namespace OKI_Editor
                                     result[cursor] = 0x00;
                                     cursor++;
 
-                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+//                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
                                 }
                             }
                         }
@@ -1701,6 +1679,10 @@ namespace OKI_Editor
             byte[] bank6 = null;
             byte[] bank7 = null;
             byte[] bankCOM = null;
+            //Do the common Bank first
+            bankCOM = GenerateBank(8);
+
+
             bank0 = GenerateBank(0);
 
             if (U12Mirror == false)
@@ -1717,7 +1699,6 @@ namespace OKI_Editor
             bank6 = GenerateBank(6);
             bank7 = GenerateBank(7);
 
-            bankCOM = GenerateBank(8);
 
             SaveFileDialog SF = new SaveFileDialog
             {
@@ -1829,10 +1810,18 @@ namespace OKI_Editor
         {
             if (bank <8)
             {
+                if (text.Length == 0)
+                {
+                    text = Banks[bank].samples[sample].length.ToString();
+                }
                 Banks[bank].samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
             }
             else
             {
+                if (text.Length == 0)
+                {
+                    text = CommonBank.samples[sample].length.ToString();
+                }
                 CommonBank.samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
             }
             switch (bank)
@@ -1869,10 +1858,18 @@ namespace OKI_Editor
         {
             if (bank < 8)
             {
+                if (text.Length == 0)
+                {
+                    Banks[bank].samples[sample].offset = 0;
+                }
                 Banks[bank].samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
             }
             else
             {
+                if (text.Length == 0)
+                {
+                    CommonBank.samples[sample].offset = 0;
+                }
                 CommonBank.samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
             }
             switch (bank)
@@ -1916,6 +1913,10 @@ namespace OKI_Editor
             {
                 bankdata = CommonBank;
             }
+            if (text.Length == 0)
+            {
+                bankdata.samples[sample].depends.Clear();
+            }
             if (text.Contains("0x"))
             {
                 bankdata.samples[sample].depends[0] = int.Parse(text, NumberStyles.HexNumber);
@@ -1957,12 +1958,12 @@ namespace OKI_Editor
 
         private void UpdateID(int bank, int sample, String text)
         {
+            Sample smp = Banks[bank].samples[sample];
             String[] splitarray = text.Split('C');
             if (splitarray.Length == 2)
             {
                 int comid = int.Parse(splitarray[1], NumberStyles.Integer);
 
-                Sample smp = Banks[bank].samples[sample];
 
                 smp.common = true;
                 smp.commonid = comid;
@@ -1994,6 +1995,10 @@ namespace OKI_Editor
                         break;
                 }
 
+            }
+            else
+            {
+                text = "C" + smp.commonid.ToString().PadLeft(3, '0');
             }
 
         }

@@ -8,6 +8,7 @@ namespace OKI_Editor
         public int headersize = 0;
         public int lastsample = 0;
         public int sparespace = 0;
+
         public Sample[] samples = new Sample[128];
         public CommonBank()
         {
@@ -26,7 +27,7 @@ namespace OKI_Editor
                 if (sample.valid == false)
                 {
 					//We skip the first sample of all 0's
-					if (firstsample == false) {					
+					if (firstsample == false) {
                     break;
 					}
 					else {
@@ -51,6 +52,7 @@ namespace OKI_Editor
             newsample.valid = true;
             newsample.start = start;
             newsample.length = length;
+            newsample.end = start + length;
             newsample.id = pos;
             newsample.RAW = RAW;
             samples[pos] = newsample;
