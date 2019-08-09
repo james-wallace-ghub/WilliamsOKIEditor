@@ -1,6 +1,7 @@
 ﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -904,7 +905,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B0_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B0_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -943,7 +944,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B2_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B2_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -981,7 +982,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B3_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B3_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1019,7 +1020,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B4_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B4_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1057,7 +1058,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B5_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B5_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1095,7 +1096,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B6_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B6_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1134,7 +1135,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                B7_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                B7_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1168,7 +1169,7 @@ namespace OKI_Editor
 
             if (totalsize < 0)
             {
-                BCOM_Bytes.Text = "-0x" + Math.Abs(totalsize).ToString("x");
+                BCOM_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
@@ -1275,7 +1276,7 @@ namespace OKI_Editor
                 }
                 else
                 {
-                    newspace = bankdata.sparespace - bankdata.samples[sample].RAW.Length;
+                    newspace = bankdata.sparespace + bankdata.samples[sample].RAW.Length;
                 }
 
                 int calcspace = newspace - tmp.Length;
