@@ -454,7 +454,7 @@ namespace OKI_Editor
             this.ALabel_RAW.Name = "ALabel_RAW";
             this.ALabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.ALabel_RAW.TabIndex = 9;
-            this.ALabel_RAW.Text = "RAW ADPCM Data";
+            this.ALabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // ALabel_Length
             // 
@@ -689,7 +689,7 @@ namespace OKI_Editor
             this.BLabel_RAW.Name = "BLabel_RAW";
             this.BLabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.BLabel_RAW.TabIndex = 9;
-            this.BLabel_RAW.Text = "RAW ADPCM Data";
+            this.BLabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // BLabel_Length
             // 
@@ -924,7 +924,7 @@ namespace OKI_Editor
             this.CLabel_RAW.Name = "CLabel_RAW";
             this.CLabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.CLabel_RAW.TabIndex = 9;
-            this.CLabel_RAW.Text = "RAW ADPCM Data";
+            this.CLabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // CLabel_Length
             // 
@@ -1159,7 +1159,7 @@ namespace OKI_Editor
             this.DLabel_RAW.Name = "DLabel_RAW";
             this.DLabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.DLabel_RAW.TabIndex = 9;
-            this.DLabel_RAW.Text = "RAW ADPCM Data";
+            this.DLabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // DLabel_Length
             // 
@@ -1393,7 +1393,7 @@ namespace OKI_Editor
             this.ELabel_RAW.Name = "ELabel_RAW";
             this.ELabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.ELabel_RAW.TabIndex = 9;
-            this.ELabel_RAW.Text = "RAW ADPCM Data";
+            this.ELabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // ELabel_Length
             // 
@@ -1628,7 +1628,7 @@ namespace OKI_Editor
             this.FLabel_RAW.Name = "FLabel_RAW";
             this.FLabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.FLabel_RAW.TabIndex = 9;
-            this.FLabel_RAW.Text = "RAW ADPCM Data";
+            this.FLabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // FLabel_Length
             // 
@@ -1847,7 +1847,7 @@ namespace OKI_Editor
             this.Label_RAW.Name = "Label_RAW";
             this.Label_RAW.Size = new System.Drawing.Size(100, 13);
             this.Label_RAW.TabIndex = 9;
-            this.Label_RAW.Text = "RAW ADPCM Data";
+            this.Label_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // Label_Length
             // 
@@ -2083,7 +2083,7 @@ namespace OKI_Editor
             this.COMLabel_RAW.Name = "Label_RAW";
             this.COMLabel_RAW.Size = new System.Drawing.Size(100, 13);
             this.COMLabel_RAW.TabIndex = 9;
-            this.COMLabel_RAW.Text = "RAW ADPCM Data";
+            this.COMLabel_RAW.Text = "ADPCM Sample Data Controls";
             // 
             // Label_Length
             // 

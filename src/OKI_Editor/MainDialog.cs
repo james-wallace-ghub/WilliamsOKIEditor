@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -95,7 +96,14 @@ namespace OKI_Editor
         private short ADPCMIndex;
         private short ADPCMLast;
 
-        short[] ADPCMBuffer;
+        short[] StepOKI = { 16, 17, 19, 21, 23, 25, 28, 31, 34, 37,
+                     41, 45, 50, 55, 60, 66, 73, 80, 88, 97,
+                     107, 118, 130, 143, 157, 173, 190, 209, 230, 253,
+                     279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
+                     724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552 };
+
+        short[] OKIAdjusts = { -1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8 };
+
         public MainDialog()
         {
             InitializeComponent();
@@ -1204,9 +1212,11 @@ namespace OKI_Editor
             }
             SaveFileDialog SF = new SaveFileDialog
             {
-                Title = "Save RAW File",
+                Title = "Save File",
                 InitialDirectory = "C:\\",
-                Filter = "All files (*) | *.*",
+                Filter = "WAV files (*.wav)|*.wav|VOX files (*.vox)|*.vox",
+                FilterIndex = 2,
+                SupportMultiDottedExtensions = false,
                 OverwritePrompt = true
             };
             if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -1234,11 +1244,23 @@ namespace OKI_Editor
                     }
 
                     Array.Copy(parent.RAW, smp.offset, tmp, 0, smp.length);
-                    File.WriteAllBytes(SF.FileName, tmp);
+                    if (SF.FileName.ToLower().Contains(".vox")) {
+                        File.WriteAllBytes(SF.FileName, tmp);
+                    }
+                    else
+                    {
+                        ExportSample(tmp, SF.FileName);
+                    }
                 }
                 else
                 {
-                    File.WriteAllBytes(SF.FileName, bankdata.samples[sample].RAW);
+                    if (SF.FileName.ToLower().Contains(".vox")) {
+                        File.WriteAllBytes(SF.FileName, bankdata.samples[sample].RAW);
+                    }
+                    else
+                    {
+                        ExportSample(bankdata.samples[sample].RAW, SF.FileName);
+                    }
                 }
             }
 
@@ -1258,9 +1280,11 @@ namespace OKI_Editor
             }
             OpenFileDialog OF = new OpenFileDialog
             {
-                Title = "Open RAW File",
+                Title = "Open Audio File",
                 InitialDirectory = "C:\\",
-                Filter = "All files (*) | *.*",
+                Filter = "WAV files (*.wav)|*.wav|All files (*.*)|*.*",
+                FilterIndex = 1,
+                SupportMultiDottedExtensions = false
             };
             if (OF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -1268,6 +1292,38 @@ namespace OKI_Editor
                 OF.FilterIndex = 0;
                 OF.RestoreDirectory = true;
                 byte[] tmp = File.ReadAllBytes(OF.FileName);
+
+                if (OF.FileName.ToLower().Contains(".wav"))
+                {
+                    int sampleRate = (int)float.Parse(samprate.Text);
+
+                    using (Stream stream = new MemoryStream(tmp))
+                    {
+                        using (WaveFileReader wavFileReader = new WaveFileReader(stream))
+                        {
+                            var resampler = new WdlResamplingSampleProvider(wavFileReader.ToSampleProvider(), sampleRate);
+                            var monoSource = resampler.ToMono().ToWaveProvider16();
+                            using (var outputStream = new MemoryStream())
+                            {
+                                byte[] bytesOutput = new byte[monoSource.WaveFormat.AverageBytesPerSecond];
+                                while (true)
+                                {
+                                    int bytesRead = monoSource.Read(bytesOutput, 0, bytesOutput.Length);
+                                    if (bytesRead == 0)
+                                        break;
+                                    outputStream.Write(bytesOutput, 0, bytesRead);
+                                }
+                                byte[] rawdata = (outputStream.ToArray()); // This is raw PCM data
+                                short[] DataToEncode = new short[(int)Math.Ceiling(rawdata.Length / 2.0)];
+
+                                Buffer.BlockCopy(rawdata, 0, DataToEncode, 0, rawdata.Length);
+                                rawdata = null;
+                                //rewrite as ADPCM data
+                                tmp = OKIEncode(DataToEncode);
+                            }
+                        }
+                    }
+                }
 
                 int newspace = 0;
                 if (bankdata.samples[sample].depends.Count > 0 && bankdata.samples[sample].depends.Count > 0)
@@ -1280,6 +1336,8 @@ namespace OKI_Editor
                 }
 
                 int calcspace = newspace - tmp.Length;
+                bool proceed = false;
+
                 if (calcspace < 0)
                 {
                     DialogResult confirmResult = MessageBox.Show("Importing this file will exceed the available space by 0x" +
@@ -1287,43 +1345,15 @@ namespace OKI_Editor
                                                          MessageBoxButtons.OKCancel);
                     if (confirmResult == DialogResult.OK)
                     {
-                        bankdata.samples[sample].RAW = tmp;
-                        bankdata.samples[sample].depends.Clear();
-                        bankdata.samples[sample].common = false;
-                        bankdata.samples[sample].offset = 0;
-                        bankdata.samples[sample].start = sample * 0x40000;
-                        bankdata.samples[sample].length = bankdata.samples[sample].RAW.Length;
-
-                        switch (bank)
-                        {
-                            case 0:
-                                setCtrl0();
-                                break;
-                            case 2:
-                                setCtrl2();
-                                break;
-                            case 3:
-                                setCtrl3();
-                                break;
-                            case 4:
-                                setCtrl4();
-                                break;
-                            case 5:
-                                setCtrl5();
-                                break;
-                            case 6:
-                                setCtrl6();
-                                break;
-                            case 7:
-                                setCtrl7();
-                                break;
-                            case 8:
-                                setCtrlCOM();
-                                break;
-                        }
+                        proceed = true;
                     }
                 }
                 else
+                {
+                    proceed = true;
+                }
+
+                if (proceed == true)
                 {
                     bankdata.samples[sample].RAW = tmp;
                     bankdata.samples[sample].depends.Clear();
@@ -1360,9 +1390,32 @@ namespace OKI_Editor
                     }
                 }
             }
-
+            MessageBox.Show("Import complete", "Import Complete",
+                                             MessageBoxButtons.OK);
         }
 
+        private byte[] OKIEncode(short[] input)
+        {
+
+            byte[] output = new byte[input.Length / 2];
+            //convert to 12 bit by clamping
+            for (int i = 0; i < input.Length; i++)
+            {
+                input[i] = (short)(input[i] / 16);
+            }
+
+            int j = 0;
+            for (int i = 0; i < (input.Length/2); i++)
+            {
+                output[i] = (byte)(OKIEncodeShort(input[j++]) << 4);
+                if (j > input.Length)  /* only true for last sample when n is odd */
+                    output[i] |= (byte)OKIEncodeShort(0);
+                else
+                    output[i] |= (byte)OKIEncodeShort(input[j++]);
+            }
+
+            return output;
+        }
 
         private void playRAWfile(int bank, int sample)
         {
@@ -1387,13 +1440,10 @@ namespace OKI_Editor
                 }
                 if (smp.depends.Count > 0)
                 {
-                    ADPCMBuffer = new short[smp.length * 2];
                     int StartPosition = smp.offset;
                     int EndPosition = StartPosition + smp.length;
 
                     int Position = StartPosition;
-
-                    int SampleCount = 0;
 
                     int parentid = smp.depends.ElementAt(0);
                     Sample parent;
@@ -1406,35 +1456,34 @@ namespace OKI_Editor
                         parent = bankdata.samples[parentid];
                     }
 
-                    while (Position < EndPosition)
-                    {
-                        ADPCMBuffer[SampleCount] = OKIDecodeNibble((parent.RAW[Position] & 0xf0) >> 4);
-                        SampleCount++;
-                        ADPCMBuffer[SampleCount] = OKIDecodeNibble(parent.RAW[Position] & 0xf);
-                        SampleCount++;
-                        Position++;
-                    }
-
-                    PlaySample(ADPCMBuffer);
+                    PlayADPCMSample(parent, Position, EndPosition);
                 }
                 else
                 {
-                    ADPCMBuffer = new short[smp.length * 2];
                     int Position = 0;
                     int EndPosition = smp.length;
-                    int SampleCount = 0;
-                    while (Position < EndPosition)
-                    {
-                        ADPCMBuffer[SampleCount] = OKIDecodeNibble((smp.RAW[Position] & 0xf0) >> 4);
-                        SampleCount++;
-                        ADPCMBuffer[SampleCount] = OKIDecodeNibble(smp.RAW[Position] & 0xf);
-                        SampleCount++;
-                        Position++;
-                    }
-                    PlaySample(ADPCMBuffer);
+                    PlayADPCMSample(smp, Position, EndPosition);
                 }
             }
 
+        }
+
+        private void PlayADPCMSample(Sample parent, int position, int endPosition)
+        {
+            int SampleCount = 0;
+            int length = endPosition  - position;
+            short [] ADPCMBuffer = new short[length * 2];
+
+            while (position < endPosition)
+            {
+                ADPCMBuffer[SampleCount] = OKIDecodeNibble((parent.RAW[position] & 0xf0) >> 4);
+                SampleCount++;
+                ADPCMBuffer[SampleCount] = OKIDecodeNibble(parent.RAW[position] & 0xf);
+                SampleCount++;
+                position++;
+            }
+
+            PlaySample(ADPCMBuffer);
         }
 
         static byte[] FromShort(short number)
@@ -1470,6 +1519,43 @@ namespace OKI_Editor
                 Thread.Sleep(500);
             }
             wo.Dispose();
+        }
+
+        private void ExportSample(byte[] ADPCMData, string Filename)
+        {
+            int SampleCount = 0;
+            int length = ADPCMData.Length;
+            short [] ADPCMBuffer = new short[length * 2];
+            int position = 0;
+            int endPosition = length;
+
+            while (position < endPosition)
+            {
+                ADPCMBuffer[SampleCount] = OKIDecodeNibble((ADPCMData[position] & 0xf0) >> 4);
+                SampleCount++;
+                ADPCMBuffer[SampleCount] = OKIDecodeNibble(ADPCMData[position] & 0xf);
+                SampleCount++;
+                position++;
+            }
+
+            byte[] ADPCMPlayBuffer = new byte[ADPCMBuffer.Length * 2];
+            for (int i = 0; i < ADPCMBuffer.Length; i++)
+            {
+                ADPCMBuffer[i] = (short)(ADPCMBuffer[i] * 16);
+                byte[] tmp = FromShort(ADPCMBuffer[i]);
+
+                int cursor = (i * 2);
+                ADPCMPlayBuffer[cursor] = tmp[0];
+                ADPCMPlayBuffer[(cursor + 1)] = tmp[1];
+            }
+
+            var sampleRate = (int)float.Parse(samprate.Text);
+            var ms = new MemoryStream(ADPCMPlayBuffer);
+            var rs = new RawSourceWaveStream(ms, new WaveFormat(sampleRate, 16, 1));
+
+            WaveFileWriter.CreateWaveFile(Filename, rs);
+            MessageBox.Show("Export to "+Filename+" complete", "Export Complete",
+                                                         MessageBoxButtons.OK);
         }
 
         private byte [] GenerateBank(int bank)
@@ -1763,7 +1849,8 @@ namespace OKI_Editor
                 File.WriteAllBytes(SF.FileName, U13Out);
                 U13Out = null;
             }
-
+            MessageBox.Show("Export of ROMs complete", "Export Complete",
+                                                         MessageBoxButtons.OK);
         }
         private void UpdateEnable(int bank, int sample, bool state)
         {
@@ -2004,17 +2091,49 @@ namespace OKI_Editor
 
         }
 
+        byte OKIEncodeShort(short Short)
+        {
+            int oki_byte;
+            short E, SS;
+
+            SS = SS = StepOKI[ADPCMIndex];
+            oki_byte = 0x00;
+
+            short delta = (short)(Short - ADPCMLast);
+            if (delta < 0)
+            {
+                // dropping waveform
+                oki_byte = 0x08;
+                E = (short) -delta;
+            }
+            else
+            {
+                E = delta;
+            }
+            if (E >= SS)
+            {
+                oki_byte = (oki_byte | 0x04);
+                E -= SS;
+            }
+            if (E >= SS / 2)
+            {
+                oki_byte = (oki_byte | 0x02);
+                E -= (byte) (SS / 2);
+            }
+            if (E >= SS / 4)
+            {
+                oki_byte = (oki_byte | 0x01);
+            }
+
+            //The reference implementation uses the decoder to predict the last sample
+            ADPCMLast = OKIDecodeNibble(oki_byte);
+            return (byte) oki_byte;
+        }
+
         short OKIDecodeNibble(int Nibble)
         {
             short SS, Sample, Diff, E;
 
-            short[] StepOKI = { 16, 17, 19, 21, 23, 25, 28, 31, 34, 37,
-                     41, 45, 50, 55, 60, 66, 73, 80, 88, 97,
-                     107, 118, 130, 143, 157, 173, 190, 209, 230, 253,
-                     279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
-                     724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552 };
-
-            short[] OKIAdjusts = { -1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8 };
 
             SS = StepOKI[ADPCMIndex];
             E = (short)(SS / 8);
