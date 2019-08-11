@@ -1213,7 +1213,7 @@ namespace OKI_Editor
             SaveFileDialog SF = new SaveFileDialog
             {
                 Title = "Save File",
-                InitialDirectory = "C:\\",
+                InitialDirectory = "C:\\adpcm",
                 Filter = "WAV files (*.wav)|*.wav|VOX files (*.vox)|*.vox",
                 FilterIndex = 2,
                 SupportMultiDottedExtensions = false,
@@ -1281,7 +1281,7 @@ namespace OKI_Editor
             OpenFileDialog OF = new OpenFileDialog
             {
                 Title = "Open Audio File",
-                InitialDirectory = "C:\\",
+                InitialDirectory = "C:\\adpcm",
                 Filter = "WAV files (*.wav)|*.wav|All files (*.*)|*.*",
                 FilterIndex = 1,
                 SupportMultiDottedExtensions = false
@@ -1704,7 +1704,10 @@ namespace OKI_Editor
                                     result[cursor] = 0x00;
                                     cursor++;
 
-                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    if (smp.length >0)
+                                    {
+                                        Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    }
                                     headersize += smp.length;
                                 }
                                 else
