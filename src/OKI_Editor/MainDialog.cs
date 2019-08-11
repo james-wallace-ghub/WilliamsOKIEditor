@@ -1301,11 +1301,14 @@ namespace OKI_Editor
                     {
                         using (WaveFileReader wavFileReader = new WaveFileReader(stream))
                         {
-                            var resampler = new WdlResamplingSampleProvider(wavFileReader.ToSampleProvider(), sampleRate);
-                            var monoSource = resampler.ToMono().ToWaveProvider16();
+                            var outFormat = new WaveFormat(sampleRate, 16, 1);
+                            var resampler = new MediaFoundationResampler(wavFileReader, outFormat);
+                            resampler.ResamplerQuality = 60;
+                            var Source = resampler.ToSampleProvider();
+                            SampleToWaveProvider16 monoSource = new SampleToWaveProvider16(Source);
                             using (var outputStream = new MemoryStream())
                             {
-                                byte[] bytesOutput = new byte[monoSource.WaveFormat.AverageBytesPerSecond];
+                                byte[] bytesOutput = new byte[outFormat.AverageBytesPerSecond];
                                 while (true)
                                 {
                                     int bytesRead = monoSource.Read(bytesOutput, 0, bytesOutput.Length);
