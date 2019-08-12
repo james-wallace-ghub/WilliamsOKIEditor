@@ -134,7 +134,97 @@ namespace OKI_Editor
             AboutBox1 a = new AboutBox1();
             a.Show();
         }
-            private void ImportLoad(object sender, EventArgs e)
+
+        private void ROMReload(string U12Name, string U13Name)
+        {
+            CommonBank = new CommonBank();
+            Banks = new Bank[8];
+            U12 = new byte[0x80000];
+            U13 = new byte[0x80000];
+            WPCROM = new byte[0x160000];
+            U12Totalsize = 0;
+            U13Totalsize = 0;
+
+            byte[] bytes = File.ReadAllBytes(U12Name);
+            Array.Copy(bytes, 0, U12, U12Totalsize, bytes.Length);
+            U12Totalsize += bytes.Length;
+
+            if (U12Totalsize < 0x80000)
+            {
+                U12Mirror = true;
+                int tempsize = U12Totalsize;
+                int i = 0;
+                do
+                {
+                    U12[tempsize + i] = U12[i];
+                    U12Totalsize++;
+                    i++;
+                }
+                while (U12Totalsize < 0x80000);
+            }
+
+            bytes = File.ReadAllBytes(U13Name);
+            Array.Copy(bytes, 0, U13, U13Totalsize, bytes.Length);
+            U13Totalsize += bytes.Length;
+
+            if (U13Totalsize < 0x80000)
+            {
+                U13Mirror = true;
+                int tempsize = U13Totalsize;
+                int i = 0;
+                do
+                {
+                    U13[tempsize + i] = U13[i];
+                    U13Totalsize++;
+                    i++;
+                }
+                while (U13Totalsize < 0x80000);
+            }
+            Array.Copy(U12, WPCROM, U12.Length);
+            Array.Copy(U13, 0, WPCROM, U12.Length, U13.Length);
+
+            U12 = null;
+            U13 = null;
+
+            Banks[0] = new Bank(0, WPCROM, 0x40000, CommonBank);
+            SetCtrl0();
+
+            if (U12Mirror == false)
+            {
+                Banks[2] = new Bank(2, WPCROM, 0x20000, CommonBank);
+                SetCtrl2();
+                Banks[3] = new Bank(3, WPCROM, 0x00000, CommonBank);
+                SetCtrl3();
+                B2_Table.Enabled = true;
+                B3_Table.Enabled = true;
+            }
+            else
+            {
+                B2_Table.Enabled = false;
+                B3_Table.Enabled = false;
+            }
+            if (U13Mirror == false)
+            {
+                Banks[4] = new Bank(4, WPCROM, 0xe0000, CommonBank);
+                SetCtrl4();
+                Banks[5] = new Bank(5, WPCROM, 0xc0000, CommonBank);
+                SetCtrl5();
+                B4_Table.Enabled = true;
+                B5_Table.Enabled = true;
+            }
+            else
+            {
+                B2_Table.Enabled = false;
+                B3_Table.Enabled = false;
+            }
+            Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
+            SetCtrl6();
+            Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
+            SetCtrl7();
+            SetCtrlCOM();
+        }
+
+        private void ImportLoad(object sender, EventArgs e)
         {
             ROMLoader rl = new ROMLoader();
             rl.ShowDialog();
@@ -197,14 +287,14 @@ namespace OKI_Editor
                 U13 = null;
 
                 Banks[0] = new Bank(0, WPCROM, 0x40000, CommonBank);
-                setCtrl0();
+                SetCtrl0();
 
                 if (U12Mirror == false)
                 {
                     Banks[2] = new Bank(2, WPCROM, 0x20000, CommonBank);
-                    setCtrl2();
+                    SetCtrl2();
                     Banks[3] = new Bank(3, WPCROM, 0x00000, CommonBank);
-                    setCtrl3();
+                    SetCtrl3();
                     B2_Table.Enabled = true;
                     B3_Table.Enabled = true;
                 }
@@ -216,9 +306,9 @@ namespace OKI_Editor
                 if (U13Mirror == false)
                 {
                     Banks[4] = new Bank(4, WPCROM, 0xe0000, CommonBank);
-                    setCtrl4();
+                    SetCtrl4();
                     Banks[5] = new Bank(5, WPCROM, 0xc0000, CommonBank);
-                    setCtrl5();
+                    SetCtrl5();
                     B4_Table.Enabled = true;
                     B5_Table.Enabled = true;
                 }
@@ -228,115 +318,123 @@ namespace OKI_Editor
                     B3_Table.Enabled = false;
                 }
                 Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
-                setCtrl6();
+                SetCtrl6();
                 Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
-                setCtrl7();
-                setCtrlCOM();
+                SetCtrl7();
+                SetCtrlCOM();
             }
         }
 
-        private void updateCtrl0()
+        private void UpdateCtrl0()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[0].samples[i].enabled == true)
-				{
-					Banks[0].samples[i].depends.Clear();
-					B0_Depends[i].Text = "";
-					B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
-					B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[0].samples[i].enabled == true)
+                {
+                    Banks[0].samples[i].depends.Clear();
+                    B0_Depends[i].Text = "";
+                    B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
+                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl2()
+        private void UpdateCtrl2()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[2].samples[i].enabled == true)
-				{
-					Banks[2].samples[i].depends.Clear();
-					B2_Depends[i].Text = "";
-					B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
-					B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[2].samples[i].enabled == true)
+                {
+                    Banks[2].samples[i].depends.Clear();
+                    B2_Depends[i].Text = "";
+                    B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
+                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl3()
+        private void UpdateCtrl3()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[3].samples[i].enabled == true)
-				{
-					Banks[3].samples[i].depends.Clear();
-					B3_Depends[i].Text = "";
-					B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
-					B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[3].samples[i].enabled == true)
+                {
+                    Banks[3].samples[i].depends.Clear();
+                    B3_Depends[i].Text = "";
+                    B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
+                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl4()
+        private void UpdateCtrl4()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[4].samples[i].enabled == true)
-				{
-					Banks[4].samples[i].depends.Clear();
-					B4_Depends[i].Text = "";
-					B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
-					B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[4].samples[i].enabled == true)
+                {
+                    Banks[4].samples[i].depends.Clear();
+                    B4_Depends[i].Text = "";
+                    B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
+                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl5()
+        private void UpdateCtrl5()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[5].samples[i].enabled == true)
-				{
-					Banks[5].samples[i].depends.Clear();
-					B5_Depends[i].Text = "";
-					B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
-					B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[5].samples[i].enabled == true)
+                {
+                    Banks[5].samples[i].depends.Clear();
+                    B5_Depends[i].Text = "";
+                    B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
+                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl6()
+        private void UpdateCtrl6()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[6].samples[i].enabled == true)
-				{
-					Banks[6].samples[i].depends.Clear();
-					B6_Depends[i].Text = "";
-					B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
-					B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[6].samples[i].enabled == true)
+                {
+                    Banks[6].samples[i].depends.Clear();
+                    B6_Depends[i].Text = "";
+                    B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
+                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrl7()
+        private void UpdateCtrl7()
         {
-			for (int i=0; i < 127; i++) {
-				if (Banks[7].samples[i].enabled == true)
-				{
-					Banks[7].samples[i].depends.Clear();
-					B7_Depends[i].Text = "";
-					B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
-					B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x");
-				}				
-			}
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[7].samples[i].enabled == true)
+                {
+                    Banks[7].samples[i].depends.Clear();
+                    B7_Depends[i].Text = "";
+                    B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
+                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x");
+                }
+            }
         }
-        private void updateCtrlCOM()
+        private void UpdateCtrlCOM()
         {
             int i = 0;
-			foreach (Sample smp in CommonBank.samples) {
-				if (smp.enabled == true)
-				{
-					smp.depends.Clear();
-					BCOM_Depends[i].Text = "";
-					BCOM_Offset[i].Text = "0x" + smp.offset.ToString("x");
-					BCOM_Length[i].Text = "0x" + smp.length.ToString("x");
-				}
+            foreach (Sample smp in CommonBank.samples)
+            {
+                if (smp.enabled == true)
+                {
+                    smp.depends.Clear();
+                    BCOM_Depends[i].Text = "";
+                    BCOM_Offset[i].Text = "0x" + smp.offset.ToString("x");
+                    BCOM_Length[i].Text = "0x" + smp.length.ToString("x");
+                }
                 i++;
-			}
+            }
         }
 
-        private void setCtrl0()
+        private void SetCtrl0()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B0_Play[i].Enabled = Banks[0].samples[i].enabled;
                 if (Banks[0].samples[i].enabled == true)
@@ -349,7 +447,7 @@ namespace OKI_Editor
                         B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B0_ID[i].Enabled = true;
                         B0_Import[i].Enabled = false;
-                        B0_Export[i].Enabled = false;					
+                        B0_Export[i].Enabled = false;
                         B0_Common[i].Checked = true;
                     }
                     else
@@ -357,7 +455,7 @@ namespace OKI_Editor
                         B0_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B0_ID[i].Enabled = false;
                         B0_Import[i].Enabled = true;
-                        B0_Export[i].Enabled = true;					
+                        B0_Export[i].Enabled = true;
                         B0_Common[i].Checked = false;
                     }
 
@@ -402,12 +500,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank0();
+            ComputeTimeBank0();
         }
 
-        private void setCtrl2()
+        private void SetCtrl2()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B2_Play[i].Enabled = Banks[2].samples[i].enabled;
                 if (Banks[2].samples[i].enabled == true)
@@ -420,7 +518,7 @@ namespace OKI_Editor
                         B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B2_ID[i].Enabled = true;
                         B2_Import[i].Enabled = false;
-                        B2_Export[i].Enabled = false;					
+                        B2_Export[i].Enabled = false;
                         B2_Common[i].Checked = true;
                     }
                     else
@@ -428,7 +526,7 @@ namespace OKI_Editor
                         B2_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B2_ID[i].Enabled = false;
                         B2_Import[i].Enabled = true;
-                        B2_Export[i].Enabled = true;					
+                        B2_Export[i].Enabled = true;
                         B2_Common[i].Checked = false;
                     }
 
@@ -473,12 +571,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank2();
+            ComputeTimeBank2();
         }
 
-        private void setCtrl3()
+        private void SetCtrl3()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B3_Play[i].Enabled = Banks[3].samples[i].enabled;
                 if (Banks[3].samples[i].enabled == true)
@@ -491,7 +589,7 @@ namespace OKI_Editor
                         B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B3_ID[i].Enabled = true;
                         B3_Import[i].Enabled = false;
-                        B3_Export[i].Enabled = false;					
+                        B3_Export[i].Enabled = false;
                         B3_Common[i].Checked = true;
                     }
                     else
@@ -499,7 +597,7 @@ namespace OKI_Editor
                         B3_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B3_ID[i].Enabled = false;
                         B3_Import[i].Enabled = true;
-                        B3_Export[i].Enabled = true;					
+                        B3_Export[i].Enabled = true;
                         B3_Common[i].Checked = false;
                     }
 
@@ -544,12 +642,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank3();
+            ComputeTimeBank3();
         }
 
-        private void setCtrl4()
+        private void SetCtrl4()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B4_Play[i].Enabled = Banks[4].samples[i].enabled;
                 if (Banks[4].samples[i].enabled == true)
@@ -562,7 +660,7 @@ namespace OKI_Editor
                         B4_ID[i].Text = "C" + (Banks[4].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B4_ID[i].Enabled = true;
                         B4_Import[i].Enabled = false;
-                        B4_Export[i].Enabled = false;					
+                        B4_Export[i].Enabled = false;
                         B4_Common[i].Checked = true;
                     }
                     else
@@ -570,7 +668,7 @@ namespace OKI_Editor
                         B4_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B4_ID[i].Enabled = false;
                         B4_Import[i].Enabled = true;
-                        B4_Export[i].Enabled = true;					
+                        B4_Export[i].Enabled = true;
                         B4_Common[i].Checked = false;
                     }
 
@@ -615,12 +713,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank4();
+            ComputeTimeBank4();
         }
 
-        private void setCtrl5()
+        private void SetCtrl5()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B5_Play[i].Enabled = Banks[5].samples[i].enabled;
                 if (Banks[5].samples[i].enabled == true)
@@ -633,7 +731,7 @@ namespace OKI_Editor
                         B5_ID[i].Text = "C" + (Banks[5].samples[i].commonid.ToString().PadLeft(3, '0'));
                         B5_ID[i].Enabled = true;
                         B5_Import[i].Enabled = false;
-                        B5_Export[i].Enabled = false;					
+                        B5_Export[i].Enabled = false;
                         B5_Common[i].Checked = true;
                     }
                     else
@@ -641,7 +739,7 @@ namespace OKI_Editor
                         B5_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B5_ID[i].Enabled = false;
                         B5_Import[i].Enabled = true;
-                        B5_Export[i].Enabled = true;					
+                        B5_Export[i].Enabled = true;
                         B5_Common[i].Checked = false;
                     }
 
@@ -686,12 +784,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank5();
+            ComputeTimeBank5();
         }
 
-        private void setCtrl6()
+        private void SetCtrl6()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B6_Play[i].Enabled = Banks[6].samples[i].enabled;
                 if (Banks[6].samples[i].enabled == true)
@@ -702,9 +800,9 @@ namespace OKI_Editor
                     if (Banks[6].samples[i].common == true)
                     {
                         B6_ID[i].Text = "C" + (Banks[6].samples[i].commonid.ToString().PadLeft(3, '0'));
-						B6_ID[i].Enabled= true;
+                        B6_ID[i].Enabled = true;
                         B6_Import[i].Enabled = false;
-                        B6_Export[i].Enabled = false;					
+                        B6_Export[i].Enabled = false;
                         B6_Common[i].Checked = true;
                     }
                     else
@@ -712,7 +810,7 @@ namespace OKI_Editor
                         B6_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B6_ID[i].Enabled = false;
                         B6_Import[i].Enabled = true;
-                        B6_Export[i].Enabled = true;					
+                        B6_Export[i].Enabled = true;
                         B6_Common[i].Checked = false;
                     }
 
@@ -757,12 +855,12 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank6();
+            ComputeTimeBank6();
         }
 
-        private void setCtrl7()
+        private void SetCtrl7()
         {
-            for (int i=0; i<127; i++)
+            for (int i = 0; i < 127; i++)
             {
                 B7_Play[i].Enabled = Banks[7].samples[i].enabled;
                 if (Banks[7].samples[i].enabled == true)
@@ -773,9 +871,9 @@ namespace OKI_Editor
                     if (Banks[7].samples[i].common == true)
                     {
                         B7_ID[i].Text = "C" + (Banks[7].samples[i].commonid.ToString().PadLeft(3, '0'));
-						B7_ID[i].Enabled = true;
+                        B7_ID[i].Enabled = true;
                         B7_Import[i].Enabled = false;
-                        B7_Export[i].Enabled = false;					
+                        B7_Export[i].Enabled = false;
                         B7_Common[i].Checked = true;
                     }
                     else
@@ -783,7 +881,7 @@ namespace OKI_Editor
                         B7_ID[i].Text = i.ToString().PadLeft(3, '0');
                         B7_ID[i].Enabled = false;
                         B7_Import[i].Enabled = true;
-                        B7_Export[i].Enabled = true;					
+                        B7_Export[i].Enabled = true;
                         B7_Common[i].Checked = false;
                     }
 
@@ -828,10 +926,10 @@ namespace OKI_Editor
                 }
 
             }
-            computetimeBank7();
+            ComputeTimeBank7();
         }
 
-        private void setCtrlCOM()
+        private void SetCtrlCOM()
         {
             int i = 0;
             foreach (Sample sample in CommonBank.samples)
@@ -881,10 +979,10 @@ namespace OKI_Editor
                 }
                 i++;
             }
-            computetimeBankCOM();
+            ComputeTimeBankCOM();
         }
 
-        private void computetimeBank0()
+        private void ComputeTimeBank0()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[0].headersize;
@@ -923,7 +1021,7 @@ namespace OKI_Editor
             B0_Seconds.Text = time.ToString("0.00000");
         }
 
-        private void computetimeBank2()
+        private void ComputeTimeBank2()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[2].headersize;
@@ -961,7 +1059,7 @@ namespace OKI_Editor
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
             B2_Seconds.Text = time.ToString("0.00000");
         }
-        private void computetimeBank3()
+        private void ComputeTimeBank3()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[3].headersize;
@@ -999,7 +1097,7 @@ namespace OKI_Editor
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
             B3_Seconds.Text = time.ToString("0.00000");
         }
-        private void computetimeBank4()
+        private void ComputeTimeBank4()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[4].headersize;
@@ -1037,7 +1135,7 @@ namespace OKI_Editor
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
             B4_Seconds.Text = time.ToString("0.00000");
         }
-        private void computetimeBank5()
+        private void ComputeTimeBank5()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[5].headersize;
@@ -1075,7 +1173,7 @@ namespace OKI_Editor
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
             B5_Seconds.Text = time.ToString("0.00000");
         }
-        private void computetimeBank6()
+        private void ComputeTimeBank6()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[6].headersize;
@@ -1114,7 +1212,7 @@ namespace OKI_Editor
             B6_Seconds.Text = time.ToString("0.00000");
         }
 
-        private void computetimeBank7()
+        private void ComputeTimeBank7()
         {
             //compute bytes spare
             int totalsize = 0x20000 - Banks[7].headersize;
@@ -1153,7 +1251,7 @@ namespace OKI_Editor
             B7_Seconds.Text = time.ToString("0.00000");
         }
 
-        private void computetimeBankCOM()
+        private void ComputeTimeBankCOM()
         {
             //compute bytes spare
             int totalsize = 0x20000;
@@ -1244,7 +1342,8 @@ namespace OKI_Editor
                     }
 
                     Array.Copy(parent.RAW, smp.offset, tmp, 0, smp.length);
-                    if (SF.FileName.ToLower().Contains(".vox")) {
+                    if (SF.FileName.ToLower().Contains(".vox"))
+                    {
                         File.WriteAllBytes(SF.FileName, tmp);
                     }
                     else
@@ -1254,7 +1353,8 @@ namespace OKI_Editor
                 }
                 else
                 {
-                    if (SF.FileName.ToLower().Contains(".vox")) {
+                    if (SF.FileName.ToLower().Contains(".vox"))
+                    {
                         File.WriteAllBytes(SF.FileName, bankdata.samples[sample].RAW);
                     }
                     else
@@ -1266,7 +1366,7 @@ namespace OKI_Editor
 
         }
 
-        private void importRAWfile(int bank, int sample)
+        private void ImportRAWfile(int bank, int sample)
         {
             Bank bankdata;
 
@@ -1301,12 +1401,14 @@ namespace OKI_Editor
                     {
                         using (WaveFileReader wavFileReader = new WaveFileReader(stream))
                         {
-                            var outFormat = new WaveFormat(sampleRate, 16, 1);
-                            var resampler = new MediaFoundationResampler(wavFileReader, outFormat);
-                            resampler.ResamplerQuality = 60;
-                            var Source = resampler.ToSampleProvider();
+                            WaveFormat outFormat = new WaveFormat(sampleRate, 16, 1);
+                            MediaFoundationResampler resampler = new MediaFoundationResampler(wavFileReader, outFormat)
+                            {
+                                ResamplerQuality = 60
+                            };
+                            ISampleProvider Source = resampler.ToSampleProvider();
                             SampleToWaveProvider16 monoSource = new SampleToWaveProvider16(Source);
-                            using (var outputStream = new MemoryStream())
+                            using (MemoryStream outputStream = new MemoryStream())
                             {
                                 byte[] bytesOutput = new byte[outFormat.AverageBytesPerSecond];
                                 while (true)
@@ -1367,28 +1469,28 @@ namespace OKI_Editor
                     switch (bank)
                     {
                         case 0:
-                            setCtrl0();
+                            SetCtrl0();
                             break;
                         case 2:
-                            setCtrl2();
+                            SetCtrl2();
                             break;
                         case 3:
-                            setCtrl3();
+                            SetCtrl3();
                             break;
                         case 4:
-                            setCtrl4();
+                            SetCtrl4();
                             break;
                         case 5:
-                            setCtrl5();
+                            SetCtrl5();
                             break;
                         case 6:
-                            setCtrl6();
+                            SetCtrl6();
                             break;
                         case 7:
-                            setCtrl7();
+                            SetCtrl7();
                             break;
                         case 8:
-                            setCtrlCOM();
+                            SetCtrlCOM();
                             break;
                     }
                 }
@@ -1408,7 +1510,7 @@ namespace OKI_Editor
             }
 
             int j = 0;
-            for (int i = 0; i < (input.Length/2); i++)
+            for (int i = 0; i < (input.Length / 2); i++)
             {
                 output[i] = (byte)(OKIEncodeShort(input[j++]) << 4);
                 if (j > input.Length)  /* only true for last sample when n is odd */
@@ -1420,7 +1522,7 @@ namespace OKI_Editor
             return output;
         }
 
-        private void playRAWfile(int bank, int sample)
+        private void PlayRAWfile(int bank, int sample)
         {
             Bank bankdata;
 
@@ -1474,8 +1576,8 @@ namespace OKI_Editor
         private void PlayADPCMSample(Sample parent, int position, int endPosition)
         {
             int SampleCount = 0;
-            int length = endPosition  - position;
-            short [] ADPCMBuffer = new short[length * 2];
+            int length = endPosition - position;
+            short[] ADPCMBuffer = new short[length * 2];
 
             while (position < endPosition)
             {
@@ -1502,19 +1604,19 @@ namespace OKI_Editor
             byte[] ADPCMPlayBuffer = new byte[ADPCMBuffer.Length * 2];
             for (int i = 0; i < ADPCMBuffer.Length; i++)
             {
-                ADPCMBuffer[i] = (short)(ADPCMBuffer[i] *16);
+                ADPCMBuffer[i] = (short)(ADPCMBuffer[i] * 16);
                 byte[] tmp = FromShort(ADPCMBuffer[i]);
 
                 int cursor = (i * 2);
                 ADPCMPlayBuffer[cursor] = tmp[0];
-                ADPCMPlayBuffer[(cursor+1)] = tmp[1];
+                ADPCMPlayBuffer[(cursor + 1)] = tmp[1];
             }
 
-        var sampleRate = (int)float.Parse(samprate.Text);
-            var ms = new MemoryStream(ADPCMPlayBuffer);
-            var rs = new RawSourceWaveStream(ms, new WaveFormat(sampleRate, 16, 1));
+            int sampleRate = (int)float.Parse(samprate.Text);
+            MemoryStream ms = new MemoryStream(ADPCMPlayBuffer);
+            RawSourceWaveStream rs = new RawSourceWaveStream(ms, new WaveFormat(sampleRate, 16, 1));
 
-            var wo = new WaveOutEvent();
+            WaveOutEvent wo = new WaveOutEvent();
             wo.Init(rs);
             wo.Play();
             while (wo.PlaybackState == PlaybackState.Playing)
@@ -1528,7 +1630,7 @@ namespace OKI_Editor
         {
             int SampleCount = 0;
             int length = ADPCMData.Length;
-            short [] ADPCMBuffer = new short[length * 2];
+            short[] ADPCMBuffer = new short[length * 2];
             int position = 0;
             int endPosition = length;
 
@@ -1557,11 +1659,12 @@ namespace OKI_Editor
             var rs = new RawSourceWaveStream(ms, new WaveFormat(sampleRate, 16, 1));
 
             WaveFileWriter.CreateWaveFile(Filename, rs);
-            MessageBox.Show("Export to "+Filename+" complete", "Export Complete",
+            MessageBox.Show("Export to " + Filename + " complete", "Export Complete",
                                                          MessageBoxButtons.OK);
+
         }
 
-        private byte [] GenerateBank(int bank)
+        private byte[] GenerateBank(int bank)
         {
             int[] newstarts = new int[128];
             byte[] result = new byte[0x20000];
@@ -1704,7 +1807,7 @@ namespace OKI_Editor
                                     result[cursor] = 0x00;
                                     cursor++;
 
-                                    if (smp.length >0)
+                                    if (smp.length > 0)
                                     {
                                         Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
                                     }
@@ -1732,7 +1835,7 @@ namespace OKI_Editor
                                     result[cursor] = 0x00;
                                     cursor++;
 
-//                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
+                                    //                                    Array.Copy(smp.RAW, 0, result, StartPosition, smp.length);
                                 }
                             }
                         }
@@ -1761,7 +1864,7 @@ namespace OKI_Editor
                 return result;
             }
         }
-		
+
         private void GenerateROMs(object sender, EventArgs e)
         {
             byte[] bank0 = null;
@@ -1792,7 +1895,7 @@ namespace OKI_Editor
             bank6 = GenerateBank(6);
             bank7 = GenerateBank(7);
 
-
+            string U12Name="";
             SaveFileDialog SF = new SaveFileDialog
             {
                 Title = "Save U12 File",
@@ -1809,21 +1912,25 @@ namespace OKI_Editor
                 if (U12Mirror == false)
                 {
                     U12Out = new byte[0x80000];
-                    Array.Copy(bank3,  0, U12Out, 0x00000, 0x20000);
-                    Array.Copy(bank2,  0, U12Out, 0x20000, 0x20000);
-                    Array.Copy(bank0,  0, U12Out, 0x40000, 0x20000);
-                    Array.Copy(bankCOM,0, U12Out, 0x60000, 0x20000);//common
+                    Array.Copy(bank3, 0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(bank2, 0, U12Out, 0x20000, 0x20000);
+                    Array.Copy(bank0, 0, U12Out, 0x40000, 0x20000);
+                    Array.Copy(bankCOM, 0, U12Out, 0x60000, 0x20000);//common
                 }
                 else
                 {
                     U12Out = new byte[0x40000];
-                    Array.Copy(bank0,  0, U12Out, 0x00000, 0x20000);
-                    Array.Copy(bankCOM,0, U12Out, 0x20000, 0x20000);//common
+                    Array.Copy(bank0, 0, U12Out, 0x00000, 0x20000);
+                    Array.Copy(bankCOM, 0, U12Out, 0x20000, 0x20000);//common
                 }
 
+                U12Name = SF.FileName;
                 File.WriteAllBytes(SF.FileName, U12Out);
                 U12Out = null;
             }
+
+            string U13Name="";
+
             SF = new SaveFileDialog
             {
                 Title = "Save U13 File",
@@ -1851,12 +1958,24 @@ namespace OKI_Editor
                     Array.Copy(bank7, 0, U13Out, 0x00000, 0x20000);
                     Array.Copy(bank6, 0, U13Out, 0x20000, 0x20000);
                 }
+                U13Name = SF.FileName;
 
                 File.WriteAllBytes(SF.FileName, U13Out);
                 U13Out = null;
             }
             MessageBox.Show("Export of ROMs complete", "Export Complete",
                                                          MessageBoxButtons.OK);
+            bank0 = null;
+            bank2 = null;
+            bank3 = null;
+            bank4 = null;
+            bank5 = null;
+            bank6 = null;
+            bank7 = null;
+            bankCOM = null;
+
+            ROMReload(U12Name, U13Name);
+
         }
         private void UpdateEnable(int bank, int sample, bool state)
         {
@@ -1873,28 +1992,28 @@ namespace OKI_Editor
             switch (bank)
             {
                 case 0:
-					computetimeBank0();
+                    ComputeTimeBank0();
                     break;
                 case 2:
-					computetimeBank2();
+                    ComputeTimeBank2();
                     break;
                 case 3:
-					computetimeBank3();
+                    ComputeTimeBank3();
                     break;
                 case 4:
-					computetimeBank4();
+                    ComputeTimeBank4();
                     break;
                 case 5:
-					computetimeBank5();
+                    ComputeTimeBank5();
                     break;
                 case 6:
-					computetimeBank6();
+                    ComputeTimeBank6();
                     break;
                 case 7:
-					computetimeBank7();
+                    ComputeTimeBank7();
                     break;
                 case 8:
-                    computetimeBankCOM();
+                    ComputeTimeBankCOM();
                     break;
             }
         }
@@ -1902,7 +2021,7 @@ namespace OKI_Editor
 
         private void UpdateLength(int bank, int sample, String text)
         {
-            if (bank <8)
+            if (bank < 8)
             {
                 if (text.Length == 0)
                 {
@@ -1921,28 +2040,28 @@ namespace OKI_Editor
             switch (bank)
             {
                 case 0:
-                    setCtrl0();
+                    SetCtrl0();
                     break;
                 case 2:
-                    setCtrl2();
+                    SetCtrl2();
                     break;
                 case 3:
-                    setCtrl3();
+                    SetCtrl3();
                     break;
                 case 4:
-                    setCtrl4();
+                    SetCtrl4();
                     break;
                 case 5:
-                    setCtrl5();
+                    SetCtrl5();
                     break;
                 case 6:
-                    setCtrl6();
+                    SetCtrl6();
                     break;
                 case 7:
-                    setCtrl7();
+                    SetCtrl7();
                     break;
                 case 8:
-                    setCtrlCOM();
+                    SetCtrlCOM();
                     break;
             }
 
@@ -1969,28 +2088,28 @@ namespace OKI_Editor
             switch (bank)
             {
                 case 0:
-                    setCtrl0();
+                    SetCtrl0();
                     break;
                 case 2:
-                    setCtrl2();
+                    SetCtrl2();
                     break;
                 case 3:
-                    setCtrl3();
+                    SetCtrl3();
                     break;
                 case 4:
-                    setCtrl4();
+                    SetCtrl4();
                     break;
                 case 5:
-                    setCtrl5();
+                    SetCtrl5();
                     break;
                 case 6:
-                    setCtrl6();
+                    SetCtrl6();
                     break;
                 case 7:
-                    setCtrl7();
+                    SetCtrl7();
                     break;
                 case 8:
-                    setCtrlCOM();
+                    SetCtrlCOM();
                     break;
             }
 
@@ -2022,28 +2141,28 @@ namespace OKI_Editor
             switch (bank)
             {
                 case 0:
-                    setCtrl0();
+                    SetCtrl0();
                     break;
                 case 2:
-                    setCtrl2();
+                    SetCtrl2();
                     break;
                 case 3:
-                    setCtrl3();
+                    SetCtrl3();
                     break;
                 case 4:
-                    setCtrl4();
+                    SetCtrl4();
                     break;
                 case 5:
-                    setCtrl5();
+                    SetCtrl5();
                     break;
                 case 6:
-                    setCtrl6();
+                    SetCtrl6();
                     break;
                 case 7:
-                    setCtrl7();
+                    SetCtrl7();
                     break;
                 case 8:
-                    setCtrlCOM();
+                    SetCtrlCOM();
                     break;
             }
 
@@ -2064,28 +2183,28 @@ namespace OKI_Editor
                 switch (bank)
                 {
                     case 0:
-                        setCtrl0();
+                        SetCtrl0();
                         break;
                     case 2:
-                        setCtrl2();
+                        SetCtrl2();
                         break;
                     case 3:
-                        setCtrl3();
+                        SetCtrl3();
                         break;
                     case 4:
-                        setCtrl4();
+                        SetCtrl4();
                         break;
                     case 5:
-                        setCtrl5();
+                        SetCtrl5();
                         break;
                     case 6:
-                        setCtrl6();
+                        SetCtrl6();
                         break;
                     case 7:
-                        setCtrl7();
+                        SetCtrl7();
                         break;
                     case 8:
-                        setCtrlCOM();
+                        SetCtrlCOM();
                         break;
                 }
 
@@ -2110,7 +2229,7 @@ namespace OKI_Editor
             {
                 // dropping waveform
                 oki_byte = 0x08;
-                E = (short) -delta;
+                E = (short)-delta;
             }
             else
             {
@@ -2124,7 +2243,7 @@ namespace OKI_Editor
             if (E >= SS / 2)
             {
                 oki_byte = (oki_byte | 0x02);
-                E -= (byte) (SS / 2);
+                E -= (byte)(SS / 2);
             }
             if (E >= SS / 4)
             {
@@ -2133,7 +2252,7 @@ namespace OKI_Editor
 
             //The reference implementation uses the decoder to predict the last sample
             ADPCMLast = OKIDecodeNibble(oki_byte);
-            return (byte) oki_byte;
+            return (byte)oki_byte;
         }
 
         short OKIDecodeNibble(int Nibble)
@@ -2144,26 +2263,26 @@ namespace OKI_Editor
             SS = StepOKI[ADPCMIndex];
             E = (short)(SS / 8);
 
-            if ((Nibble & 0x01) >0)
+            if ((Nibble & 0x01) > 0)
             {
                 E += (short)(SS >> 2);
             }
-            if ((Nibble & 0x02) >0)
+            if ((Nibble & 0x02) > 0)
             {
                 E += (short)(SS >> 1);
             }
-            if ((Nibble & 0x04) >0)
+            if ((Nibble & 0x04) > 0)
             {
                 E += (short)SS;
             }
 
             if ((Nibble & 0x08) > 0)
             {
-                Diff = (short) -E;
+                Diff = (short)-E;
             }
             else
             {
-                Diff = (short) E;
+                Diff = (short)E;
             }
 
             Sample = (short)(ADPCMLast + Diff);

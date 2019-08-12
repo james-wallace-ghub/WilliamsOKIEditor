@@ -550,14 +550,14 @@ namespace OKI_Editor
                 B0_Play[i].Size = new System.Drawing.Size(75, 20);
                 B0_Play[i].TabIndex = 14;
                 B0_Play[i].Text = "Play";
-                B0_Play[i].Click += (sender, e) => playRAWfile(0, index);
+                B0_Play[i].Click += (sender, e) => PlayRAWfile(0, index);
 
                 B0_Import[i].Location = new System.Drawing.Point(525, ((i-1)*20));
 				B0_Import[i].Margin = new System.Windows.Forms.Padding(0);
 				B0_Import[i].Size = new System.Drawing.Size(75, 20);
 				B0_Import[i].TabIndex = 14;
 				B0_Import[i].Text = "Import";
-                B0_Import[i].Click += (sender, e) =>importRAWfile(0, index); 
+                B0_Import[i].Click += (sender, e) =>ImportRAWfile(0, index); 
 
                 B0_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B0_Export[i].Location = new System.Drawing.Point(450, ((i-1)*20));
@@ -785,14 +785,14 @@ namespace OKI_Editor
                 B2_Play[i].Size = new System.Drawing.Size(75, 20);
                 B2_Play[i].TabIndex = 14;
                 B2_Play[i].Text = "Play";
-                B2_Play[i].Click += (sender, e) => playRAWfile(2, index);
+                B2_Play[i].Click += (sender, e) => PlayRAWfile(2, index);
 
                 B2_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B2_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B2_Import[i].Size = new System.Drawing.Size(75, 20);
                 B2_Import[i].TabIndex = 14;
                 B2_Import[i].Text = "Import";
-                B2_Import[i].Click += (sender, e) => importRAWfile(2, index);
+                B2_Import[i].Click += (sender, e) => ImportRAWfile(2, index);
 
                 B2_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B2_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -1020,14 +1020,14 @@ namespace OKI_Editor
                 B3_Play[i].Size = new System.Drawing.Size(75, 20);
                 B3_Play[i].TabIndex = 14;
                 B3_Play[i].Text = "Play";
-                B3_Play[i].Click += (sender, e) => playRAWfile(3, index);
+                B3_Play[i].Click += (sender, e) => PlayRAWfile(3, index);
 
                 B3_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B3_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B3_Import[i].Size = new System.Drawing.Size(75, 20);
                 B3_Import[i].TabIndex = 14;
                 B3_Import[i].Text = "Import";
-                B3_Import[i].Click += (sender, e) => importRAWfile(3, index);
+                B3_Import[i].Click += (sender, e) => ImportRAWfile(3, index);
 
                 B3_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B3_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -1254,14 +1254,14 @@ namespace OKI_Editor
                 B4_Play[i].Size = new System.Drawing.Size(75, 20);
                 B4_Play[i].TabIndex = 14;
                 B4_Play[i].Text = "Play";
-                B4_Play[i].Click += (sender, e) => playRAWfile(4, index);
+                B4_Play[i].Click += (sender, e) => PlayRAWfile(4, index);
 
                 B4_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B4_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B4_Import[i].Size = new System.Drawing.Size(75, 20);
                 B4_Import[i].TabIndex = 14;
                 B4_Import[i].Text = "Import";
-                B4_Import[i].Click += (sender, e) => importRAWfile(4, index);
+                B4_Import[i].Click += (sender, e) => ImportRAWfile(4, index);
 
                 B4_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B4_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -1489,14 +1489,14 @@ namespace OKI_Editor
                 B5_Play[i].Size = new System.Drawing.Size(75, 20);
                 B5_Play[i].TabIndex = 14;
                 B5_Play[i].Text = "Play";
-                B5_Play[i].Click += (sender, e) => playRAWfile(5, index);
+                B5_Play[i].Click += (sender, e) => PlayRAWfile(5, index);
 
                 B5_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B5_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B5_Import[i].Size = new System.Drawing.Size(75, 20);
                 B5_Import[i].TabIndex = 14;
                 B5_Import[i].Text = "Import";
-                B5_Import[i].Click += (sender, e) => importRAWfile(5, index);
+                B5_Import[i].Click += (sender, e) => ImportRAWfile(5, index);
 
                 B5_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B5_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -1724,14 +1724,14 @@ namespace OKI_Editor
                 B6_Play[i].Size = new System.Drawing.Size(75, 20);
                 B6_Play[i].TabIndex = 14;
                 B6_Play[i].Text = "Play";
-                B6_Play[i].Click += (sender, e) => playRAWfile(6, index);
+                B6_Play[i].Click += (sender, e) => PlayRAWfile(6, index);
 
                 B6_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B6_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B6_Import[i].Size = new System.Drawing.Size(75, 20);
                 B6_Import[i].TabIndex = 14;
                 B6_Import[i].Text = "Import";
-                B6_Import[i].Click += (sender, e) => importRAWfile(6, index);
+                B6_Import[i].Click += (sender, e) => ImportRAWfile(6, index);
 
                 B6_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B6_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -1959,14 +1959,14 @@ namespace OKI_Editor
                 B7_Play[i].Size = new System.Drawing.Size(75, 20);
                 B7_Play[i].TabIndex = 14;
                 B7_Play[i].Text = "Play";
-                B7_Play[i].Click += (sender, e) => playRAWfile(7, index);
+                B7_Play[i].Click += (sender, e) => PlayRAWfile(7, index);
 
                 B7_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 B7_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 B7_Import[i].Size = new System.Drawing.Size(75, 20);
                 B7_Import[i].TabIndex = 14;
                 B7_Import[i].Text = "Import";
-                B7_Import[i].Click += (sender, e) => importRAWfile(6, index);
+                B7_Import[i].Click += (sender, e) => ImportRAWfile(6, index);
 
                 B7_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B7_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
@@ -2194,14 +2194,14 @@ namespace OKI_Editor
                 BCOM_Play[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Play[i].TabIndex = 14;
                 BCOM_Play[i].Text = "Play";
-                BCOM_Play[i].Click += (sender, e) => playRAWfile(8, index);
+                BCOM_Play[i].Click += (sender, e) => PlayRAWfile(8, index);
 
                 BCOM_Import[i].Location = new System.Drawing.Point(525, ((i-1) * 20));
                 BCOM_Import[i].Margin = new System.Windows.Forms.Padding(0);
                 BCOM_Import[i].Size = new System.Drawing.Size(75, 20);
                 BCOM_Import[i].TabIndex = 14;
                 BCOM_Import[i].Text = "Import";
-                BCOM_Import[i].Click += (sender, e) => importRAWfile(8, index);
+                BCOM_Import[i].Click += (sender, e) => ImportRAWfile(8, index);
 
                 BCOM_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
