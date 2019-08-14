@@ -1320,7 +1320,7 @@ namespace OKI_Editor
             if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SF.FilterIndex = 0;
-                SF.RestoreDirectory = true;
+                SF.RestoreDirectory = false;
                 Sample smp = bankdata.samples[sample];
 
                 if (smp.depends.Count > 0)
@@ -1382,7 +1382,7 @@ namespace OKI_Editor
             {
                 Title = "Open Audio File",
                 InitialDirectory = "C:\\adpcm",
-                Filter = "WAV files (*.wav)|*.wav|All files (*.*)|*.*",
+                Filter = "WAV files (*.wav)|*.wav|VOX files (*.vox)|*.*",
                 FilterIndex = 1,
                 SupportMultiDottedExtensions = false
             };
@@ -1390,7 +1390,7 @@ namespace OKI_Editor
             {
 
                 OF.FilterIndex = 0;
-                OF.RestoreDirectory = true;
+                OF.RestoreDirectory = false;
                 byte[] tmp = File.ReadAllBytes(OF.FileName);
 
                 if (OF.FileName.ToLower().Contains(".wav"))
@@ -1460,6 +1460,7 @@ namespace OKI_Editor
 
                 if (proceed == true)
                 {
+                    bankdata.samples[sample].RAW = null;
                     bankdata.samples[sample].RAW = tmp;
                     bankdata.samples[sample].depends.Clear();
                     bankdata.samples[sample].common = false;
@@ -1470,27 +1471,35 @@ namespace OKI_Editor
                     {
                         case 0:
                             SetCtrl0();
+                            ComputeTimeBank0();
                             break;
                         case 2:
                             SetCtrl2();
+                            ComputeTimeBank2();
                             break;
                         case 3:
                             SetCtrl3();
+                            ComputeTimeBank3();
                             break;
                         case 4:
                             SetCtrl4();
+                            ComputeTimeBank4();
                             break;
                         case 5:
                             SetCtrl5();
+                            ComputeTimeBank5();
                             break;
                         case 6:
                             SetCtrl6();
+                            ComputeTimeBank6();
                             break;
                         case 7:
                             SetCtrl7();
+                            ComputeTimeBank7();
                             break;
                         case 8:
                             SetCtrlCOM();
+                            ComputeTimeBankCOM();
                             break;
                     }
                 }

@@ -1966,7 +1966,7 @@ namespace OKI_Editor
                 B7_Import[i].Size = new System.Drawing.Size(75, 20);
                 B7_Import[i].TabIndex = 14;
                 B7_Import[i].Text = "Import";
-                B7_Import[i].Click += (sender, e) => ImportRAWfile(6, index);
+                B7_Import[i].Click += (sender, e) => ImportRAWfile(7, index);
 
                 B7_Export[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B7_Export[i].Location = new System.Drawing.Point(450, ((i-1) * 20));
