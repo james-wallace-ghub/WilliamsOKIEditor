@@ -96,6 +96,9 @@ namespace OKI_Editor
         private short ADPCMIndex;
         private short ADPCMLast;
 
+        private string ImportDir = "C:\\adpcm\\";
+        private string ExportDir = "C:\\adpcm\\";
+        private string ROMExportDir = "C:\\adpcm\\";
         short[] StepOKI = { 16, 17, 19, 21, 23, 25, 28, 31, 34, 37,
                      41, 45, 50, 55, 60, 66, 73, 80, 88, 97,
                      107, 118, 130, 143, 157, 173, 190, 209, 230, 253,
@@ -1311,7 +1314,7 @@ namespace OKI_Editor
             SaveFileDialog SF = new SaveFileDialog
             {
                 Title = "Save File",
-                InitialDirectory = "C:\\adpcm",
+                InitialDirectory = ExportDir,
                 Filter = "WAV files (*.wav)|*.wav|VOX files (*.vox)|*.vox",
                 FilterIndex = 2,
                 SupportMultiDottedExtensions = false,
@@ -1320,7 +1323,7 @@ namespace OKI_Editor
             if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SF.FilterIndex = 0;
-                SF.RestoreDirectory = false;
+                ExportDir = System.IO.Path.GetDirectoryName(SF.FileName);
                 Sample smp = bankdata.samples[sample];
 
                 if (smp.depends.Count > 0)
@@ -1381,7 +1384,7 @@ namespace OKI_Editor
             OpenFileDialog OF = new OpenFileDialog
             {
                 Title = "Open Audio File",
-                InitialDirectory = "C:\\adpcm",
+                InitialDirectory = ImportDir,
                 Filter = "WAV files (*.wav)|*.wav|VOX files (*.vox)|*.*",
                 FilterIndex = 1,
                 SupportMultiDottedExtensions = false
@@ -1390,7 +1393,7 @@ namespace OKI_Editor
             {
 
                 OF.FilterIndex = 0;
-                OF.RestoreDirectory = false;
+                ImportDir = System.IO.Path.GetDirectoryName(OF.FileName);
                 byte[] tmp = File.ReadAllBytes(OF.FileName);
 
                 if (OF.FileName.ToLower().Contains(".wav"))
@@ -1908,14 +1911,14 @@ namespace OKI_Editor
             SaveFileDialog SF = new SaveFileDialog
             {
                 Title = "Save U12 File",
-                InitialDirectory = "C:\\adpcm\roms",
+                InitialDirectory = ROMExportDir,
                 Filter = "All files (*) | *.*",
                 OverwritePrompt = true
             };
             if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SF.FilterIndex = 0;
-                SF.RestoreDirectory = true;
+                ROMExportDir = System.IO.Path.GetDirectoryName(SF.FileName);
 
                 byte[] U12Out;
                 if (U12Mirror == false)
@@ -1943,14 +1946,14 @@ namespace OKI_Editor
             SF = new SaveFileDialog
             {
                 Title = "Save U13 File",
-                InitialDirectory = "C:\\adpcm\roms",
+                InitialDirectory = ROMExportDir,
                 Filter = "All files (*) | *.*",
                 OverwritePrompt = true
             };
             if (SF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 SF.FilterIndex = 0;
-                SF.RestoreDirectory = true;
+                ROMExportDir = System.IO.Path.GetDirectoryName(SF.FileName);
 
                 byte[] U13Out;
                 if (U13Mirror == false)

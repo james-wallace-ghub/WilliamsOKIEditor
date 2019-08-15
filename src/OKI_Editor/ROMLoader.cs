@@ -12,6 +12,8 @@ namespace OKI_Editor
 {
     public partial class ROMLoader : Form
     {
+        private string ROMImportDir = "C:\\adpcm\\";
+
         public ROMLoader()
         {
             InitializeComponent();
@@ -22,14 +24,14 @@ namespace OKI_Editor
             OpenFileDialog OF = new OpenFileDialog
             {
                 Title = "Load a U12 ROM",
-                InitialDirectory = "C:\\adpcm\\roms",
+                InitialDirectory = ROMImportDir,
                 Filter = "All files (*) | *.*"
             };
 
             if (OF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 OF.FilterIndex = 0;
-                OF.RestoreDirectory = true;
+                ROMImportDir = System.IO.Path.GetDirectoryName(OF.FileName);
                 U12List.Nodes.Add(OF.FileName);
                 U12List.EndUpdate();
             }
@@ -46,14 +48,14 @@ namespace OKI_Editor
             OpenFileDialog OF = new OpenFileDialog
             {
                 Title = "Load a U13 ROM",
-                InitialDirectory = "C:\\adpcm\\roms",
+                InitialDirectory = ROMImportDir,
                 Filter = "All files (*) | *.*"
             };
 
             if (OF.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 OF.FilterIndex = 0;
-                OF.RestoreDirectory = true;
+                ROMImportDir = System.IO.Path.GetDirectoryName(OF.FileName);
                 U13List.Nodes.Add(OF.FileName);
                 U13List.EndUpdate();
             }
