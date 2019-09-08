@@ -447,7 +447,7 @@ namespace OKI_Editor
 
                     if (Banks[0].samples[i].common == true)
                     {
-                        B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString("X2"));
                         B0_ID[i].Enabled = true;
                         B0_Import[i].Enabled = false;
                         B0_Export[i].Enabled = false;
@@ -455,7 +455,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B0_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B0_ID[i].Text = i.ToString("X2");
                         B0_ID[i].Enabled = false;
                         B0_Import[i].Enabled = true;
                         B0_Export[i].Enabled = true;
@@ -494,7 +494,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[0].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B0_Depends[i].Text = deps;
@@ -518,7 +518,7 @@ namespace OKI_Editor
 
                     if (Banks[2].samples[i].common == true)
                     {
-                        B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString("X2"));
                         B2_ID[i].Enabled = true;
                         B2_Import[i].Enabled = false;
                         B2_Export[i].Enabled = false;
@@ -526,7 +526,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B2_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B2_ID[i].Text = i.ToString("X2");;
                         B2_ID[i].Enabled = false;
                         B2_Import[i].Enabled = true;
                         B2_Export[i].Enabled = true;
@@ -565,7 +565,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[2].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B2_Depends[i].Text = deps;
@@ -589,7 +589,7 @@ namespace OKI_Editor
 
                     if (Banks[3].samples[i].common == true)
                     {
-                        B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString("X2"));
                         B3_ID[i].Enabled = true;
                         B3_Import[i].Enabled = false;
                         B3_Export[i].Enabled = false;
@@ -597,7 +597,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B3_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B3_ID[i].Text = i.ToString("X2");;
                         B3_ID[i].Enabled = false;
                         B3_Import[i].Enabled = true;
                         B3_Export[i].Enabled = true;
@@ -636,7 +636,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[3].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B3_Depends[i].Text = deps;
@@ -660,7 +660,7 @@ namespace OKI_Editor
 
                     if (Banks[4].samples[i].common == true)
                     {
-                        B4_ID[i].Text = "C" + (Banks[4].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B4_ID[i].Text = "C" + (Banks[4].samples[i].commonid.ToString("X2"));
                         B4_ID[i].Enabled = true;
                         B4_Import[i].Enabled = false;
                         B4_Export[i].Enabled = false;
@@ -668,7 +668,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B4_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B4_ID[i].Text = i.ToString("X2");;
                         B4_ID[i].Enabled = false;
                         B4_Import[i].Enabled = true;
                         B4_Export[i].Enabled = true;
@@ -707,7 +707,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[4].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B4_Depends[i].Text = deps;
@@ -731,7 +731,7 @@ namespace OKI_Editor
 
                     if (Banks[5].samples[i].common == true)
                     {
-                        B5_ID[i].Text = "C" + (Banks[5].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B5_ID[i].Text = "C" + (Banks[5].samples[i].commonid.ToString("X2"));
                         B5_ID[i].Enabled = true;
                         B5_Import[i].Enabled = false;
                         B5_Export[i].Enabled = false;
@@ -739,7 +739,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B5_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B5_ID[i].Text = i.ToString("X2");;
                         B5_ID[i].Enabled = false;
                         B5_Import[i].Enabled = true;
                         B5_Export[i].Enabled = true;
@@ -778,7 +778,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[5].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B5_Depends[i].Text = deps;
@@ -802,7 +802,7 @@ namespace OKI_Editor
 
                     if (Banks[6].samples[i].common == true)
                     {
-                        B6_ID[i].Text = "C" + (Banks[6].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B6_ID[i].Text = "C" + (Banks[6].samples[i].commonid.ToString("X2"));
                         B6_ID[i].Enabled = true;
                         B6_Import[i].Enabled = false;
                         B6_Export[i].Enabled = false;
@@ -810,7 +810,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B6_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B6_ID[i].Text = i.ToString("X2");;
                         B6_ID[i].Enabled = false;
                         B6_Import[i].Enabled = true;
                         B6_Export[i].Enabled = true;
@@ -849,7 +849,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[6].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B6_Depends[i].Text = deps;
@@ -873,7 +873,7 @@ namespace OKI_Editor
 
                     if (Banks[7].samples[i].common == true)
                     {
-                        B7_ID[i].Text = "C" + (Banks[7].samples[i].commonid.ToString().PadLeft(3, '0'));
+                        B7_ID[i].Text = "C" + (Banks[7].samples[i].commonid.ToString("X2"));
                         B7_ID[i].Enabled = true;
                         B7_Import[i].Enabled = false;
                         B7_Export[i].Enabled = false;
@@ -881,7 +881,7 @@ namespace OKI_Editor
                     }
                     else
                     {
-                        B7_ID[i].Text = i.ToString().PadLeft(3, '0');
+                        B7_ID[i].Text = i.ToString("X2");;
                         B7_ID[i].Enabled = false;
                         B7_Import[i].Enabled = true;
                         B7_Export[i].Enabled = true;
@@ -920,7 +920,7 @@ namespace OKI_Editor
                     {
                         int dep = Banks[7].samples[i].depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     B7_Depends[i].Text = deps;
@@ -943,7 +943,7 @@ namespace OKI_Editor
                     BCOM_Enable[i].Enabled = true;
                     BCOM_Enable[i].Checked = true;
 
-                    BCOM_ID[i].Text = "C" + (sample.id.ToString().PadLeft(3, '0'));
+                    BCOM_ID[i].Text = "C" + (sample.id.ToString("X2"));
                     BCOM_Import[i].Enabled = true;
                     BCOM_Export[i].Enabled = true;
                     BCOM_Common[i].Checked = true;
@@ -973,7 +973,7 @@ namespace OKI_Editor
                     {
                         int dep = sample.depends[0];
                         {
-                            deps = dep.ToString();
+                            deps = dep.ToString("X2");
                         }
                     }
                     BCOM_Depends[i].Text = deps;
@@ -2223,7 +2223,7 @@ namespace OKI_Editor
             }
             else
             {
-                text = "C" + smp.commonid.ToString().PadLeft(3, '0');
+                text = "C" + smp.commonid.ToString("X2");;
             }
 
         }
