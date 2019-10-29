@@ -214,16 +214,25 @@ namespace OKI_Editor
                 SetCtrl5();
                 B4_Table.Enabled = true;
                 B5_Table.Enabled = true;
+				Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
+				SetCtrl6();
+				Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
+				SetCtrl7();
+                B6_Table.Enabled = true;
+                B7_Table.Enabled = true;
             }
             else
             {
-                B2_Table.Enabled = false;
-                B3_Table.Enabled = false;
+//                B2_Table.Enabled = false;
+ //               B3_Table.Enabled = false;
+				Banks[4] = new Bank(4, WPCROM, 0xa0000, CommonBank);
+				SetCtrl4();
+				Banks[5] = new Bank(5, WPCROM, 0x80000, CommonBank);
+				SetCtrl5();
+                B4_Table.Enabled = true;
+                B5_Table.Enabled = true;
             }
-            Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
-            SetCtrl6();
-            Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
-            SetCtrl7();
+			
             SetCtrlCOM();
         }
 
@@ -314,16 +323,27 @@ namespace OKI_Editor
                     SetCtrl5();
                     B4_Table.Enabled = true;
                     B5_Table.Enabled = true;
+					Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
+					SetCtrl6();
+					Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
+					SetCtrl7();
+                    B6_Table.Enabled = true;
+                    B7_Table.Enabled = true;
                 }
                 else
                 {
                     B2_Table.Enabled = false;
                     B3_Table.Enabled = false;
+					Banks[4] = new Bank(4, WPCROM, 0xa0000, CommonBank);
+					SetCtrl4();
+					Banks[5] = new Bank(5, WPCROM, 0x80000, CommonBank);
+					SetCtrl5();
+                    B4_Table.Enabled = true;
+                    B5_Table.Enabled = true;
+                    B6_Table.Enabled = false;
+                    B7_Table.Enabled = false;
+
                 }
-                Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
-                SetCtrl6();
-                Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
-                SetCtrl7();
                 SetCtrlCOM();
             }
         }
@@ -1900,12 +1920,12 @@ namespace OKI_Editor
             }
             if (U13Mirror == false)
             {
-                bank4 = GenerateBank(4);
-                bank5 = GenerateBank(5);
+                bank6 = GenerateBank(6);
+                bank7 = GenerateBank(7);
             }
+            bank4 = GenerateBank(4);
+            bank5 = GenerateBank(5);
 
-            bank6 = GenerateBank(6);
-            bank7 = GenerateBank(7);
 
             string U12Name="";
             SaveFileDialog SF = new SaveFileDialog
@@ -1967,8 +1987,8 @@ namespace OKI_Editor
                 else
                 {
                     U13Out = new byte[0x40000];
-                    Array.Copy(bank7, 0, U13Out, 0x00000, 0x20000);
-                    Array.Copy(bank6, 0, U13Out, 0x20000, 0x20000);
+                    Array.Copy(bank5, 0, U13Out, 0x00000, 0x20000);
+                    Array.Copy(bank4, 0, U13Out, 0x20000, 0x20000);
                 }
                 U13Name = SF.FileName;
 
