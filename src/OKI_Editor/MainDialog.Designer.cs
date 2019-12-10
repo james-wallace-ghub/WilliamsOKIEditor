@@ -588,7 +588,7 @@ namespace OKI_Editor
 				B0_ID[i].Location = new System.Drawing.Point(43, ((i-1)*20));
 				B0_ID[i].Size = new System.Drawing.Size(32, 20);
 				B0_ID[i].TabIndex = 518;
-				B0_ID[i].Text = i.ToString().PadLeft(3, '0');
+				B0_ID[i].Text = i.ToString("X2");
 				B0_ID[i].Enabled = false;
                 B0_ID[i].Leave += (sender, e) => UpdateID(0, index, B0_ID[index].Text);
 
@@ -823,7 +823,7 @@ namespace OKI_Editor
                 B2_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B2_ID[i].Size = new System.Drawing.Size(32, 20);
                 B2_ID[i].TabIndex = 518;
-                B2_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B2_ID[i].Text = i.ToString("X2");
                 B2_ID[i].Enabled = false;
                 B2_ID[i].Leave += (sender, e) => UpdateID(2, index, B2_ID[index].Text);
 
@@ -1058,7 +1058,7 @@ namespace OKI_Editor
                 B3_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B3_ID[i].Size = new System.Drawing.Size(32, 20);
                 B3_ID[i].TabIndex = 518;
-                B3_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B3_ID[i].Text = i.ToString("X2");
                 B3_ID[i].Enabled = false;
                 B3_ID[i].Leave += (sender, e) => UpdateID(3, index, B3_ID[index].Text);
 
@@ -1292,7 +1292,7 @@ namespace OKI_Editor
                 B4_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B4_ID[i].Size = new System.Drawing.Size(32, 20);
                 B4_ID[i].TabIndex = 518;
-                B4_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B4_ID[i].Text = i.ToString("X2");
                 B4_ID[i].Enabled = false;
                 B4_ID[i].Leave += (sender, e) => UpdateID(4, index, B4_ID[index].Text);
 
@@ -1527,7 +1527,7 @@ namespace OKI_Editor
                 B5_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B5_ID[i].Size = new System.Drawing.Size(32, 20);
                 B5_ID[i].TabIndex = 518;
-                B5_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B5_ID[i].Text = i.ToString("X2");
                 B5_ID[i].Enabled = false;
                 B5_ID[i].Leave += (sender, e) => UpdateID(5, index, B5_ID[index].Text);
 
@@ -1762,7 +1762,7 @@ namespace OKI_Editor
                 B6_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B6_ID[i].Size = new System.Drawing.Size(32, 20);
                 B6_ID[i].TabIndex = 518;
-                B6_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B6_ID[i].Text = i.ToString("X2");
                 B6_ID[i].Enabled = false;
                 B6_ID[i].Leave += (sender, e) => UpdateID(6, index, B6_ID[index].Text);
 
@@ -1997,7 +1997,7 @@ namespace OKI_Editor
                 B7_ID[i].Location = new System.Drawing.Point(43, ((i-1) * 20));
                 B7_ID[i].Size = new System.Drawing.Size(32, 20);
                 B7_ID[i].TabIndex = 518;
-                B7_ID[i].Text = i.ToString().PadLeft(3, '0');
+                B7_ID[i].Text = i.ToString("X2");
                 B7_ID[i].Enabled = false;
                 B7_ID[i].Leave += (sender, e) => UpdateID(7, index, B7_ID[index].Text);
 
