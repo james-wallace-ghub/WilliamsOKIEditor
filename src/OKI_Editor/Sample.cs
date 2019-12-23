@@ -16,7 +16,7 @@ namespace OKI_Editor
         internal int length;
         internal bool common;
         internal int commonid;
-        internal byte[] RAW;
+        internal byte[] RAW = new byte[0];
 
 
     }

@@ -1462,13 +1462,21 @@ namespace OKI_Editor
                 }
 
                 int newspace = 0;
+                newspace = bankdata.sparespace;
                 if (bankdata.samples[sample].depends.Count > 0 && bankdata.samples[sample].depends.Count > 0)
                 {
-                    newspace = bankdata.sparespace;
+                  //  newspace = bankdata.sparespace;
                 }
                 else
                 {
-                    newspace = bankdata.sparespace + bankdata.samples[sample].RAW.Length;
+                    if (bankdata.samples[sample].RAW != null)
+                    {
+                        newspace += bankdata.samples[sample].RAW.Length;
+                    }
+                    else
+                    {
+                        bankdata.samples[sample].RAW = new byte[0];
+                    }
                 }
 
                 int calcspace = newspace - tmp.Length;
@@ -2017,7 +2025,7 @@ namespace OKI_Editor
             ROMReload(U12Name, U13Name);
 
         }
-        private void UpdateEnable(int bank, int sample, bool state)
+        private void UpdateEnable(int bank, int sample, bool state, Button import, Button export, Button play)
         {
             Sample smp;
             if (bank < 8)
@@ -2029,6 +2037,9 @@ namespace OKI_Editor
                 smp = CommonBank.samples[sample];
             }
             smp.enabled = state;
+            import.Enabled = state;
+            export.Enabled = state;
+            play.Enabled = state;
             switch (bank)
             {
                 case 0:

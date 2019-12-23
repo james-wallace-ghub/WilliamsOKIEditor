@@ -595,7 +595,7 @@ namespace OKI_Editor
 				B0_Enable[i].Location = new System.Drawing.Point(3, ((i-1)*20)+3);
 				B0_Enable[i].Size = new System.Drawing.Size(15, 14);
 				B0_Enable[i].TabIndex = 770;
-				B0_Enable[i].Click += (sender, e) => UpdateEnable(0, index, B0_Enable[index].Checked);
+				B0_Enable[i].Click += (sender, e) => UpdateEnable(0, index, B0_Enable[index].Checked, B0_Import[index], B0_Export[index], B0_Play[index]);
 
 				B0_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
 				B0_Common[i].AutoSize = true;
@@ -830,7 +830,7 @@ namespace OKI_Editor
                 B2_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B2_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B2_Enable[i].TabIndex = 770;
-                B2_Enable[i].Click += (sender, e) => UpdateEnable(2, index, B2_Enable[index].Checked);
+                B2_Enable[i].Click += (sender, e) => UpdateEnable(2, index, B2_Enable[index].Checked, B2_Import[index], B2_Export[index], B2_Play[index]);
 
                 B2_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B2_Common[i].AutoSize = true;
@@ -1065,7 +1065,7 @@ namespace OKI_Editor
                 B3_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B3_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B3_Enable[i].TabIndex = 770;
-                B3_Enable[i].Click += (sender, e) => UpdateEnable(3, index, B3_Enable[index].Checked);
+                B3_Enable[i].Click += (sender, e) => UpdateEnable(3, index, B3_Enable[index].Checked, B3_Import[index], B3_Export[index], B3_Play[index]);
 
                 B3_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B3_Common[i].AutoSize = true;
@@ -1299,7 +1299,7 @@ namespace OKI_Editor
                 B4_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B4_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B4_Enable[i].TabIndex = 770;
-                B4_Enable[i].Click += (sender, e) => UpdateEnable(4, index, B4_Enable[index].Checked);
+                B4_Enable[i].Click += (sender, e) => UpdateEnable(4, index, B4_Enable[index].Checked, B4_Import[index], B4_Export[index], B4_Play[index]);
 
                 B4_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B4_Common[i].AutoSize = true;
@@ -1534,7 +1534,7 @@ namespace OKI_Editor
                 B5_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B5_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B5_Enable[i].TabIndex = 770;
-                B5_Enable[i].Click += (sender, e) => UpdateEnable(5, index, B5_Enable[index].Checked);
+                B5_Enable[i].Click += (sender, e) => UpdateEnable(5, index, B5_Enable[index].Checked, B5_Import[index], B5_Export[index], B5_Play[index]);
 
                 B5_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B5_Common[i].AutoSize = true;
@@ -1769,7 +1769,7 @@ namespace OKI_Editor
                 B6_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B6_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B6_Enable[i].TabIndex = 770;
-                B6_Enable[i].Click += (sender, e) => UpdateEnable(6, index, B6_Enable[index].Checked);
+                B6_Enable[i].Click += (sender, e) => UpdateEnable(6, index, B6_Enable[index].Checked, B6_Import[index], B6_Export[index], B6_Play[index]);
 
                 B6_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B6_Common[i].AutoSize = true;
@@ -2004,7 +2004,7 @@ namespace OKI_Editor
                 B7_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 B7_Enable[i].Size = new System.Drawing.Size(15, 14);
                 B7_Enable[i].TabIndex = 770;
-                B7_Enable[i].Click += (sender, e) => UpdateEnable(7, index, B7_Enable[index].Checked);
+                B7_Enable[i].Click += (sender, e) => UpdateEnable(7, index, B7_Enable[index].Checked, B7_Import[index], B7_Export[index], B7_Play[index]);
 
                 B7_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 B7_Common[i].AutoSize = true;
@@ -2238,7 +2238,7 @@ namespace OKI_Editor
                 BCOM_Enable[i].Location = new System.Drawing.Point(3, ((i-1) * 20) + 3);
                 BCOM_Enable[i].Size = new System.Drawing.Size(15, 14);
                 BCOM_Enable[i].TabIndex = 770;
-                BCOM_Enable[i].Click += (sender, e) => UpdateEnable(8, index, BCOM_Enable[index].Checked);
+                BCOM_Enable[i].Click += (sender, e) => UpdateEnable(8, index, BCOM_Enable[index].Checked, BCOM_Import[index], BCOM_Export[index], BCOM_Play[index]);
 
                 BCOM_Common[i].Anchor = System.Windows.Forms.AnchorStyles.None;
                 BCOM_Common[i].AutoSize = true;
