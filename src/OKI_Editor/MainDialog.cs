@@ -2031,6 +2031,10 @@ namespace OKI_Editor
             if (bank < 8)
             {
                 smp = Banks[bank].samples[sample];
+                if (sample > Banks[bank].lastsample)
+                {
+                    Banks[bank].lastsample = sample;
+                }
             }
             else
             {
