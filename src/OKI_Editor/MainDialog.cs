@@ -332,8 +332,6 @@ namespace OKI_Editor
                 }
                 else
                 {
-                    B2_Table.Enabled = false;
-                    B3_Table.Enabled = false;
 					Banks[4] = new Bank(4, WPCROM, 0xa0000, CommonBank);
 					SetCtrl4();
 					Banks[5] = new Bank(5, WPCROM, 0x80000, CommonBank);
@@ -2031,10 +2029,6 @@ namespace OKI_Editor
             if (bank < 8)
             {
                 smp = Banks[bank].samples[sample];
-                if (sample > Banks[bank].lastsample)
-                {
-                    Banks[bank].lastsample = sample;
-                }
             }
             else
             {
@@ -2044,7 +2038,16 @@ namespace OKI_Editor
             import.Enabled = state;
             export.Enabled = state;
             play.Enabled = state;
-            switch (bank)
+
+            for (int i=0; i < 128; i++)
+            {
+              Sample test = Banks[bank].samples[sample];
+              if (test.enabled) {
+                Banks[bank].lastsample = i;					
+              }
+            }
+
+			switch (bank)
             {
                 case 0:
                     ComputeTimeBank0();

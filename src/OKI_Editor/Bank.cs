@@ -59,6 +59,10 @@ namespace OKI_Editor
                         Array.Copy(WPCROM, commonstart, RAW, 0, sample.length);
 						sample.commonid = cb.addSample(commonstart, sample.length, RAW);
                     }
+                    else
+                    {
+                        sample.enabled = false;
+                    }
                 }
                 else
                 {
@@ -68,6 +72,10 @@ namespace OKI_Editor
                         byte [] RAW = new byte[sample.length];
                         Array.Copy(WPCROM, address + start, RAW, 0, sample.length);
                         sample.RAW = (byte[]) RAW.Clone();
+                    }
+                    else
+                    {
+                        sample.enabled = false;
                     }
                 }
 
