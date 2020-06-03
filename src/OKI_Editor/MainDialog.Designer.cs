@@ -459,11 +459,11 @@ namespace OKI_Editor
             // ALabel_Length
             // 
             this.ALabel_Length.AutoSize = true;
-            this.ALabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.ALabel_Length.Location = new System.Drawing.Point(346, 23);
             this.ALabel_Length.Name = "ALabel_Length";
             this.ALabel_Length.Size = new System.Drawing.Size(40, 13);
             this.ALabel_Length.TabIndex = 8;
-            this.ALabel_Length.Text = "Length";
+            this.ALabel_Length.Text = "Length(bytes,ticks)";
             // 
             // ALabel_Offset
             // 
@@ -694,11 +694,11 @@ namespace OKI_Editor
             // BLabel_Length
             // 
             this.BLabel_Length.AutoSize = true;
-            this.BLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.BLabel_Length.Location = new System.Drawing.Point(346, 23);
             this.BLabel_Length.Name = "BLabel_Length";
             this.BLabel_Length.Size = new System.Drawing.Size(40, 13);
             this.BLabel_Length.TabIndex = 8;
-            this.BLabel_Length.Text = "Length";
+            this.BLabel_Length.Text = "Length(bytes,ticks)";
             // 
             // BLabel_Offset
             // 
@@ -929,11 +929,11 @@ namespace OKI_Editor
             // CLabel_Length
             // 
             this.CLabel_Length.AutoSize = true;
-            this.CLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.CLabel_Length.Location = new System.Drawing.Point(346, 23);
             this.CLabel_Length.Name = "CLabel_Length";
             this.CLabel_Length.Size = new System.Drawing.Size(40, 13);
             this.CLabel_Length.TabIndex = 8;
-            this.CLabel_Length.Text = "Length";
+            this.CLabel_Length.Text = "Length(bytes,ticks)";
             // 
             // CLabel_Offset
             // 
@@ -1164,11 +1164,11 @@ namespace OKI_Editor
             // DLabel_Length
             // 
             this.DLabel_Length.AutoSize = true;
-            this.DLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.DLabel_Length.Location = new System.Drawing.Point(346, 23);
             this.DLabel_Length.Name = "DLabel_Length";
             this.DLabel_Length.Size = new System.Drawing.Size(40, 13);
             this.DLabel_Length.TabIndex = 8;
-            this.DLabel_Length.Text = "Length";
+            this.DLabel_Length.Text = "Length(bytes,ticks)";
             // 
             // DLabel_Offset
             // 
@@ -1398,11 +1398,11 @@ namespace OKI_Editor
             // ELabel_Length
             // 
             this.ELabel_Length.AutoSize = true;
-            this.ELabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.ELabel_Length.Location = new System.Drawing.Point(346, 23);
             this.ELabel_Length.Name = "ELabel_Length";
             this.ELabel_Length.Size = new System.Drawing.Size(40, 13);
             this.ELabel_Length.TabIndex = 8;
-            this.ELabel_Length.Text = "Length";
+            this.ELabel_Length.Text = "Length(bytes,ticks)";
             // 
             // ELabel_Offset
             // 
@@ -1633,11 +1633,11 @@ namespace OKI_Editor
             // FLabel_Length
             // 
             this.FLabel_Length.AutoSize = true;
-            this.FLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.FLabel_Length.Location = new System.Drawing.Point(346, 23);
             this.FLabel_Length.Name = "FLabel_Length";
             this.FLabel_Length.Size = new System.Drawing.Size(40, 13);
             this.FLabel_Length.TabIndex = 8;
-            this.FLabel_Length.Text = "Length";
+            this.FLabel_Length.Text = "Length(bytes,ticks)";
             // 
             // FLabel_Offset
             // 
@@ -1852,11 +1852,11 @@ namespace OKI_Editor
             // Label_Length
             // 
             this.Label_Length.AutoSize = true;
-            this.Label_Length.Location = new System.Drawing.Point(376, 23);
+            this.Label_Length.Location = new System.Drawing.Point(346, 23);
             this.Label_Length.Name = "Label_Length";
             this.Label_Length.Size = new System.Drawing.Size(40, 13);
             this.Label_Length.TabIndex = 8;
-            this.Label_Length.Text = "Length";
+            this.Label_Length.Text = "Length(bytes,ticks)";
             // 
             // Label_Offset
             // 
@@ -2088,11 +2088,11 @@ namespace OKI_Editor
             // Label_Length
             // 
             this.COMLabel_Length.AutoSize = true;
-            this.COMLabel_Length.Location = new System.Drawing.Point(376, 23);
+            this.COMLabel_Length.Location = new System.Drawing.Point(346, 23);
             this.COMLabel_Length.Name = "Label_Length";
             this.COMLabel_Length.Size = new System.Drawing.Size(40, 13);
             this.COMLabel_Length.TabIndex = 8;
-            this.COMLabel_Length.Text = "Length";
+            this.COMLabel_Length.Text = "Length(bytes,ticks)";
             // 
             // Label_Offset
             // 

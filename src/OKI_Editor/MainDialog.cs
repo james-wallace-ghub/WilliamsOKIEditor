@@ -355,7 +355,9 @@ namespace OKI_Editor
                     Banks[0].samples[i].depends.Clear();
                     B0_Depends[i].Text = "";
                     B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
-                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[0].samples[i].length * 0.13);
+
+                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -368,7 +370,8 @@ namespace OKI_Editor
                     Banks[2].samples[i].depends.Clear();
                     B2_Depends[i].Text = "";
                     B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
-                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[2].samples[i].length * 0.13);
+                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -381,7 +384,9 @@ namespace OKI_Editor
                     Banks[3].samples[i].depends.Clear();
                     B3_Depends[i].Text = "";
                     B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
-                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[3].samples[i].length * 0.13);
+                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
+
                 }
             }
         }
@@ -394,7 +399,8 @@ namespace OKI_Editor
                     Banks[4].samples[i].depends.Clear();
                     B4_Depends[i].Text = "";
                     B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
-                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[4].samples[i].length * 0.13);
+                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -407,7 +413,8 @@ namespace OKI_Editor
                     Banks[5].samples[i].depends.Clear();
                     B5_Depends[i].Text = "";
                     B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
-                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[5].samples[i].length * 0.13);
+                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -420,7 +427,8 @@ namespace OKI_Editor
                     Banks[6].samples[i].depends.Clear();
                     B6_Depends[i].Text = "";
                     B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
-                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[6].samples[i].length * 0.13);
+                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -433,7 +441,8 @@ namespace OKI_Editor
                     Banks[7].samples[i].depends.Clear();
                     B7_Depends[i].Text = "";
                     B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
-                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[7].samples[i].length * 0.13);
+                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
             }
         }
@@ -447,7 +456,8 @@ namespace OKI_Editor
                     smp.depends.Clear();
                     BCOM_Depends[i].Text = "";
                     BCOM_Offset[i].Text = "0x" + smp.offset.ToString("x");
-                    BCOM_Length[i].Text = "0x" + smp.length.ToString("x");
+                    int ticks = (int)(smp.length * 0.13);
+                    BCOM_Length[i].Text = "0x" + smp.length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
                 i++;
             }
@@ -518,7 +528,8 @@ namespace OKI_Editor
                     }
                     B0_Depends[i].Text = deps;
                     B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
-                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[0].samples[i].length * 0.13);
+                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -590,7 +601,8 @@ namespace OKI_Editor
                     }
                     B2_Depends[i].Text = deps;
                     B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
-                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[2].samples[i].length * 0.13);
+                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -662,7 +674,8 @@ namespace OKI_Editor
                     }
                     B3_Depends[i].Text = deps;
                     B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
-                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[3].samples[i].length * 0.13);
+                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -734,7 +747,8 @@ namespace OKI_Editor
                     }
                     B4_Depends[i].Text = deps;
                     B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
-                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[4].samples[i].length * 0.13);
+                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -806,7 +820,8 @@ namespace OKI_Editor
                     }
                     B5_Depends[i].Text = deps;
                     B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
-                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[5].samples[i].length * 0.13);
+                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -878,7 +893,8 @@ namespace OKI_Editor
                     }
                     B6_Depends[i].Text = deps;
                     B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
-                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[6].samples[i].length * 0.13);
+                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -950,7 +966,8 @@ namespace OKI_Editor
                     }
                     B7_Depends[i].Text = deps;
                     B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
-                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(Banks[7].samples[i].length * 0.13);
+                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
@@ -1004,7 +1021,8 @@ namespace OKI_Editor
                     }
                     BCOM_Depends[i].Text = deps;
                     BCOM_Offset[i].Text = "0x" + CommonBank.samples[i].offset.ToString("x");
-                    BCOM_Length[i].Text = "0x" + CommonBank.samples[i].length.ToString("x");
+                    int ticks = (int)Math.Round(CommonBank.samples[i].length * 0.13);
+                    BCOM_Length[i].Text = "0x" + CommonBank.samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
                 i++;
             }
