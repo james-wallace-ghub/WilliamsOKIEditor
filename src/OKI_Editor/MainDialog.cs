@@ -93,6 +93,7 @@ namespace OKI_Editor
         System.Windows.Forms.CheckBox[] BCOM_Common = new System.Windows.Forms.CheckBox[128];
         System.Windows.Forms.TextBox[] BCOM_ID = new System.Windows.Forms.TextBox[128];
 
+
         private short ADPCMIndex;
         private short ADPCMLast;
 
@@ -106,6 +107,7 @@ namespace OKI_Editor
                      724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552 };
 
         short[] OKIAdjusts = { -1, -1, -1, -1, 2, 4, 6, 8, -1, -1, -1, -1, 2, 4, 6, 8 };
+
 
         public MainDialog()
         {
@@ -140,8 +142,8 @@ namespace OKI_Editor
 
         private void ROMReload(string U12Name, string U13Name)
         {
+            Banks = new Bank[9];
             CommonBank = new CommonBank();
-            Banks = new Bank[8];
             U12 = new byte[0x80000];
             U13 = new byte[0x80000];
             WPCROM = new byte[0x160000];
@@ -190,14 +192,14 @@ namespace OKI_Editor
             U13 = null;
 
             Banks[0] = new Bank(0, WPCROM, 0x40000, CommonBank);
-            SetCtrl0();
+            SetCtrl(0);
 
             if (U12Mirror == false)
             {
                 Banks[2] = new Bank(2, WPCROM, 0x20000, CommonBank);
-                SetCtrl2();
+                SetCtrl(2);
                 Banks[3] = new Bank(3, WPCROM, 0x00000, CommonBank);
-                SetCtrl3();
+                SetCtrl(3);
                 B2_Table.Enabled = true;
                 B3_Table.Enabled = true;
             }
@@ -209,15 +211,15 @@ namespace OKI_Editor
             if (U13Mirror == false)
             {
                 Banks[4] = new Bank(4, WPCROM, 0xe0000, CommonBank);
-                SetCtrl4();
+                SetCtrl(4);
                 Banks[5] = new Bank(5, WPCROM, 0xc0000, CommonBank);
-                SetCtrl5();
+                SetCtrl(5);
                 B4_Table.Enabled = true;
                 B5_Table.Enabled = true;
 				Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
-				SetCtrl6();
+				SetCtrl(6);
 				Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
-				SetCtrl7();
+				SetCtrl(7);
                 B6_Table.Enabled = true;
                 B7_Table.Enabled = true;
             }
@@ -226,14 +228,15 @@ namespace OKI_Editor
 //                B2_Table.Enabled = false;
  //               B3_Table.Enabled = false;
 				Banks[4] = new Bank(4, WPCROM, 0xa0000, CommonBank);
-				SetCtrl4();
+				SetCtrl(4);
 				Banks[5] = new Bank(5, WPCROM, 0x80000, CommonBank);
-				SetCtrl5();
+				SetCtrl(5);
                 B4_Table.Enabled = true;
                 B5_Table.Enabled = true;
             }
-			
-            SetCtrlCOM();
+
+            Banks[8] = CommonBank;
+            SetCtrl(8);
         }
 
         private void ImportLoad(object sender, EventArgs e)
@@ -242,8 +245,8 @@ namespace OKI_Editor
             rl.ShowDialog();
             if (rl.DialogResult == DialogResult.OK)
             {
+                Banks = new Bank[9];
                 CommonBank = new CommonBank();
-                Banks = new Bank[8];
                 U12 = new byte[0x80000];
                 U13 = new byte[0x80000];
                 WPCROM = new byte[0x160000];
@@ -299,14 +302,14 @@ namespace OKI_Editor
                 U13 = null;
 
                 Banks[0] = new Bank(0, WPCROM, 0x40000, CommonBank);
-                SetCtrl0();
+                SetCtrl(0);
 
                 if (U12Mirror == false)
                 {
                     Banks[2] = new Bank(2, WPCROM, 0x20000, CommonBank);
-                    SetCtrl2();
+                    SetCtrl(2);
                     Banks[3] = new Bank(3, WPCROM, 0x00000, CommonBank);
-                    SetCtrl3();
+                    SetCtrl(3);
                     B2_Table.Enabled = true;
                     B3_Table.Enabled = true;
                 }
@@ -318,722 +321,180 @@ namespace OKI_Editor
                 if (U13Mirror == false)
                 {
                     Banks[4] = new Bank(4, WPCROM, 0xe0000, CommonBank);
-                    SetCtrl4();
+                    SetCtrl(4);
                     Banks[5] = new Bank(5, WPCROM, 0xc0000, CommonBank);
-                    SetCtrl5();
+                    SetCtrl(5);
                     B4_Table.Enabled = true;
                     B5_Table.Enabled = true;
 					Banks[6] = new Bank(6, WPCROM, 0xa0000, CommonBank);
-					SetCtrl6();
+					SetCtrl(6);
 					Banks[7] = new Bank(7, WPCROM, 0x80000, CommonBank);
-					SetCtrl7();
+					SetCtrl(7);
                     B6_Table.Enabled = true;
                     B7_Table.Enabled = true;
                 }
                 else
                 {
 					Banks[4] = new Bank(4, WPCROM, 0xa0000, CommonBank);
-					SetCtrl4();
+					SetCtrl(4);
 					Banks[5] = new Bank(5, WPCROM, 0x80000, CommonBank);
-					SetCtrl5();
+					SetCtrl(5);
                     B4_Table.Enabled = true;
                     B5_Table.Enabled = true;
                     B6_Table.Enabled = false;
                     B7_Table.Enabled = false;
 
                 }
-                SetCtrlCOM();
+                Banks[8] = CommonBank;
+                SetCtrl(8);
             }
         }
+
+        private void UpdateCtrl(int bank)
+        {
+            TextBox[][] dependsArr = { B0_Depends, B0_Depends, B2_Depends, B3_Depends, B4_Depends, B5_Depends, B6_Depends, B7_Depends, BCOM_Depends };
+            TextBox[][] offsetArr = { B0_Offset, B0_Offset, B2_Offset, B3_Offset, B4_Offset, B5_Offset, B6_Offset, B7_Offset, BCOM_Offset };
+            TextBox[][] lengthArr = { B0_Length, B0_Length, B2_Length, B3_Length, B4_Length, B5_Length, B6_Length, B7_Length, BCOM_Length };
+
+            for (int i = 0; i < 127; i++)
+            {
+                if (Banks[bank].samples[i].enabled == true)
+                {
+                    Banks[bank].samples[i].depends.Clear();
+                    dependsArr[bank][i].Text = "";
+                    offsetArr[bank][i].Text = "0x" + Banks[bank].samples[i].offset.ToString("x");
+                    int ticks = (int)Math.Round(Banks[bank].samples[i].length * 0.13);
+
+                    lengthArr[bank][i].Text = "0x" + Banks[bank].samples[i].length.ToString("x") + ",0x" + ticks.ToString("x");
+                }
+            }
+        }
+
+
 
         private void UpdateCtrl0()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[0].samples[i].enabled == true)
-                {
-                    Banks[0].samples[i].depends.Clear();
-                    B0_Depends[i].Text = "";
-                    B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[0].samples[i].length * 0.13);
-
-                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(0);
         }
         private void UpdateCtrl2()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[2].samples[i].enabled == true)
-                {
-                    Banks[2].samples[i].depends.Clear();
-                    B2_Depends[i].Text = "";
-                    B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[2].samples[i].length * 0.13);
-                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(2);
         }
         private void UpdateCtrl3()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[3].samples[i].enabled == true)
-                {
-                    Banks[3].samples[i].depends.Clear();
-                    B3_Depends[i].Text = "";
-                    B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[3].samples[i].length * 0.13);
-                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-
-                }
-            }
+            UpdateCtrl(3);
         }
         private void UpdateCtrl4()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[4].samples[i].enabled == true)
-                {
-                    Banks[4].samples[i].depends.Clear();
-                    B4_Depends[i].Text = "";
-                    B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[4].samples[i].length * 0.13);
-                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(4);
         }
         private void UpdateCtrl5()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[5].samples[i].enabled == true)
-                {
-                    Banks[5].samples[i].depends.Clear();
-                    B5_Depends[i].Text = "";
-                    B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[5].samples[i].length * 0.13);
-                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(5);
         }
         private void UpdateCtrl6()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[6].samples[i].enabled == true)
-                {
-                    Banks[6].samples[i].depends.Clear();
-                    B6_Depends[i].Text = "";
-                    B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[6].samples[i].length * 0.13);
-                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(6);
         }
         private void UpdateCtrl7()
         {
-            for (int i = 0; i < 127; i++)
-            {
-                if (Banks[7].samples[i].enabled == true)
-                {
-                    Banks[7].samples[i].depends.Clear();
-                    B7_Depends[i].Text = "";
-                    B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[7].samples[i].length * 0.13);
-                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-            }
+            UpdateCtrl(7);
         }
         private void UpdateCtrlCOM()
         {
-            int i = 0;
-            foreach (Sample smp in CommonBank.samples)
-            {
-                if (smp.enabled == true)
-                {
-                    smp.depends.Clear();
-                    BCOM_Depends[i].Text = "";
-                    BCOM_Offset[i].Text = "0x" + smp.offset.ToString("x");
-                    int ticks = (int)(smp.length * 0.13);
-                    BCOM_Length[i].Text = "0x" + smp.length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-                i++;
-            }
+            UpdateCtrl(8);
         }
 
-        private void SetCtrl0()
+        private void SetCtrl(int bank)
         {
+            Button[][] playArr = { B0_Play, B0_Play, B2_Play, B3_Play, B4_Play, B5_Play, B6_Play, B7_Play, BCOM_Play };
+            TextBox[][] idArr = { B0_ID, B0_ID, B2_ID, B3_ID, B4_ID, B5_ID, B6_ID, B7_ID, BCOM_ID };
+            Button[][] importArr = { B0_Import, B0_Import, B2_Import, B3_Import, B4_Import, B5_Import, B6_Import, B7_Import, BCOM_Import };
+            Button[][] exportArr = { B0_Export, B0_Export, B2_Export, B3_Export, B4_Export, B5_Export, B6_Export, B7_Export, BCOM_Export };
+            CheckBox[][] commonArr = { B0_Common, B0_Common, B2_Common, B3_Common, B4_Common, B5_Common, B6_Common, B7_Common, BCOM_Common };
+            CheckBox[][] enableArr = { B0_Enable, B0_Enable, B2_Enable, B3_Enable, B4_Enable, B5_Enable, B6_Enable, B7_Enable, BCOM_Enable };
+            TextBox[][] dependsArr = { B0_Depends, B0_Depends, B2_Depends, B3_Depends, B4_Depends, B5_Depends, B6_Depends, B7_Depends, BCOM_Depends };
+            TextBox[][] offsetArr = { B0_Offset, B0_Offset, B2_Offset, B3_Offset, B4_Offset, B5_Offset, B6_Offset, B7_Offset, BCOM_Offset };
+            TextBox[][] lengthArr = { B0_Length, B0_Length, B2_Length, B3_Length, B4_Length, B5_Length, B6_Length, B7_Length, BCOM_Length };
+
             for (int i = 0; i < 127; i++)
             {
-                B0_Play[i].Enabled = Banks[0].samples[i].enabled;
-                B0_ID[i].Text = i.ToString("X2");
-                if (Banks[0].samples[i].enabled == true)
+                playArr[bank][i].Enabled = Banks[bank].samples[i].enabled;
+                idArr[bank][i].Text = i.ToString("X2");
+                if (Banks[bank].samples[i].enabled == true)
                 {
-                    B0_Enable[i].Enabled = true;
-                    B0_Enable[i].Checked = true;
+                    enableArr[bank][i].Enabled = true;
+                    enableArr[bank][i].Checked = true;
 
-                    if (Banks[0].samples[i].common == true)
+                    if (Banks[bank].samples[i].common == true)
                     {
-                        B0_ID[i].Text = "C" + (Banks[0].samples[i].commonid.ToString("X2"));
-                        B0_ID[i].Enabled = true;
-                        B0_Import[i].Enabled = false;
-                        B0_Export[i].Enabled = false;
-                        B0_Common[i].Checked = true;
+                        idArr[bank][i].Text = "C" + (Banks[bank].samples[i].commonid.ToString("X2"));
+                        idArr[bank][i].Enabled = true;
+                        importArr[bank][i].Enabled = false;
+                        exportArr[bank][i].Enabled = false;
+                        commonArr[bank][i].Checked = true;
                     }
                     else
                     {
-                        B0_ID[i].Text = i.ToString("X2");
-                        B0_ID[i].Enabled = false;
-                        B0_Import[i].Enabled = true;
-                        B0_Export[i].Enabled = true;
-                        B0_Common[i].Checked = false;
+                        idArr[bank][i].Text = i.ToString("X2");
+                        idArr[bank][i].Enabled = false;
+                        importArr[bank][i].Enabled = true;
+                        exportArr[bank][i].Enabled = true;
+                        commonArr[bank][i].Checked = false;
                     }
 
-                    int start = Banks[0].samples[i].start;
-                    int id = Banks[0].samples[i].id;
+                    int start = Banks[bank].samples[i].start;
+                    int id = Banks[bank].samples[i].id;
                     for (int j = 0; j < 127; j++)
                     {
-                        Sample smp = Banks[0].samples[j];
+                        Sample smp = Banks[bank].samples[j];
                         if (smp.enabled == true)
                         {
                             if (IsBetween(start, smp.start, smp.end))
                             {
-                                if (Banks[0].samples[i].id > smp.id)
+                                if (Banks[bank].samples[i].id > smp.id)
                                 {
-                                    Banks[0].samples[smp.id].parents.Add(id);
-                                    Banks[0].samples[i].depends.Add(smp.id);
-                                    if (Banks[0].samples[i].depends.Count == 1)
+                                    Banks[bank].samples[smp.id].parents.Add(id);
+                                    Banks[bank].samples[i].depends.Add(smp.id);
+                                    if (Banks[bank].samples[i].depends.Count == 1)
                                     {
                                         //find offset
-                                        Banks[0].samples[i].offset = start - smp.start;
+                                        Banks[bank].samples[i].offset = start - smp.start;
                                     }
                                 }
                             }
                         }
                     }
                     string deps = "";
-                    if (Banks[0].samples[i].common == true)
+                    if (Banks[bank].samples[i].common == true)
                     {
-                        Banks[0].samples[i].depends.Clear();
-                        Banks[0].samples[i].offset = Banks[0].samples[i].start - 0x20000;
+                        Banks[bank].samples[i].depends.Clear();
+                        Banks[bank].samples[i].offset = Banks[bank].samples[i].start - 0x20000;
                     }
-                    if (Banks[0].samples[i].depends.Count > 0)
+                    if (Banks[bank].samples[i].depends.Count > 0)
                     {
-                        int dep = Banks[0].samples[i].depends[0];
+                        int dep = Banks[bank].samples[i].depends[0];
                         {
                             deps = dep.ToString("X2");
                         }
                     }
-                    B0_Depends[i].Text = deps;
-                    B0_Offset[i].Text = "0x" + Banks[0].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[0].samples[i].length * 0.13);
-                    B0_Length[i].Text = "0x" + Banks[0].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
+                    dependsArr[bank][i].Text = deps;
+                    offsetArr[bank][i].Text = "0x" + Banks[bank].samples[i].offset.ToString("x");
+                    int ticks = (int)Math.Round(Banks[bank].samples[i].length * 0.13);
+                    lengthArr[bank][i].Text = "0x" + Banks[bank].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
                 }
 
             }
-            ComputeTimeBank0();
+            ComputeTimeBank(bank);
         }
 
-        private void SetCtrl2()
+        private void ComputeTimeBank(int bank)
         {
-            for (int i = 0; i < 127; i++)
-            {
-                B2_Play[i].Enabled = Banks[2].samples[i].enabled;
-                B2_ID[i].Text = i.ToString("X2");
-                if (Banks[2].samples[i].enabled == true)
-                {
-                    B2_Enable[i].Enabled = true;
-                    B2_Enable[i].Checked = true;
-
-                    if (Banks[2].samples[i].common == true)
-                    {
-                        B2_ID[i].Text = "C" + (Banks[2].samples[i].commonid.ToString("X2"));
-                        B2_ID[i].Enabled = true;
-                        B2_Import[i].Enabled = false;
-                        B2_Export[i].Enabled = false;
-                        B2_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B2_ID[i].Text = i.ToString("X2");
-                        B2_ID[i].Enabled = false;
-                        B2_Import[i].Enabled = true;
-                        B2_Export[i].Enabled = true;
-                        B2_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[2].samples[i].start;
-                    int id = Banks[2].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[2].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[2].samples[i].id > smp.id)
-                                {
-                                    Banks[2].samples[smp.id].parents.Add(id);
-                                    Banks[2].samples[i].depends.Add(smp.id);
-                                    if (Banks[2].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[2].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[2].samples[i].common == true)
-                    {
-                        Banks[2].samples[i].depends.Clear();
-                        Banks[2].samples[i].offset = Banks[2].samples[i].start - 0x20000;
-                    }
-                    if (Banks[2].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[2].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B2_Depends[i].Text = deps;
-                    B2_Offset[i].Text = "0x" + Banks[2].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[2].samples[i].length * 0.13);
-                    B2_Length[i].Text = "0x" + Banks[2].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank2();
-        }
-
-        private void SetCtrl3()
-        {
-            for (int i = 0; i < 127; i++)
-            {
-                B3_Play[i].Enabled = Banks[3].samples[i].enabled;
-                B3_ID[i].Text = i.ToString("X2");
-                if (Banks[3].samples[i].enabled == true)
-                {
-                    B3_Enable[i].Enabled = true;
-                    B3_Enable[i].Checked = true;
-
-                    if (Banks[3].samples[i].common == true)
-                    {
-                        B3_ID[i].Text = "C" + (Banks[3].samples[i].commonid.ToString("X2"));
-                        B3_ID[i].Enabled = true;
-                        B3_Import[i].Enabled = false;
-                        B3_Export[i].Enabled = false;
-                        B3_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B3_ID[i].Text = i.ToString("X2");
-                        B3_ID[i].Enabled = false;
-                        B3_Import[i].Enabled = true;
-                        B3_Export[i].Enabled = true;
-                        B3_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[3].samples[i].start;
-                    int id = Banks[3].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[3].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[3].samples[i].id > smp.id)
-                                {
-                                    Banks[3].samples[smp.id].parents.Add(id);
-                                    Banks[3].samples[i].depends.Add(smp.id);
-                                    if (Banks[3].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[3].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[3].samples[i].common == true)
-                    {
-                        Banks[3].samples[i].depends.Clear();
-                        Banks[3].samples[i].offset = Banks[3].samples[i].start - 0x20000;
-                    }
-                    if (Banks[3].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[3].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B3_Depends[i].Text = deps;
-                    B3_Offset[i].Text = "0x" + Banks[3].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[3].samples[i].length * 0.13);
-                    B3_Length[i].Text = "0x" + Banks[3].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank3();
-        }
-
-        private void SetCtrl4()
-        {
-            for (int i = 0; i < 127; i++)
-            {
-                B4_Play[i].Enabled = Banks[4].samples[i].enabled;
-                B4_ID[i].Text = i.ToString("X2");
-                if (Banks[4].samples[i].enabled == true)
-                {
-                    B4_Enable[i].Enabled = true;
-                    B4_Enable[i].Checked = true;
-
-                    if (Banks[4].samples[i].common == true)
-                    {
-                        B4_ID[i].Text = "C" + (Banks[4].samples[i].commonid.ToString("X2"));
-                        B4_ID[i].Enabled = true;
-                        B4_Import[i].Enabled = false;
-                        B4_Export[i].Enabled = false;
-                        B4_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B4_ID[i].Text = i.ToString("X2");
-                        B4_ID[i].Enabled = false;
-                        B4_Import[i].Enabled = true;
-                        B4_Export[i].Enabled = true;
-                        B4_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[4].samples[i].start;
-                    int id = Banks[4].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[4].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[4].samples[i].id > smp.id)
-                                {
-                                    Banks[4].samples[smp.id].parents.Add(id);
-                                    Banks[4].samples[i].depends.Add(smp.id);
-                                    if (Banks[4].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[4].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[4].samples[i].common == true)
-                    {
-                        Banks[4].samples[i].depends.Clear();
-                        Banks[4].samples[i].offset = Banks[4].samples[i].start - 0x20000;
-                    }
-                    if (Banks[4].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[4].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B4_Depends[i].Text = deps;
-                    B4_Offset[i].Text = "0x" + Banks[4].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[4].samples[i].length * 0.13);
-                    B4_Length[i].Text = "0x" + Banks[4].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank4();
-        }
-
-        private void SetCtrl5()
-        {
-            for (int i = 0; i < 127; i++)
-            {
-                B5_Play[i].Enabled = Banks[5].samples[i].enabled;
-                B5_ID[i].Text = i.ToString("X2");
-                if (Banks[5].samples[i].enabled == true)
-                {
-                    B5_Enable[i].Enabled = true;
-                    B5_Enable[i].Checked = true;
-
-                    if (Banks[5].samples[i].common == true)
-                    {
-                        B5_ID[i].Text = "C" + (Banks[5].samples[i].commonid.ToString("X2"));
-                        B5_ID[i].Enabled = true;
-                        B5_Import[i].Enabled = false;
-                        B5_Export[i].Enabled = false;
-                        B5_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B5_ID[i].Text = i.ToString("X2");
-                        B5_ID[i].Enabled = false;
-                        B5_Import[i].Enabled = true;
-                        B5_Export[i].Enabled = true;
-                        B5_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[5].samples[i].start;
-                    int id = Banks[5].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[5].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[5].samples[i].id > smp.id)
-                                {
-                                    Banks[5].samples[smp.id].parents.Add(id);
-                                    Banks[5].samples[i].depends.Add(smp.id);
-                                    if (Banks[5].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[5].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[5].samples[i].common == true)
-                    {
-                        Banks[5].samples[i].depends.Clear();
-                        Banks[5].samples[i].offset = Banks[5].samples[i].start - 0x20000;
-                    }
-                    if (Banks[5].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[5].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B5_Depends[i].Text = deps;
-                    B5_Offset[i].Text = "0x" + Banks[5].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[5].samples[i].length * 0.13);
-                    B5_Length[i].Text = "0x" + Banks[5].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank5();
-        }
-
-        private void SetCtrl6()
-        {
-            for (int i = 0; i < 127; i++)
-            {
-                B6_Play[i].Enabled = Banks[6].samples[i].enabled;
-                B6_ID[i].Text = i.ToString("X2");
-                if (Banks[6].samples[i].enabled == true)
-                {
-                    B6_Enable[i].Enabled = true;
-                    B6_Enable[i].Checked = true;
-
-                    if (Banks[6].samples[i].common == true)
-                    {
-                        B6_ID[i].Text = "C" + (Banks[6].samples[i].commonid.ToString("X2"));
-                        B6_ID[i].Enabled = true;
-                        B6_Import[i].Enabled = false;
-                        B6_Export[i].Enabled = false;
-                        B6_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B6_ID[i].Text = i.ToString("X2");
-                        B6_ID[i].Enabled = false;
-                        B6_Import[i].Enabled = true;
-                        B6_Export[i].Enabled = true;
-                        B6_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[6].samples[i].start;
-                    int id = Banks[6].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[6].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[6].samples[i].id > smp.id)
-                                {
-                                    Banks[6].samples[smp.id].parents.Add(id);
-                                    Banks[6].samples[i].depends.Add(smp.id);
-                                    if (Banks[6].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[6].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[6].samples[i].common == true)
-                    {
-                        Banks[6].samples[i].depends.Clear();
-                        Banks[6].samples[i].offset = Banks[6].samples[i].start - 0x20000;
-                    }
-                    if (Banks[6].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[6].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B6_Depends[i].Text = deps;
-                    B6_Offset[i].Text = "0x" + Banks[6].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[6].samples[i].length * 0.13);
-                    B6_Length[i].Text = "0x" + Banks[6].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank6();
-        }
-
-        private void SetCtrl7()
-        {
-            for (int i = 0; i < 127; i++)
-            {
-                B7_Play[i].Enabled = Banks[7].samples[i].enabled;
-                B7_ID[i].Text = i.ToString("X2");
-                if (Banks[7].samples[i].enabled == true)
-                {
-                    B7_Enable[i].Enabled = true;
-                    B7_Enable[i].Checked = true;
-
-                    if (Banks[7].samples[i].common == true)
-                    {
-                        B7_ID[i].Text = "C" + (Banks[7].samples[i].commonid.ToString("X2"));
-                        B7_ID[i].Enabled = true;
-                        B7_Import[i].Enabled = false;
-                        B7_Export[i].Enabled = false;
-                        B7_Common[i].Checked = true;
-                    }
-                    else
-                    {
-                        B7_ID[i].Text = i.ToString("X2");
-                        B7_ID[i].Enabled = false;
-                        B7_Import[i].Enabled = true;
-                        B7_Export[i].Enabled = true;
-                        B7_Common[i].Checked = false;
-                    }
-
-                    int start = Banks[7].samples[i].start;
-                    int id = Banks[7].samples[i].id;
-                    for (int j = 0; j < 127; j++)
-                    {
-                        Sample smp = Banks[7].samples[j];
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (Banks[7].samples[i].id > smp.id)
-                                {
-                                    Banks[7].samples[smp.id].parents.Add(id);
-                                    Banks[7].samples[i].depends.Add(smp.id);
-                                    if (Banks[7].samples[i].depends.Count == 1)
-                                    {
-                                        //find offset
-                                        Banks[7].samples[i].offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (Banks[7].samples[i].common == true)
-                    {
-                        Banks[7].samples[i].depends.Clear();
-                        Banks[7].samples[i].offset = Banks[7].samples[i].start - 0x20000;
-                    }
-                    if (Banks[7].samples[i].depends.Count > 0)
-                    {
-                        int dep = Banks[7].samples[i].depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    B7_Depends[i].Text = deps;
-                    B7_Offset[i].Text = "0x" + Banks[7].samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(Banks[7].samples[i].length * 0.13);
-                    B7_Length[i].Text = "0x" + Banks[7].samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-
-            }
-            ComputeTimeBank7();
-        }
-
-        private void SetCtrlCOM()
-        {
-            int i = 0;
-            foreach (Sample sample in CommonBank.samples)
-            {
-                BCOM_Play[i].Enabled = sample.enabled;
-                BCOM_ID[i].Text = i.ToString("X2");
-                if (sample.enabled == true)
-                {
-                    BCOM_Enable[i].Enabled = true;
-                    BCOM_Enable[i].Checked = true;
-
-                    BCOM_ID[i].Text = "C" + (sample.id.ToString("X2"));
-                    BCOM_Import[i].Enabled = true;
-                    BCOM_Export[i].Enabled = true;
-                    BCOM_Common[i].Checked = true;
-
-                    int start = sample.start;
-                    int id = sample.id;
-                    foreach (Sample smp in CommonBank.samples)
-                    {
-                        if (smp.enabled == true)
-                        {
-                            if (IsBetween(start, smp.start, smp.end))
-                            {
-                                if (sample.id > smp.id)
-                                {
-                                    sample.depends.Add(smp.id);
-                                    if (sample.depends.Count == 1)
-                                    {
-                                        //find offset
-                                        sample.offset = start - smp.start;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    string deps = "";
-                    if (sample.depends.Count > 0)
-                    {
-                        int dep = sample.depends[0];
-                        {
-                            deps = dep.ToString("X2");
-                        }
-                    }
-                    BCOM_Depends[i].Text = deps;
-                    BCOM_Offset[i].Text = "0x" + CommonBank.samples[i].offset.ToString("x");
-                    int ticks = (int)Math.Round(CommonBank.samples[i].length * 0.13);
-                    BCOM_Length[i].Text = "0x" + CommonBank.samples[i].length.ToString("x") + ",0x" +ticks.ToString("x");
-                }
-                i++;
-            }
-            ComputeTimeBankCOM();
-        }
-
-        private void ComputeTimeBank0()
-        {
+            TextBox[] bytesArr = { B0_Bytes, B0_Bytes, B2_Bytes, B3_Bytes, B4_Bytes, B5_Bytes, B6_Bytes, B7_Bytes, BCOM_Bytes };
+            TextBox[] secondsArr = { B0_Seconds, B0_Seconds, B2_Seconds, B3_Seconds, B4_Seconds, B5_Seconds, B6_Seconds, B7_Seconds, BCOM_Seconds };
             //compute bytes spare
-            int totalsize = 0x20000 - Banks[0].headersize;
-            foreach (Sample smp in Banks[0].samples)
+            int totalsize = 0x20000 - Banks[bank].headersize;
+            foreach (Sample smp in Banks[bank].samples)
             {
                 if (smp != null)
                 {
@@ -1048,289 +509,26 @@ namespace OKI_Editor
 
                         }
                     }
-                    if ((smp.id == Banks[0].lastsample) && Banks[0].samples[Banks[0].lastsample].enabled == false)
+                    if ((smp.id == Banks[bank].lastsample) && Banks[bank].samples[Banks[bank].lastsample].enabled == false)
                     {
                         totalsize += 0x08;
                     }
                 }
             }
-            Banks[0].sparespace = totalsize;
+            Banks[bank].sparespace = totalsize;
 
             if (totalsize < 0)
             {
-                B0_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
+                bytesArr[bank].Text = "- 0x" + Math.Abs(totalsize).ToString("x");
             }
             else
             {
-                B0_Bytes.Text = "0x" + totalsize.ToString("x");
+                bytesArr[bank].Text = "0x" + totalsize.ToString("x");
             }
             float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B0_Seconds.Text = time.ToString("0.00000");
+            secondsArr[bank].Text = time.ToString("0.00000");
         }
 
-        private void ComputeTimeBank2()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[2].headersize;
-            foreach (Sample smp in Banks[2].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[2].lastsample) && Banks[2].samples[Banks[2].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[2].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B2_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B2_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B2_Seconds.Text = time.ToString("0.00000");
-        }
-        private void ComputeTimeBank3()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[3].headersize;
-            foreach (Sample smp in Banks[3].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[3].lastsample) && Banks[3].samples[Banks[3].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[3].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B3_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B3_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B3_Seconds.Text = time.ToString("0.00000");
-        }
-        private void ComputeTimeBank4()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[4].headersize;
-            foreach (Sample smp in Banks[4].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[4].lastsample) && Banks[4].samples[Banks[4].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[4].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B4_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B4_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B4_Seconds.Text = time.ToString("0.00000");
-        }
-        private void ComputeTimeBank5()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[5].headersize;
-            foreach (Sample smp in Banks[5].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[5].lastsample) && Banks[5].samples[Banks[5].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[5].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B5_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B5_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B5_Seconds.Text = time.ToString("0.00000");
-        }
-        private void ComputeTimeBank6()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[6].headersize;
-            foreach (Sample smp in Banks[6].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[6].lastsample) && Banks[6].samples[Banks[6].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[6].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B6_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B6_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B6_Seconds.Text = time.ToString("0.00000");
-        }
-
-        private void ComputeTimeBank7()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000 - Banks[7].headersize;
-            foreach (Sample smp in Banks[7].samples)
-            {
-                if (smp != null)
-                {
-                    if (smp.common == false)
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                    if ((smp.id == Banks[7].lastsample) && Banks[7].samples[Banks[7].lastsample].enabled == false)
-                    {
-                        totalsize += 0x08;
-                    }
-                }
-            }
-            Banks[7].sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                B7_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                B7_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            B7_Seconds.Text = time.ToString("0.00000");
-        }
-
-        private void ComputeTimeBankCOM()
-        {
-            //compute bytes spare
-            int totalsize = 0x20000;
-            foreach (Sample smp in CommonBank.samples)
-            {
-                if (smp != null)
-                {
-                    {
-                        if (smp.depends.Count() == 0)
-                        {
-                            if (smp.enabled == true)
-                            {
-                                totalsize -= smp.length;
-                            }
-
-                        }
-                    }
-                }
-            }
-            CommonBank.sparespace = totalsize;
-
-            if (totalsize < 0)
-            {
-                BCOM_Bytes.Text = "- 0x" + Math.Abs(totalsize).ToString("x");
-            }
-            else
-            {
-                BCOM_Bytes.Text = "0x" + totalsize.ToString("x");
-            }
-            float time = (totalsize / float.Parse(samprate.Text)) * 2;
-            BCOM_Seconds.Text = time.ToString("0.00000");
-        }
 
         private bool IsBetween(int item, int start, int end)
         {
@@ -1347,11 +545,6 @@ namespace OKI_Editor
         {
             Bank bankdata;
 
-            if (bank == 8)
-            {
-                bankdata = CommonBank;
-            }
-            else
             {
                 bankdata = Banks[bank];
             }
@@ -1417,11 +610,6 @@ namespace OKI_Editor
         {
             Bank bankdata;
 
-            if (bank == 8)
-            {
-                bankdata = CommonBank;
-            }
-            else
             {
                 bankdata = Banks[bank];
             }
@@ -1522,41 +710,8 @@ namespace OKI_Editor
                     bankdata.samples[sample].offset = 0;
                     bankdata.samples[sample].start = sample * 0x40000;
                     bankdata.samples[sample].length = bankdata.samples[sample].RAW.Length;
-                    switch (bank)
-                    {
-                        case 0:
-                            SetCtrl0();
-                            ComputeTimeBank0();
-                            break;
-                        case 2:
-                            SetCtrl2();
-                            ComputeTimeBank2();
-                            break;
-                        case 3:
-                            SetCtrl3();
-                            ComputeTimeBank3();
-                            break;
-                        case 4:
-                            SetCtrl4();
-                            ComputeTimeBank4();
-                            break;
-                        case 5:
-                            SetCtrl5();
-                            ComputeTimeBank5();
-                            break;
-                        case 6:
-                            SetCtrl6();
-                            ComputeTimeBank6();
-                            break;
-                        case 7:
-                            SetCtrl7();
-                            ComputeTimeBank7();
-                            break;
-                        case 8:
-                            SetCtrlCOM();
-                            ComputeTimeBankCOM();
-                            break;
-                    }
+                    SetCtrl(bank);
+                    ComputeTimeBank(bank);
                 }
             }
             MessageBox.Show("Import complete", "Import Complete",
@@ -1590,11 +745,6 @@ namespace OKI_Editor
         {
             Bank bankdata;
 
-            if (bank == 8)
-            {
-                bankdata = CommonBank;
-            }
-            else
             {
                 bankdata = Banks[bank];
             }
@@ -1732,10 +882,12 @@ namespace OKI_Editor
         {
             int[] newstarts = new int[128];
             byte[] result = new byte[0x20000];
+
+            Bank bankdata = Banks[bank];
             if (bank == 8)
             {
 
-                if (CommonBank.sparespace < 0)
+                if (bankdata.sparespace < 0)
                 {
                     MessageBox.Show("Common Bank is too large, cannot proceed", "Space Error",
                                                                  MessageBoxButtons.OK);
@@ -2044,13 +1196,8 @@ namespace OKI_Editor
         private void UpdateEnable(int bank, int sample, bool state, Button import, Button export, Button play)
         {
             Sample smp;
-            if (bank < 8)
             {
                 smp = Banks[bank].samples[sample];
-            }
-            else
-            {
-                smp = CommonBank.samples[sample];
             }
             smp.enabled = state;
             import.Enabled = state;
@@ -2064,40 +1211,14 @@ namespace OKI_Editor
                 Banks[bank].lastsample = i;					
               }
             }
+            ComputeTimeBank(bank);
 
-			switch (bank)
-            {
-                case 0:
-                    ComputeTimeBank0();
-                    break;
-                case 2:
-                    ComputeTimeBank2();
-                    break;
-                case 3:
-                    ComputeTimeBank3();
-                    break;
-                case 4:
-                    ComputeTimeBank4();
-                    break;
-                case 5:
-                    ComputeTimeBank5();
-                    break;
-                case 6:
-                    ComputeTimeBank6();
-                    break;
-                case 7:
-                    ComputeTimeBank7();
-                    break;
-                case 8:
-                    ComputeTimeBankCOM();
-                    break;
-            }
         }
 
 
         private void UpdateLength(int bank, int sample, String text)
         {
-            if (bank < 8)
+//            if (bank < 8)
             {
                 if (text.Length == 0)
                 {
@@ -2105,47 +1226,11 @@ namespace OKI_Editor
                 }
                 Banks[bank].samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
             }
-            else
-            {
-                if (text.Length == 0)
-                {
-                    text = CommonBank.samples[sample].length.ToString();
-                }
-                CommonBank.samples[sample].length = int.Parse(text, NumberStyles.HexNumber);
-            }
-            switch (bank)
-            {
-                case 0:
-                    SetCtrl0();
-                    break;
-                case 2:
-                    SetCtrl2();
-                    break;
-                case 3:
-                    SetCtrl3();
-                    break;
-                case 4:
-                    SetCtrl4();
-                    break;
-                case 5:
-                    SetCtrl5();
-                    break;
-                case 6:
-                    SetCtrl6();
-                    break;
-                case 7:
-                    SetCtrl7();
-                    break;
-                case 8:
-                    SetCtrlCOM();
-                    break;
-            }
-
+            SetCtrl(bank);
         }
 
         private void UpdateOffset(int bank, int sample, String text)
         {
-            if (bank < 8)
             {
                 if (text.Length == 0)
                 {
@@ -2153,54 +1238,14 @@ namespace OKI_Editor
                 }
                 Banks[bank].samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
             }
-            else
-            {
-                if (text.Length == 0)
-                {
-                    CommonBank.samples[sample].offset = 0;
-                }
-                CommonBank.samples[sample].offset = int.Parse(text, NumberStyles.HexNumber);
-            }
-            switch (bank)
-            {
-                case 0:
-                    SetCtrl0();
-                    break;
-                case 2:
-                    SetCtrl2();
-                    break;
-                case 3:
-                    SetCtrl3();
-                    break;
-                case 4:
-                    SetCtrl4();
-                    break;
-                case 5:
-                    SetCtrl5();
-                    break;
-                case 6:
-                    SetCtrl6();
-                    break;
-                case 7:
-                    SetCtrl7();
-                    break;
-                case 8:
-                    SetCtrlCOM();
-                    break;
-            }
-
+            SetCtrl(bank);
         }
 
         private void UpdateDepend(int bank, int sample, String text)
         {
             Bank bankdata;
-            if (bank < 8)
             {
                 bankdata = Banks[bank];
-            }
-            else
-            {
-                bankdata = CommonBank;
             }
             if (text.Length == 0)
             {
@@ -2214,33 +1259,7 @@ namespace OKI_Editor
             {
                 bankdata.samples[sample].depends[0] = int.Parse(text);
             }
-            switch (bank)
-            {
-                case 0:
-                    SetCtrl0();
-                    break;
-                case 2:
-                    SetCtrl2();
-                    break;
-                case 3:
-                    SetCtrl3();
-                    break;
-                case 4:
-                    SetCtrl4();
-                    break;
-                case 5:
-                    SetCtrl5();
-                    break;
-                case 6:
-                    SetCtrl6();
-                    break;
-                case 7:
-                    SetCtrl7();
-                    break;
-                case 8:
-                    SetCtrlCOM();
-                    break;
-            }
+            SetCtrl(bank);
 
         }
 
@@ -2256,34 +1275,7 @@ namespace OKI_Editor
 
                 smp.common = true;
                 smp.commonid = comid;
-                switch (bank)
-                {
-                    case 0:
-                        SetCtrl0();
-                        break;
-                    case 2:
-                        SetCtrl2();
-                        break;
-                    case 3:
-                        SetCtrl3();
-                        break;
-                    case 4:
-                        SetCtrl4();
-                        break;
-                    case 5:
-                        SetCtrl5();
-                        break;
-                    case 6:
-                        SetCtrl6();
-                        break;
-                    case 7:
-                        SetCtrl7();
-                        break;
-                    case 8:
-                        SetCtrlCOM();
-                        break;
-                }
-
+                SetCtrl(bank);
             }
             else
             {

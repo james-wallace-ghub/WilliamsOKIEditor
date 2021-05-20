@@ -318,8 +318,7 @@ namespace OKI_Editor
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileLoadingToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.fileLoadingToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(662, 24);
@@ -343,18 +342,18 @@ namespace OKI_Editor
             // 
             // helpToolStripMenuItem
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+//            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+//            this.aboutToolStripMenuItem});
+//            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+//            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+//            this.helpToolStripMenuItem.Text = "Help";
             // 
             // aboutToolStripMenuItem
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutLoad);
+//            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+//            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+//            this.aboutToolStripMenuItem.Text = "About";
+//            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutLoad);
             // 
             // tabControl1
             // 
